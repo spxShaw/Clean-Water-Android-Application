@@ -93,15 +93,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button RegisterButton = (Button) findViewById(R.id.RegisterButton);
-        RegisterButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
         //------------------------------------------------------------------------
 
         mLoginFormView = findViewById(R.id.login_form);
@@ -175,7 +166,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError("Incorrect Password");
             focusView = mPasswordView;
             cancel = true;
         }
