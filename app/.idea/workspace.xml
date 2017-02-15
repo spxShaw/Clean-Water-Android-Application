@@ -7,11 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83bd6efa-820f-4f9f-ae1b-5cdf475fcc14" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.iml" afterPath="$PROJECT_DIR$/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/crystal/cleanwaterandroidapplication/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/crystal/cleanwaterandroidapplication/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/content_main.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/content_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/../build/intermediates/dex-cache/cache.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/crystal/cleanwaterandroidapplication/LoginActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/crystal/cleanwaterandroidapplication/LoginActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/crystal/cleanwaterandroidapplication/RegisterActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/crystal/cleanwaterandroidapplication/RegisterActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_login.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_register.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_register.xml" />
     </list>
     <ignored path="app.iws" />
     <ignored path=".idea/workspace.xml" />
