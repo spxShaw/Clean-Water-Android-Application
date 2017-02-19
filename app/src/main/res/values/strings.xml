@@ -14,4 +14,12 @@
         completions."
     </string>
     <string name="title_activity_main">MainActivity</string>
+
+
+    <string-array name = "Account_Options_Array">
+        <item>User</item>
+        <item>Worker</item>
+        <item>Manager</item>
+        <item>Administrator</item>
+    </string-array>
 </resources>

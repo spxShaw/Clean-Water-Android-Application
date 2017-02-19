@@ -11,7 +11,7 @@
     tools:context="com.crystal.cleanwaterandroidapplication.RegisterActivity">
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
@@ -32,11 +32,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/RegisterButton"
         android:layout_marginTop="114dp"
-        android:layout_below="@+id/editText5"
+        android:layout_below="@+id/password"
         android:layout_centerHorizontal="true" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
@@ -47,8 +47,16 @@
         android:maxLines="1"
         android:singleLine="true"
         android:layout_marginTop="25dp"
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/username"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:id="@+id/accountSpinner" />
 
 </RelativeLayout>

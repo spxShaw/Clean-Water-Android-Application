@@ -3,15 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
-        <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.1_35ccddb06fd644bd4da9d396f7e2e8d6c45727b7/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -30,30 +21,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.1_ccdde3f6f37214f559f110d9751c5bc1824fbf98/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="17ea184ab75ef90f4965dc31f9a0001ea7a6b44a">
+        sha1="8a8e6f578903ed50d7767537492c464962496687">
         <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_0ab5127d76d97adb33855fa87c39adb08677c9db/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c9649557905bf7a80fca9e0d54cbcb7662627860">
-        <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-25.1.1_6d67e418db297aaf681e2e8494bc096ef896649f/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -102,11 +75,56 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/iwbtbp/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.1_063e0f953f5f95ff649c047f8e55ea22aa97a3d2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/exploded-aar/com.android.support/transition/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="15b049fedbd8e3926bf99d9e45dfc9b2a1043bb9">
+        <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.1.1_a552eb59773b468a71d728f8d322cc4c1e6dd107/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.1_35ccddb06fd644bd4da9d396f7e2e8d6c45727b7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.1_ccdde3f6f37214f559f110d9751c5bc1824fbf98/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c9649557905bf7a80fca9e0d54cbcb7662627860">
+        <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-25.1.1_6d67e418db297aaf681e2e8494bc096ef896649f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="cc0d1a180fb7e242e32452aeecacbb31c6d3b060">
+        sha1="31e4789bc3644c9e98605ce95f2f68579fbef847">
         <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_60797fa5507f157f2042a39c9de3beb0e83bd97d/classes.dex" />
     </item>
     <item
@@ -126,24 +144,6 @@
         revision="25.0.2"
         sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
         <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.1_1c776c99398dcb9022e7cc79281b21b416d1b628/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/iwbtbp/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
-        <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.1_063e0f953f5f95ff649c047f8e55ea22aa97a3d2/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/exploded-aar/com.android.support/transition/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="15b049fedbd8e3926bf99d9e45dfc9b2a1043bb9">
-        <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.1.1_a552eb59773b468a71d728f8d322cc4c1e6dd107/classes.dex" />
     </item>
 
 </items>
