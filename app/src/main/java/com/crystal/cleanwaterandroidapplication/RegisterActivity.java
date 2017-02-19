@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity{
 
                 if (checkUsername(username) && checkPassword(password)) {
 
-                    
+
                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
