@@ -6,11 +6,11 @@ package com.crystal.cleanwaterandroidapplication;
 
 public class Worker extends Account {
 
-    public Worker(String firstName, String lastName) {
-        super(firstName, lastName);
+    public Worker(String username, String password, String firstName, String lastName) {
+        super(username, password, firstName, lastName);
     }
 
-    public Worker(String firstName, String middleName, String lastName) {
-        super(firstName, middleName, lastName);
+    public Worker(String username, String password, String firstName, String middleName, String lastName) {
+        super(username, password, firstName, middleName, lastName);
     }
 }

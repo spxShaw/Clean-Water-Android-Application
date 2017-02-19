@@ -6,11 +6,11 @@ package com.crystal.cleanwaterandroidapplication;
 
 public class Manager extends Account {
 
-    public Manager(String firstName, String lastName) {
-        super(firstName, lastName);
+    public Manager(String username, String password, String firstName, String lastName) {
+        super(username, password, firstName, lastName);
     }
 
-    public Manager(String firstName, String middleName, String lastName) {
-        super(firstName, middleName, lastName);
+    public Manager(String username, String password, String firstName, String middleName, String lastName) {
+        super(username, password, firstName, middleName, lastName);
     }
 }

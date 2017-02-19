@@ -6,12 +6,12 @@ package com.crystal.cleanwaterandroidapplication;
 
 public class User extends Account {
 
-    public User(String firstName, String lastName) {
-        super(firstName, lastName);
+    public User(String username, String password, String firstName, String lastName) {
+        super(username, password, firstName, lastName);
     }
 
-    public User (String firstName, String middleName, String lastName) {
-        super(firstName, middleName, lastName);
+    public User (String username, String password, String firstName, String middleName, String lastName) {
+        super(username , password, firstName, middleName, lastName);
     }
 
 

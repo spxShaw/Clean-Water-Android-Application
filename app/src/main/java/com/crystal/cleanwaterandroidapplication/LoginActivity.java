@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(email, password)) {
             mPasswordView.setError("Incorrect Password");
             focusView = mPasswordView;
             cancel = true;
@@ -197,12 +197,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("user@email.com");
+
+        return email.contains("@");
     }
 
-    private boolean isPasswordValid(String password) {
+    private boolean isPasswordValid(String username, String password) {
         //TODO: Replace this with your own logic
-        return (password.contains("password"));
+        AccountsList tempList = new AccountsList();
+        return (tempList.validCredentials(username, password));
     }
 
     /**

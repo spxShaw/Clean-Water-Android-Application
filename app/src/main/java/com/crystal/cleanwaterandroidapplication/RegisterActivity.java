@@ -35,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity{
 
             @Override
             public void onClick(View v) {
+
                 EditText usernameEditText = (EditText) findViewById(R.id.username); //Get the string from the username box
                 String username = usernameEditText.getText().toString();
 
@@ -42,9 +43,10 @@ public class RegisterActivity extends AppCompatActivity{
                 String password = passwordEditText.getText().toString();
 
                 if (checkUsername(username) && checkPassword(password)) {
-
-
-                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    Account newAccount = new Account(username, password);
+                    AccountsList tempList = new AccountsList();
+                    tempList.getAccountsList().add(newAccount);
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
 

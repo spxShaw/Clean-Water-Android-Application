@@ -25,7 +25,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="f8bfb491081d80e125f3853853c582e897b41797">
+        sha1="da95a05bcf96caba2d60af64939863887440d2b4">
         <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_0ab5127d76d97adb33855fa87c39adb08677c9db/classes.dex" />
     </item>
     <item
@@ -124,7 +124,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="7585d40d1ac6db24b5cc837bca1c0136a401d02b">
+        sha1="df67a0a7c82989d8920d2a7a6e14208c6a95a76c">
         <dex dex="/home/iwbtbp/Documents/CS 2340/Android Project/Clean-Water-Android-Application/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_60797fa5507f157f2042a39c9de3beb0e83bd97d/classes.dex" />
     </item>
     <item

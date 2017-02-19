@@ -9,18 +9,38 @@ public class Account {
     private String email;
     private int day, month, year;
     public int accountID;
+    private String username;
+    private String password;
 
-    public Account(String firstName, String lastName) {
+
+
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public Account(String username, String password, String firstName, String lastName) {
+        this(username, password);
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public Account (String firstName, String middleName, String lastName) {
-        this(firstName, lastName);
+    public Account (String username, String password, String firstName, String middleName, String lastName) {
+        this(username, password, firstName, lastName);
         this.middleName = middleName;
     }
 
+    String getUsername() {
+        return this.username;
+    }
+    String getPassword() {
+        return this.password;
+    }
+
     String getName() {
+        if (firstName == null) {
+            throw new java.lang.Error("This account does not have a name");
+        }
         if (this.middleName != null) {
             return firstName + middleName + lastName;
         }
@@ -33,7 +53,7 @@ public class Account {
 
 
     void setName(String firstName, String middleName, String lastName) {
-        if (firstName == null || lastName == null) {
+        if (firstName == null || middleName == null || lastName == null) {
             throw new java.lang.Error("Null name was passed to setName.");
         }
         this.firstName = firstName;
