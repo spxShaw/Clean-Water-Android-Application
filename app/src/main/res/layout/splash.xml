@@ -7,7 +7,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/splash_768_1024"
+        android:background ="@drawable/splash_768_1024"
         android:id="@+id/imageView"
         android:layout_weight="1" />
 </LinearLayout>
