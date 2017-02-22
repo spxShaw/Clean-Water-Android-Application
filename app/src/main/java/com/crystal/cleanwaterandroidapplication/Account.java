@@ -5,12 +5,12 @@ package com.crystal.cleanwaterandroidapplication;
  */
 
 public class Account {
-    private String firstName, middleName, lastName;
-    private String email;
-    private int day, month, year;
-    public int accountID;
     private String username;
     private String password;
+    private String email;
+    private String firstName, middleName, lastName;
+    private int day, month, year;
+    public int accountID;
     private int age;
 
 
@@ -66,6 +66,7 @@ public class Account {
         this.username = username;
     }
 
+
     /**
      * Gets password.
      * @return the account's password
@@ -78,8 +79,25 @@ public class Account {
      * Sets the password of the account.
      * @param password the password to be associated with the account
      */
-    public setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * Gets the email address of the account.
+     * @return the email address of the account
+     */
+    public String getEmail() {
+
+        return email;
+    }
+
+    /**
+     * Sets the email address of the account.
+     * @param email the specified email address to be assigned to the account
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
@@ -97,15 +115,6 @@ public class Account {
         return firstName + " " + lastName;
     }
 
-    /**
-     * Gets the age of the account's user.
-     * @return the age of the user
-     */
-    public int getAge() {
-        return age;
-    }
-
-
     public void setName(String firstName, String middleName, String lastName) {
         if (firstName == null || middleName == null || lastName == null) {
             throw new java.lang.Error("Null name was passed to setName.");
@@ -115,10 +124,57 @@ public class Account {
         this.lastName = lastName;
     }
 
+
+    /**
+     * Gets the age of the account's user.
+     * @return the age of the user
+     */
+    public int getAge() {
+        return age;
+    }
+
+    /**
+     * Sets the age of the account's user.
+     * @param age the given age of the user
+     */
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
+    /**
+     * This method is currently being worked on.
+     * @return the birthday of the user
+     */
+    public int getBirthday() {
+        //todo
+        return 0;
+    }
+
+    /**
+     * Sets the birthday of the account's user given the day, month, and year.
+     * @param day the day of the month
+     * @param month the month from 1 being Jan to 12 being Dec
+     * @param year the year the user was born
+     */
+
     public void setBirthday(int day, int month, int year) {
         this.day = day;
         this.month = month;
         this.year = year;
+    }
+
+
+    /**
+     * Gets the account id
+     * @return the account id
+     */
+    public int getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(int id) {
+        this.accountID = id;
     }
 
 }
