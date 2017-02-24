@@ -1,14 +1,17 @@
-package com.crystal.cleanwaterandroidapplication;
+package com.crystal.cleanwaterandroidapplication.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.crystal.cleanwaterandroidapplication.R;
+import com.crystal.cleanwaterandroidapplication.model.Account;
+import com.crystal.cleanwaterandroidapplication.model.AccountManager;
 
 public class RegisterActivity extends AppCompatActivity{
 
@@ -44,8 +47,8 @@ public class RegisterActivity extends AppCompatActivity{
 
                 if (checkUsername(username) && checkPassword(password)) {
                     Account newAccount = new Account(username, password);
-                    AccountsList tempList = new AccountsList();
-                    tempList.getAccountsList().add(newAccount);
+                    AccountManager tempList = new AccountManager();
+                    tempList.add(newAccount);
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }

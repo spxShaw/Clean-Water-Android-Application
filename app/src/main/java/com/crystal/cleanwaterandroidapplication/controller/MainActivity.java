@@ -1,4 +1,4 @@
-package com.crystal.cleanwaterandroidapplication;
+package com.crystal.cleanwaterandroidapplication.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-import static android.R.id.button1;
+import com.crystal.cleanwaterandroidapplication.R;
+import com.crystal.cleanwaterandroidapplication.view.WelcomeScreen;
 
 public class MainActivity extends AppCompatActivity {
 
