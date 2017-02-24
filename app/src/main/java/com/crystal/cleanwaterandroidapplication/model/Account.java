@@ -281,4 +281,13 @@ public abstract class Account {
     public int hashCode() {
         return username.hashCode();
     }
+
+    @Override
+    public String toString() {
+        String s = "Account -- ";
+        s += "Username: " + getUsername() + " ";
+        s += "Name: " + getFullName() + " ";
+        s += "Account ID: " + getAccountID() + " ";
+        return s;
+    }
 }

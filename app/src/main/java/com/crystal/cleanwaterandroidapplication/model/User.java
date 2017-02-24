@@ -18,4 +18,15 @@ public class User extends Account {
         super(username, password);
     }
 
+    /**
+     * Returns a string representation of the account, in format: <br/>
+     * Account -- Username: 'username' Name: 'full name' Account ID: 'ID'
+     * Permissions: 'ListOfPermissions'
+     * @return String representation of the account.
+     */
+    @Override
+    public String toString() {
+        return super.toString() + "Permissions: User";
+    }
+
 }
