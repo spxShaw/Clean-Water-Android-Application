@@ -7,7 +7,9 @@ import java.util.HashMap;
 
 /**
  * AccountsManager stores and manages a map of Accounts. The Account's username is used
- * as the key for the map.
+ * as the key for the map. The map is static, creating new instances of this class will
+ * not overwrite the map of Accounts. Therefor, simply create an instance of this class
+ * whenever access is needed to Account info.
  * @author Team 62
  * @see Account
  */
@@ -30,6 +32,22 @@ public class AccountManager {
     }
 
     /**
+     * Gets an account object, based on the Account's username.
+     * @param username Username of Account to return.
+     * @return Account matching that username. Null if no account matches.
+     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
+     */
+    public Account getAccount(String username) throws AccountDoesNotExistException {
+        Account a = map.get(username);
+        if (a == null) {
+            throw new AccountDoesNotExistException("Attempted to get a username that does not " +
+                    "belong to an account in AccountManager");
+        } else {
+            return a;
+        }
+    }
+
+    /**
      * Adds an account to the map. Returns true if account does not
      * exist and is added, false if account already exists and is not added.
      * @param newAccount the account to add
@@ -47,13 +65,17 @@ public class AccountManager {
      * Removes an account from the map by the accounts username. Returns true
      * if account is removed, false if account is not removed (not found).
      * @param username username of account to remove
-     * @return True if account is removed, false if account is not removed.
+     * @return Account that was removed from the Map.
+     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
      */
-    public boolean remove(String username) {
-        if(map.containsKey(username)) {
-            map.remove(username);
+    public Account remove(String username) throws AccountDoesNotExistException {
+        Account a = remove(username);
+        if(a == null) {
+            throw new AccountDoesNotExistException("Attempted to get a username that does not " +
+                    "belong to an account in AccountManager");
+        } else {
+            return a;
         }
-        return false;
     }
 
     /**
@@ -61,8 +83,9 @@ public class AccountManager {
      * false if account is not removed (not found).
      * @param account Account to remove.
      * @return True if account is removed, false if account is not removed.
+     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
      */
-    public boolean remove(Account account) {
+    public Account remove(Account account) throws AccountDoesNotExistException {
         return remove(account.getUsername());
     }
 

@@ -23,9 +23,10 @@ public class RegisterActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        //Create Spinner for account type
+        //Create and setup Spinner.
         final Spinner spinner  = (Spinner) findViewById(R.id.accountSpinner);
-        ArrayAdapter <CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Account_Options_Array, android.R.layout.simple_spinner_item);
+        ArrayAdapter <CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.Account_Options_Array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
