@@ -12,13 +12,13 @@ import java.util.HashMap;
  * @see Account
  */
 public class AccountManager {
-    private static HashMap<String, Account> map;
+    private static HashMap<String, Account> map = new HashMap<>();
 
     /**
      * Creates an AccountList
      */
-    public AccountManager() {
-        map = new HashMap<>();
+    public AccountManager(){
+        //Do nothing
     }
 
     /**

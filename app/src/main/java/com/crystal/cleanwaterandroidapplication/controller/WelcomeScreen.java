@@ -1,4 +1,4 @@
-package com.crystal.cleanwaterandroidapplication.view;
+package com.crystal.cleanwaterandroidapplication.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.crystal.cleanwaterandroidapplication.R;
-import com.crystal.cleanwaterandroidapplication.controller.LoginActivity;
-import com.crystal.cleanwaterandroidapplication.controller.RegisterActivity;
 
 public class WelcomeScreen extends AppCompatActivity {
 

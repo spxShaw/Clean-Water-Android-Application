@@ -1,4 +1,4 @@
-package com.crystal.cleanwaterandroidapplication.view;
+package com.crystal.cleanwaterandroidapplication.controller;
 
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

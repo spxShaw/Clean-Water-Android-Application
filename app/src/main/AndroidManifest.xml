@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.SplashScreen"
+            android:name=".controller.SplashScreen"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
 
         </activity>
         <activity
-            android:name=".view.WelcomeScreen"
+            android:name=".controller.WelcomeScreen"
             android:label="@string/app_name">
 
         </activity>
