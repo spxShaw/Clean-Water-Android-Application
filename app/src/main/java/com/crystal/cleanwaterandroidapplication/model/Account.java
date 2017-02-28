@@ -282,6 +282,11 @@ public abstract class Account {
         return username.hashCode();
     }
 
+    /**
+     * Returns a string representation of the account, in format: <br/>
+     * Account -- Username: 'username' Name: 'full name' Account ID: 'ID'
+     * @return String representation of the account.
+     */
     @Override
     public String toString() {
         String s = "Account -- ";

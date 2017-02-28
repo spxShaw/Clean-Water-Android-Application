@@ -1,7 +1,5 @@
 package com.crystal.cleanwaterandroidapplication.model;
 
-import com.crystal.cleanwaterandroidapplication.model.Account;
-
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -69,7 +67,7 @@ public class AccountManager {
      * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
      */
     public Account remove(String username) throws AccountDoesNotExistException {
-        Account a = remove(username);
+        Account a = map.get(username);
         if(a == null) {
             throw new AccountDoesNotExistException("Attempted to get a username that does not " +
                     "belong to an account in AccountManager");
@@ -82,7 +80,7 @@ public class AccountManager {
      * Removes an account from the map. Returns true if account is removed,
      * false if account is not removed (not found).
      * @param account Account to remove.
-     * @return True if account is removed, false if account is not removed.
+     * @return Account that was removed.
      * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
      */
     public Account remove(Account account) throws AccountDoesNotExistException {

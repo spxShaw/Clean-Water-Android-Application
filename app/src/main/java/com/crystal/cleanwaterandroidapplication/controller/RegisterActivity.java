@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.text.TextWatcher;
+import android.text.Editable;
 
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.Account;
@@ -17,44 +19,104 @@ import com.crystal.cleanwaterandroidapplication.model.Manager;
 import com.crystal.cleanwaterandroidapplication.model.Administrator;
 import com.crystal.cleanwaterandroidapplication.model.AccountManager;
 
+/**
+ * Activity controlling the registration view. Creates an account, and passes that account
+ * over to the AccountManager for storage.
+ * @author Team 62
+ */
 public class RegisterActivity extends AppCompatActivity{
+    private final AccountManager accountManager = new AccountManager();
+    private EditText emailEditText;
+    private EditText usernameEditText;
+    private EditText passwordEditText;
+    private EditText passwordVerifyEditText;
+    private Spinner  accountSpinner;
+    private Button RegisterButton;
+
+    /*
+     * Checks to see if the email is a valid email.
+     * Returns true if email is a valid, false if invalid.
+     */
+    private boolean verifyEmail(String email) {
+        //TODO Implement VerifyEmail
+        return true;
+    }
+
+    /*
+     * Checks to see if the email is already being used in the system.
+     * Returns true if email exists, false if email does not exist
+     */
+    private boolean checkIfEmailExists(String email) {
+        //TODO Implement checkIfEmailExists
+        return false;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        //Create and setup Spinner.
+        //Setup View items.
+        emailEditText = (EditText) findViewById(R.id.email);
+        usernameEditText = (EditText) findViewById(R.id.username);
+        passwordEditText = (EditText) findViewById(R.id.password);
+        passwordVerifyEditText = (EditText) findViewById(R.id.verifyPassword);
+        RegisterButton = (Button) findViewById(R.id.RegisterButton);
+
+        //Add listener to check for valid email.
+        emailEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!verifyEmail(s.toString())) {
+                    //TODO Show error in emailEditText
+                } else if (checkIfEmailExists(s.toString())) {
+                    //TODO Show error in emailEditText
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //Do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Do nothing
+            }
+        });
+
+        //TODO Add listener to check for valid username.
+
+        //TODO Add listener to check for valid password match.
+
+        //Setup Account Spinner.
         final Spinner spinner  = (Spinner) findViewById(R.id.accountSpinner);
         ArrayAdapter <CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.Account_Options_Array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        Button RegisterButton = (Button) findViewById(R.id.RegisterButton);
+        //Setup register button click listener.
         RegisterButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                //Register button clicked, prompt to register username and password
-                //TODO Prompt user to choose a new username if username already exists.
+                //Check if any text inputs have an error
+                if(emailEditText.getError() == null && usernameEditText.getError() == null
+                        && passwordEditText.getError() == null) {
+                    //Get the string from email box
+                    String email = emailEditText.getText().toString();
 
-                //Get the string from the username box
-                EditText usernameEditText = (EditText) findViewById(R.id.username);
-                String username = usernameEditText.getText().toString();
+                    //Get the string from the username box
+                    String username = usernameEditText.getText().toString();
 
-                //Get the string from the password box
-                EditText passwordEditText = (EditText) findViewById(R.id.password);
-                String password = passwordEditText.getText().toString();
+                    //Get the string from the password box
+                    String password = passwordEditText.getText().toString();
 
-                //Get the string of the account type
-                //0 -> User, 1 -> Worker, 2 -> Manager, 3 -> Admin
-                int accountChoice = spinner.getSelectedItemPosition();
+                    //Get the string of the account type
+                    //0 -> User, 1 -> Worker, 2 -> Manager, 3 -> Admin
+                    int accountChoice = spinner.getSelectedItemPosition();
 
-                //Get the AccountManager
-                AccountManager accountManager = new AccountManager();
-
-                if (!accountManager.checkForUsername(username)) {
-                    //new username! add account
+                    //Add account
                     Account newAccount;
                     if (accountChoice == 0) {
                         //User
@@ -71,11 +133,14 @@ public class RegisterActivity extends AppCompatActivity{
                     } else {
                         throw new Error("Account Type not found while Registering");
                     }
+                    newAccount.setEmail(email);
                     accountManager.add(newAccount);
+
+                    //Change from RegisterActivity to LoginActivity.
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    //prompt username already taken
+                    //TODO prompt user cannot register, due to error
                 }
             }
         });

@@ -8,7 +8,6 @@ import com.crystal.cleanwaterandroidapplication.model.Account;
  * @see Account
  */
 public class User extends Account {
-
     /**
      * Creates a User Account, given a username and password.
      * @param username Username of User
