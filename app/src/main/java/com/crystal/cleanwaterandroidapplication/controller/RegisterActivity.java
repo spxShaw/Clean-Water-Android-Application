@@ -41,8 +41,8 @@ public class RegisterActivity extends AppCompatActivity{
      * Returns true if email is a valid, false if invalid.
      */
     private boolean verifyEmail(String email) {
-        //TODO Implement VerifyEmail
-        return true;
+        //TODO Implement VerifyEmail better
+        return email.contains("@");
     }
 
     /*
@@ -52,6 +52,15 @@ public class RegisterActivity extends AppCompatActivity{
     private boolean checkIfEmailExists(String email) {
         //TODO Implement checkIfEmailExists
         return false;
+    }
+
+    /*
+     * Checks to see if the username already exists.
+     * Returns true if the username exists in the AccountManager,
+     * false if username does not exist in the AccountManager.
+     */
+    private boolean checkUsernameExists(String username) {
+        return accountManager.checkForUsername(username);
     }
 
     @Override
@@ -71,9 +80,11 @@ public class RegisterActivity extends AppCompatActivity{
             @Override
             public void afterTextChanged(Editable s) {
                 if(!verifyEmail(s.toString())) {
-                    //TODO Show error in emailEditText
+                    emailEditText.setError("Invalid Email");
                 } else if (checkIfEmailExists(s.toString())) {
                     //TODO Show error in emailEditText
+                } else {
+                    emailEditText.setError(null);
                 }
             }
 
@@ -89,6 +100,26 @@ public class RegisterActivity extends AppCompatActivity{
         });
 
         //TODO Add listener to check for valid username.
+        usernameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(checkUsernameExists(s.toString())) {
+                    usernameEditText.setError("Username Already Exists");
+                } else {
+                    usernameEditText.setError(null);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //Do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Do nothing
+            }
+        });
 
         //TODO Add listener to check for valid password match.
 
