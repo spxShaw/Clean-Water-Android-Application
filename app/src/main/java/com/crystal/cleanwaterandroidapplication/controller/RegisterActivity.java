@@ -25,7 +25,10 @@ import com.crystal.cleanwaterandroidapplication.model.AccountManager;
  * @author Team 62
  */
 public class RegisterActivity extends AppCompatActivity{
+    //Model Reference
     private final AccountManager accountManager = new AccountManager();
+
+    //UI Reference
     private EditText emailEditText;
     private EditText usernameEditText;
     private EditText passwordEditText;
@@ -56,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        //Setup View items.
+        //Setup UI items.
         emailEditText = (EditText) findViewById(R.id.email);
         usernameEditText = (EditText) findViewById(R.id.username);
         passwordEditText = (EditText) findViewById(R.id.password);

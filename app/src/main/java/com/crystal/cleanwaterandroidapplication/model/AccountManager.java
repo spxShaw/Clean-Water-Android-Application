@@ -13,6 +13,7 @@ import java.util.HashMap;
  */
 public class AccountManager {
     private static HashMap<String, Account> map = new HashMap<>();
+    private static Account currentAccount;
 
     /**
      * Creates an AccountList
@@ -109,6 +110,22 @@ public class AccountManager {
             return map.get(username).getPassword().equals(password);
         }
         return false;
+    }
+
+    /**
+     * Sets the Account that is currently logged in to account
+     * @param account Account to set as current logged in account
+     */
+    public void setCurrentAccount(Account account) {
+        currentAccount = account;
+    }
+
+    /**
+     * Gets the Account that is currently logged in.
+     * @return current Account that is logged in
+     */
+    public Account getCurrentAccount() {
+        return currentAccount;
     }
 
 }
