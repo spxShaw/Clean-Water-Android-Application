@@ -34,10 +34,20 @@
         android:text="Edit Profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="51dp"
+        android:id="@+id/editProfile"
         android:layout_below="@+id/LogOutButton"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="55dp"
-        android:id="@+id/editProfile" />
+        android:layout_alignLeft="@+id/submitReportButton"
+        android:layout_alignStart="@+id/submitReportButton"
+        android:layout_alignRight="@+id/submitReportButton"
+        android:layout_alignEnd="@+id/submitReportButton" />
+
+    <Button
+        android:text="Submit Report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/submitReportButton"
+        android:layout_below="@+id/editProfile"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

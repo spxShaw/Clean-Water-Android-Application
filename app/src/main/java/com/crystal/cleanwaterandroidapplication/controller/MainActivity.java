@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.content_main);
         setSupportActionBar(toolbar);
+
+
         Button button = (Button) findViewById(R.id.LogOutButton);
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -47,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button button3 = (Button) findViewById(R.id.submitReportButton);
+        button3.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SubmitReportActivity.class);
                 startActivity(intent);
             }
         });
