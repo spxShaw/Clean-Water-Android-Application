@@ -1,5 +1,8 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +27,7 @@ import com.crystal.cleanwaterandroidapplication.model.AccountManager;
  * over to the AccountManager for storage.
  * @author Team 62
  */
-public class RegisterActivity extends AppCompatActivity{
+public class RegisterActivity extends AppCompatActivity {
     //Model Reference
     private final AccountManager accountManager = new AccountManager();
 
@@ -33,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity{
     private EditText usernameEditText;
     private EditText passwordEditText;
     private EditText passwordVerifyEditText;
-    private Spinner  accountSpinner;
+    private Spinner accountSpinner;
     private Button RegisterButton;
 
     /*
@@ -41,17 +44,49 @@ public class RegisterActivity extends AppCompatActivity{
      * Returns true if email is a valid, false if invalid.
      */
     private boolean verifyEmail(String email) {
-        //TODO Implement VerifyEmail better
-        return email.contains("@");
+        //Method from stack overflow solution to verifying email.
+        Pattern pattern = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+        Matcher mat = pattern.matcher(email);
+        return mat.matches();
+    }
+
+    /*
+     * Checks to see if the password is a valid password. Currently, checks if
+     * the password is at least length 7, contains at least a capital letter, lowercase letter, and
+     * a number. Returns true if password is valid, false if invalid.
+     */
+    private boolean verifyPassword(String pass) {
+        boolean hadUpperCase = false;
+        boolean hadLowerCase = false;
+        boolean hadNumber = false;
+        if (pass.length() < 7) {
+            return false;
+        } else {
+            for(int i = 0; i < pass.length(); i++) {
+                if (((int) pass.charAt(i)) >= 48 && ((int) pass.charAt(i)) <= 57) {
+                    //Number
+                    hadNumber = true;
+                } else if (((int) pass.charAt(i)) >= 65 && ((int) pass.charAt(i)) <= 90) {
+                    //UpperCase
+                    hadUpperCase = true;
+                } else if (((int) pass.charAt(i)) >= 97 && ((int) pass.charAt(i)) <= 122) {
+                    //LowerCase
+                    hadLowerCase = true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        return hadUpperCase && hadLowerCase && hadNumber;
     }
 
     /*
      * Checks to see if the email is already being used in the system.
      * Returns true if email exists, false if email does not exist
      */
-    private boolean checkIfEmailExists(String email) {
-        //TODO Implement checkIfEmailExists
-        return false;
+    private boolean checkEmailExists(String email) {
+        return accountManager.checkEmail(email);
     }
 
     /*
@@ -60,7 +95,19 @@ public class RegisterActivity extends AppCompatActivity{
      * false if username does not exist in the AccountManager.
      */
     private boolean checkUsernameExists(String username) {
-        return accountManager.checkForUsername(username);
+        return accountManager.checkUsername(username);
+    }
+
+    /*
+     * Checks to see if a EditText field is empty. Returns true if a field is empty, false if
+     * none of the fields are empty.
+     */
+    private boolean isFieldBlank() {
+        System.out.println(emailEditText.getText().toString());
+        return emailEditText.getText().toString().equals("") ||
+                usernameEditText.getText().toString().equals("") ||
+                passwordEditText.getText().toString().equals("") ||
+                passwordVerifyEditText.getText().toString().equals("");
     }
 
     @Override
@@ -81,8 +128,8 @@ public class RegisterActivity extends AppCompatActivity{
             public void afterTextChanged(Editable s) {
                 if(!verifyEmail(s.toString())) {
                     emailEditText.setError("Invalid Email");
-                } else if (checkIfEmailExists(s.toString())) {
-                    //TODO Show error in emailEditText
+                } else if (checkEmailExists(s.toString())) {
+                    emailEditText.setError("Email Already Exists");
                 } else {
                     emailEditText.setError(null);
                 }
@@ -99,7 +146,55 @@ public class RegisterActivity extends AppCompatActivity{
             }
         });
 
-        //TODO Add listener to check for valid username.
+        //Add listener to check for valid password.
+        passwordEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!verifyPassword(s.toString())) {
+                    passwordEditText.setError("Password must be at least 7 characters and contain"
+                            + " a uppercase, lowercase, and number");
+                } else if (!s.toString().equals(passwordVerifyEditText.getText().toString())) {
+                    passwordVerifyEditText.setError("Passwords do not match");
+                } else {
+                    passwordEditText.setError(null);
+                    passwordVerifyEditText.setError(null);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //Do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Do nothing
+            }
+        });
+
+        passwordVerifyEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!s.toString().equals(passwordEditText.getText().toString())) {
+                    passwordVerifyEditText.setError("Passwords do not match");
+                } else {
+                    passwordEditText.setError(null);
+                    passwordVerifyEditText.setError(null);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //Do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Do nothing
+            }
+        });
+
+        //Add listener to check for valid username
         usernameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -134,8 +229,8 @@ public class RegisterActivity extends AppCompatActivity{
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Check if any text inputs have an error
-                if(emailEditText.getError() == null && usernameEditText.getError() == null
+                //Only register if all fields are not empty, and no errors are present.
+                if (!isFieldBlank() && emailEditText.getError() == null && usernameEditText.getError() == null
                         && passwordEditText.getError() == null) {
                     //Get the string from email box
                     String email = emailEditText.getText().toString();
@@ -173,8 +268,6 @@ public class RegisterActivity extends AppCompatActivity{
                     //Change from RegisterActivity to LoginActivity.
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
-                } else {
-                    //TODO prompt user cannot register, due to error
                 }
             }
         });

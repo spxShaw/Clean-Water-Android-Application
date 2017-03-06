@@ -3,6 +3,8 @@ package com.crystal.cleanwaterandroidapplication.model;
 import java.util.Collection;
 import java.util.HashMap;
 
+//TODO Implement this class with a database backing rather than a HashMap backing.
+
 /**
  * AccountsManager stores and manages a map of Accounts. The Account's username is used
  * as the key for the map. The map is static, creating new instances of this class will
@@ -33,10 +35,10 @@ public class AccountManager {
     /**
      * Gets an account object, based on the Account's username.
      * @param username Username of Account to return.
-     * @return Account matching that username. Null if no account matches.
+     * @return Account matching that username.
      * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
      */
-    public Account getAccount(String username) throws AccountDoesNotExistException {
+    public Account getAccountByUsername(String username) throws AccountDoesNotExistException {
         Account a = map.get(username);
         if (a == null) {
             throw new AccountDoesNotExistException("Attempted to get a username that does not " +
@@ -47,7 +49,24 @@ public class AccountManager {
     }
 
     /**
-     * Adds an account to the map. Returns true if account does not
+     * Gets an account object, based on the Account's email. Recommended to not look up by email,
+     * but rather by username were possible, for efficiency.
+     * @param email Email of Account to return.
+     * @return Account matching that username.
+     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
+     */
+    public Account getAccountByEmail(String email) throws AccountDoesNotExistException {
+        for(Account a: map.values()) {
+            if(a.getEmail().equals(email)) {
+                return a;
+            }
+        }
+        throw new AccountDoesNotExistException("Attempted to get a email that does not " +
+                "belong to an account in AccountManager");
+    }
+
+    /**
+     * Adds an account to the map. Returns true if Account does not
      * exist and is added, false if account already exists and is not added.
      * @param newAccount the account to add
      * @return True if account is added, false if account is not added.
@@ -61,41 +80,74 @@ public class AccountManager {
     }
 
     /**
-     * Removes an account from the map by the accounts username. Returns true
-     * if account is removed, false if account is not removed (not found).
+     * Removes an account from the map. Returns the Account removed or throws
+     * AccountDoesNotExistException if the account cannot be found.
+     * @param account Account to remove.
+     * @return Account that was removed.
+     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
+     */
+    public Account remove(Account account) throws AccountDoesNotExistException {
+        return removeByUsername(account.getUsername());
+    }
+
+    /**
+     * Removes an account from the map by the Account's username. Returns the Account
+     * that is removed or throws AccountDoesNotExistException if the account cannot be found.
      * @param username username of account to remove
      * @return Account that was removed from the Map.
      * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
      */
-    public Account remove(String username) throws AccountDoesNotExistException {
-        Account a = map.get(username);
+    public Account removeByUsername(String username) throws AccountDoesNotExistException {
+        Account a = map.remove(username);
         if(a == null) {
-            throw new AccountDoesNotExistException("Attempted to get a username that does not " +
-                    "belong to an account in AccountManager");
+            throw new AccountDoesNotExistException("Attempted to remove an account by username that " +
+                    "does not belong to an account in AccountManager");
         } else {
             return a;
         }
     }
 
     /**
-     * Removes an account from the map. Returns true if account is removed,
-     * false if account is not removed (not found).
-     * @param account Account to remove.
-     * @return Account that was removed.
-     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
+     * Removes an account from the map by the Account's email. Returns the Account that is removed
+     * or throws AccountDoesNotExistException if account is not found. For efficiency, use
+     * removeByUsername over this method.
+     * @param email The email of the account to remove
+     * @return Account that was removed from the map
+     * @throws AccountDoesNotExistException Thrown if Account is not found in the map
      */
-    public Account remove(Account account) throws AccountDoesNotExistException {
-        return remove(account.getUsername());
+    public Account removeByEmail(String email) throws AccountDoesNotExistException {
+        for(Account a: map.values()) {
+            if(a.getEmail().equals(email)) {
+                removeByUsername(a.getUsername());
+            }
+        }
+        throw new AccountDoesNotExistException("Attempted to remove an account by email that does" +
+                " not belong to an account in AccountManager");
     }
 
     /**
      * Checks if the username already exists for an account in the map. Returns
      * true if username exists, false if username does not exist.
-     * @param username username to check
+     * @param username The username to check
      * @return True if username exists, false if username does not exist.
      */
-    public boolean checkForUsername(String username) {
+    public boolean checkUsername(String username) {
         return map.containsKey(username);
+    }
+
+    /**
+     * Checks to see if a email exists within the map. Returns true if the email exists,
+     * false if the email does not exist
+     * @param email The email to check.
+     * @return True if email exists, false if email does not exist.
+     */
+    public boolean checkEmail(String email) {
+        for(Account a: map.values()) {
+            if(a.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -106,10 +158,25 @@ public class AccountManager {
      * @return True if account is validated, false if account is not validated.
      */
     public boolean validCredentials(String username, String password) {
-        if(map.containsKey(username)) {
+        if (map.containsKey(username)) {
             return map.get(username).getPassword().equals(password);
         }
         return false;
+    }
+
+    /**
+     * Sets the current Account to whatever account matches the given credentials. If no account
+     * is found, throws an InvalidCredentialsException. All logins should be done through here.
+     * @param username Username of account
+     * @param password Password of account
+     * @return The Account that is logged in and set as the current account.
+     * @throws InvalidCredentialsException Thrown if the username/password combo is invalid
+     */
+    public Account login(String username, String password) throws InvalidCredentialsException {
+        if (validCredentials(username, password)) {
+            setCurrentAccount(map.get(username));
+        }
+        throw new InvalidCredentialsException("Account not found, incorrect username or password.");
     }
 
     /**

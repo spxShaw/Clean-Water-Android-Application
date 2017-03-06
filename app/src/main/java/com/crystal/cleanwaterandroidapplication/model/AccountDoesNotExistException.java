@@ -1,7 +1,7 @@
 package com.crystal.cleanwaterandroidapplication.model;
 
 /**
- * Checked Exception that is thrown whenever an account cannot be located/found.
+ * Thrown whenever an account cannot be located/found.
  * @author Team 62
  * @see AccountManager
  */
