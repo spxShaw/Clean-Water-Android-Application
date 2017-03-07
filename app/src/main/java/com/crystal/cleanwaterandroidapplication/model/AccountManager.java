@@ -18,10 +18,10 @@ public class AccountManager {
     private static Account currentAccount;
 
     /**
-     * Creates an AccountList
+     * Creates an AccountList. Nothing special about it.
      */
     public AccountManager(){
-        //Do nothing
+        //Do nothing, for now
     }
 
     /**

@@ -24,6 +24,9 @@ public class WaterSourceReport {
         WASTE, TREATABLE_CLEAR, TREATABLE_MUDDY, POTABLE
     }
 
+    public Integer getReportNumber() {
+        return new Integer(reportNumber);
+    }
 
 
 }
