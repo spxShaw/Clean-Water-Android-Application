@@ -11,20 +11,42 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.crystal.cleanwaterandroidapplication.R;
+import com.crystal.cleanwaterandroidapplication.model.AccountManager;
 
+/**
+ * Activity controlling the profile edit view. Makes changes to the current logged in account.
+ * @author Team 62
+ */
 public class EditProfileActivity extends AppCompatActivity {
+
+    //UI References
+    private EditText firstNameEditText;
+    private EditText lastNameEditText;
+    private Button submitButton;
+
+    //Reference to AccountManager
+    private AccountManager accountManager = new AccountManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        final EditText name = (EditText) findViewById(R.id.editName);
+        //Define UI Elements
+        firstNameEditText = (EditText) findViewById(R.id.FirstNameEditProfile);
+        lastNameEditText = (EditText) findViewById(R.id.LastNameEditProfile);
+        submitButton = (Button) findViewById(R.id.submitEditProfile);
 
-        Button button = (Button) findViewById(R.id.confirmEdit);
-        button.setOnClickListener(new View.OnClickListener() {
+        //Fill EditTexts with current accounts info.
+        firstNameEditText.setText(accountManager.getCurrentAccount().getFirstName());
+        lastNameEditText.setText(accountManager.getCurrentAccount().getLastName());
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Set current Account to info in EditTexts
+                accountManager.getCurrentAccount().setFirstName(firstNameEditText.getText().toString());
+                accountManager.getCurrentAccount().setLastName(lastNameEditText.getText().toString());
 
                 //Change from RegisterActivity to LoginActivity.
                 Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
