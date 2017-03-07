@@ -175,6 +175,7 @@ public class AccountManager {
     public Account login(String username, String password) throws InvalidCredentialsException {
         if (validCredentials(username, password)) {
             setCurrentAccount(map.get(username));
+            return map.get(username);
         }
         throw new InvalidCredentialsException("Account not found, incorrect username or password.");
     }

@@ -51,6 +51,22 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /*
+     * Checks to see if the username is only letters or numbers.
+     * Returns true if username is valid, false if invalid.
+     */
+    private boolean verifyUsername(String username) {
+        boolean flag = true;
+        for(int i = 0; i < username.length(); i++) {
+            if (!(((int) username.charAt(i)) >= 48 && ((int) username.charAt(i)) <= 57)
+                    && !(((int) username.charAt(i)) >= 65 && ((int) username.charAt(i)) <= 90)
+                    && !(((int) username.charAt(i)) >= 97 && ((int) username.charAt(i)) <= 122)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*
      * Checks to see if the password is a valid password. Currently, checks if
      * the password is at least length 7, contains at least a capital letter, lowercase letter, and
      * a number. Returns true if password is valid, false if invalid.
@@ -118,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
         //Setup UI items.
         emailEditText = (EditText) findViewById(R.id.email);
         usernameEditText = (EditText) findViewById(R.id.username);
-        passwordEditText = (EditText) findViewById(R.id.password);
+        passwordEditText = (EditText) findViewById(R.id.passwordLogin);
         passwordVerifyEditText = (EditText) findViewById(R.id.verifyPassword);
         RegisterButton = (Button) findViewById(R.id.RegisterButton);
 
@@ -177,6 +193,9 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (!s.toString().equals(passwordEditText.getText().toString())) {
                     passwordVerifyEditText.setError("Passwords do not match");
+                } else if (!verifyPassword(s.toString())) {
+                    passwordEditText.setError("Password must be at least 7 characters and contain"
+                            + " a uppercase, lowercase, and number");
                 } else {
                     passwordEditText.setError(null);
                     passwordVerifyEditText.setError(null);
@@ -200,6 +219,8 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(checkUsernameExists(s.toString())) {
                     usernameEditText.setError("Username Already Exists");
+                } else if (!verifyUsername(s.toString())) {
+                    usernameEditText.setError("Username can only be made up of letters and numbers");
                 } else {
                     usernameEditText.setError(null);
                 }
@@ -215,8 +236,6 @@ public class RegisterActivity extends AppCompatActivity {
                 //Do nothing
             }
         });
-
-        //TODO Add listener to check for valid password match.
 
         //Setup Account Spinner.
         final Spinner spinner  = (Spinner) findViewById(R.id.accountSpinner);
