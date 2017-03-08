@@ -24,9 +24,11 @@ public class WaterSourceReport {
         WASTE, TREATABLE_CLEAR, TREATABLE_MUDDY, POTABLE
     }
 
+    public WaterSourceReport(Integer reportNumber) {
+        this.reportNumber = reportNumber;
+    }
+
     public Integer getReportNumber() {
         return new Integer(reportNumber);
     }
-
-
 }

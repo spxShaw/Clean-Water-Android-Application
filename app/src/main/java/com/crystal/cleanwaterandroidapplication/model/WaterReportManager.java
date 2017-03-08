@@ -10,7 +10,7 @@ import java.util.HashMap;
  */
 public class WaterReportManager {
     private static HashMap<Integer, WaterSourceReport> map = new HashMap<>();
-    private static Integer currentReportNumber = 1000000; //TODO this should be done better.
+    private static Integer nextReportNumber = 1000000; //TODO this should be done better.
 
     /**
      * Creates a WaterReportManager. Nothing special about it.
@@ -41,5 +41,13 @@ public class WaterReportManager {
      */
     public WaterSourceReport getReport(Integer reportNumber) {
         return map.get(reportNumber);
+    }
+
+    public int getNextReportNumber() {
+        return nextReportNumber.intValue();
+    }
+
+    public void incrementReportNumber() {
+        nextReportNumber += 1;
     }
 }

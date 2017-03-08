@@ -43,6 +43,7 @@
             android:name=".controller.SubmitReportActivity"
             android:label="@string/title_activity_submit_report"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".controller.ViewReportsActivity" />
     </application>
 
 </manifest>
