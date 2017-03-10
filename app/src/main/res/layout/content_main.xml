@@ -26,15 +26,16 @@
         android:text="MainActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/submitReportButton"
         android:layout_centerHorizontal="true"
-        android:id="@+id/textView2" />
+        android:layout_marginTop="94dp" />
 
     <Button
         android:text="Edit Profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="27dp"
         android:id="@+id/editProfile"
         android:layout_below="@+id/LogOutButton"
         android:layout_alignLeft="@+id/submitReportButton"
@@ -46,10 +47,10 @@
         android:id="@+id/ViewReportButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="View Report"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
-        android:text="View Report" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Submit Report"
@@ -58,5 +59,16 @@
         android:id="@+id/submitReportButton"
         android:layout_below="@+id/editProfile"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/ViewMapButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/submitReportButton"
+        android:layout_alignLeft="@+id/submitReportButton"
+        android:layout_alignRight="@+id/submitReportButton"
+        android:layout_alignStart="@+id/submitReportButton"
+        android:layout_below="@+id/submitReportButton"
+        android:text="View Map" />
 
 </RelativeLayout>

@@ -7,6 +7,13 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyCM8uPkhMXoqA2Ldb1B4npQrXZy1e1Vumw" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -42,8 +49,9 @@
         <activity
             android:name=".controller.SubmitReportActivity"
             android:label="@string/title_activity_submit_report"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".controller.ViewReportsActivity" />
+        <activity android:name=".controller.ViewMapActivity"></activity>
     </application>
 
 </manifest>
