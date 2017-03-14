@@ -24,4 +24,5 @@
     </string-array>
     <string name="title_activity_edit_profile">EditProfileActivity</string>
     <string name="title_activity_submit_report">SubmitReportActivity</string>
+    <string name="title_activity_view_map">Map</string>
 </resources>

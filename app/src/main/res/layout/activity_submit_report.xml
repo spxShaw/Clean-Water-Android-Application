@@ -13,4 +13,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Make Report" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Water Type" />
+
+    <Spinner
+        android:id="@+id/WaterTypeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Water Condition" />
+
+    <Spinner
+        android:id="@+id/WaterConditionSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Latitude " />
+
+    <Spinner
+        android:id="@+id/LatitudeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Longitude" />
+
+    <Spinner
+        android:id="@+id/LongitudeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
