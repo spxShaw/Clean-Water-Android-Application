@@ -11,6 +11,7 @@ public class WaterSourceReport {
     private int month, day, year; //date of submission
     private int hours, seconds, milliseconds; //time of submission
     private int reportNumber; //auto-generated number assigned to report
+    private int latitude, longitude;
     private String reporterName; //name of reporter from account info
     private String location; //location is a String for now
     private WaterType waterType;
@@ -30,5 +31,13 @@ public class WaterSourceReport {
 
     public Integer getReportNumber() {
         return new Integer(reportNumber);
+    }
+
+    public int getLatitude() {
+        return this.latitude;
+    }
+
+    public int getLongitude(){
+        return this.longitude;
     }
 }

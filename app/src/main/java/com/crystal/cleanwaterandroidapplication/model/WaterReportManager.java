@@ -50,4 +50,8 @@ public class WaterReportManager {
     public void incrementReportNumber() {
         nextReportNumber += 1;
     }
+
+    public static HashMap<Integer, WaterSourceReport> getWaterReportHashMap() {
+        return map;
+    }
 }

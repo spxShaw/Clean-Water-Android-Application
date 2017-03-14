@@ -1,19 +1,29 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import com.crystal.cleanwaterandroidapplication.R;
+import com.crystal.cleanwaterandroidapplication.model.WaterReportManager;
+import com.crystal.cleanwaterandroidapplication.model.WaterSourceReport;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class ViewMap extends FragmentActivity implements OnMapReadyCallback {
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+public class ViewMap extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
     private GoogleMap mMap;
+
+    private Marker myMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +49,38 @@ public class ViewMap extends FragmentActivity implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //Iterates through the WaterReportManager Hashmap and adds a marker for each report.
+        HashMap<Integer, WaterSourceReport> map = WaterReportManager.getWaterReportHashMap();
+        Iterator it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            WaterSourceReport report = (WaterSourceReport) pair.getValue();
+            LatLng location = new LatLng(report.getLatitude(), report.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(location).title("Water Report"));
+        }
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
+
+
+
+
+    //This code needs to be tested as soon as WaterSourceReport is functional.
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        //Get the lat/longitude from the marker
+        LatLng location = marker.getPosition();
+        //Iterate through Hashmap to find the report that matches the selected marker.
+        HashMap<Integer, WaterSourceReport> map = WaterReportManager.getWaterReportHashMap();
+        Iterator it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            WaterSourceReport report = (WaterSourceReport) pair.getValue();
+            if (report.getLatitude() == location.latitude && report.getLongitude() == location.longitude) {
+                Intent intent = new Intent(ViewMap.this, ViewReportsActivity.class);
+                startActivity(intent);
+            }
+        }
+        return true;
+    }
+
 }
