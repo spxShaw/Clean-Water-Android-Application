@@ -272,21 +272,22 @@ public abstract class Account {
         this.accountID = accountID;
     }
 
-    /**
-     * Returns the hashcode of the account. The hashcode is just the hashcode of
-     * the username.
-     * @return Hashcode of the account.
-     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        } else if (!(o instanceof Account)) {
+            //Not an Account type object
+            return false;
+        }
+        return username.equals(((Account) o).getUsername());
+    }
+
     @Override
     public int hashCode() {
         return username.hashCode();
     }
 
-    /**
-     * Returns a string representation of the account, in format: <br/>
-     * Account -- Username: 'username' Name: 'full name' Account ID: 'ID'
-     * @return String representation of the account.
-     */
     @Override
     public String toString() {
         String s = "Account -- ";
