@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.crystal.cleanwaterandroidapplication.model.Worker;
 import com.crystal.cleanwaterandroidapplication.model.Manager;
 import com.crystal.cleanwaterandroidapplication.model.Administrator;
 import com.crystal.cleanwaterandroidapplication.model.AccountManager;
+import com.google.android.gms.auth.account.WorkAccountApi;
 
 /**
  * Activity controlling the registration view. Creates an account, and passes that account
@@ -265,24 +267,23 @@ public class RegisterActivity extends AppCompatActivity {
                     int accountChoice = spinner.getSelectedItemPosition();
 
                     //Add account
-                    Account newAccount;
+                    String accountType;
                     if (accountChoice == 0) {
                         //User
-                        newAccount = new User(username, password);
+                        accountType = "USER";
                     } else if (accountChoice == 1) {
                         //Worker
-                        newAccount = new Worker(username, password);
+                        accountType = "WORK";
                     } else if (accountChoice == 2) {
                         //Manager
-                        newAccount = new Manager(username, password);
+                        accountType = "MANG";
                     } else if (accountChoice == 3) {
                         //Admin
-                        newAccount = new Administrator(username, password);
+                        accountType = "ADMN";
                     } else {
                         throw new Error("Account Type not found while Registering");
                     }
-                    newAccount.setEmail(email);
-                    accountManager.add(newAccount);
+                    new AddAccountTask().execute(username, password, email, accountType);
 
                     //Change from RegisterActivity to LoginActivity.
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -290,6 +291,19 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+
+
+    /**
+     * Adds an account to the database
+     */
+    class AddAccountTask extends AsyncTask<String, String, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            boolean success = accountManager.add(params[0], params[1], params[2], params[3]);
+            return "Task Completed.";
+        }
 
     }
 }

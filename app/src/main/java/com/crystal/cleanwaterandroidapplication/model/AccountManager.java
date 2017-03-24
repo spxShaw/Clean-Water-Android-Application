@@ -1,5 +1,17 @@
 package com.crystal.cleanwaterandroidapplication.model;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -77,6 +89,46 @@ public class AccountManager {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * Adds an account to the map. Returns true if Account does not
+     * exist and is added, false if account already exists or cannot reach database.
+     * @param username username of account
+     * @param password password of account
+     * @param email email of account
+     * @param accountType type of account
+     * @return True if account is added, false if account is not added.
+     */
+    public boolean add(String username, String password, String email, String accountType) {
+        updateAccounts();
+        if (checkUsername(username)) {
+            return false;
+        }
+        try {
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/adduser.php");
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("user", "UTF-8")
+                    + "=" + URLEncoder.encode(username, "UTF-8");
+            data += "&" + URLEncoder.encode("email", "UTF-8") + "="
+                    + URLEncoder.encode(email, "UTF-8");
+            data += "&" + URLEncoder.encode("pass", "UTF-8")
+                    + "=" + URLEncoder.encode(password, "UTF-8");
+            data += "&" + URLEncoder.encode("type", "UTF-8")
+                    + "=" + URLEncoder.encode(accountType, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            updateAccounts();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
@@ -196,4 +248,45 @@ public class AccountManager {
         return currentAccount;
     }
 
+    /**
+     * Replaces the map with an updated one from the database
+     */
+    public static void updateAccounts() {
+            try {
+                HashMap<String, Account> newHashMap = new HashMap<>();
+                URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/loadusers.php");
+                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+                connection.setConnectTimeout(5000);
+                connection.setDoOutput(true);
+                InputStream stream = connection.getInputStream();
+                BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+                String jsonString=br.readLine();
+                JSONArray myjsonarray = new JSONArray(jsonString);
+                for (int i = 0; i < myjsonarray.length(); i++){
+                    JSONObject jsonObject = myjsonarray.getJSONObject(i);
+                    Log.i("JSON Object", jsonObject.toString());
+                    Account newAccount;
+                    switch (jsonObject.getString("type")) {
+                        case "ADMN":
+                            newAccount = new Administrator(jsonObject.getString("username"),jsonObject.getString("password"));
+                            break;
+                        case "MANG":
+                            newAccount = new Manager(jsonObject.getString("username"),jsonObject.getString("password"));
+                            break;
+                        case "WORK":
+                            newAccount = new Worker(jsonObject.getString("username"),jsonObject.getString("password"));
+                            break;
+                        default:
+                            newAccount = new User(jsonObject.getString("username"),jsonObject.getString("password"));
+                            break;
+                    }
+                    newAccount.setAccountID(new Integer(jsonObject.getString("ID")));
+                    Log.i("New Account", newAccount.toString());
+                    newHashMap.put(jsonObject.getString("username"),newAccount);
+                    map = newHashMap;
+                }
+            } catch (Exception E) {
+                Log.e("Error", E.toString());
+        }
+    }
 }

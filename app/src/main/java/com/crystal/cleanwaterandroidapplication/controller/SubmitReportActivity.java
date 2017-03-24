@@ -64,7 +64,7 @@ public class SubmitReportActivity extends AppCompatActivity {
         SubmitReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                waterReportManager.addReport(new WaterSourceReport(waterReportManager.getNextReportNumber()));
+                //waterReportManager.addReport(new WaterSourceReport(waterReportManager.getNextReportNumber()));
                 waterReportManager.incrementReportNumber();
 
 
