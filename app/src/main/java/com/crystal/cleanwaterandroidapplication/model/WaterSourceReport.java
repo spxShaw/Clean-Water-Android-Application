@@ -2,6 +2,8 @@ package com.crystal.cleanwaterandroidapplication.model;
 
 import android.location.Location;
 
+import com.google.android.gms.maps.model.LatLng;
+
 
 /**
  * Water Source Report. A Water Source Report stores information on the report's ID number,
@@ -12,7 +14,7 @@ import android.location.Location;
 public class WaterSourceReport {
 
     private final int reportNumber;
-    private final Location location;
+    private final LatLng location;
     private final Account reportOwner;
     private final WaterType waterType;
     private final WaterCondition waterCondition;
@@ -25,7 +27,7 @@ public class WaterSourceReport {
      * @param waterType The WaterType that the water is in the report
      * @param waterCondition The WaterCondition that the water is in the report.
      */
-    public WaterSourceReport(Integer reportNumber, Account reportOwner, Location location,
+    public WaterSourceReport(Integer reportNumber, Account reportOwner, LatLng location,
                              WaterType waterType, WaterCondition waterCondition) {
         this.reportNumber = reportNumber;
         this.reportOwner = reportOwner;
@@ -47,7 +49,7 @@ public class WaterSourceReport {
      * @return the latitude of the location.
      */
     public double getLatitude() {
-        return location.getLatitude();
+        return location.latitude;
     }
 
     /**
@@ -55,14 +57,14 @@ public class WaterSourceReport {
      * @return the longitude of the location.
      */
     public double getLongitude() {
-        return location.getLongitude();
+        return location.longitude;
     }
 
     /**
      * Returns the Location object, containing the location of the report.
      * @return Location object containing the report's location
      */
-    public Location getLocation() {
+    public LatLng getLocation() {
         return location;
     }
 
