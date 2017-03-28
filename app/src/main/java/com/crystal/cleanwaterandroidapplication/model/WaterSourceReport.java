@@ -15,22 +15,33 @@ public class WaterSourceReport {
 
     private final int reportNumber;
     private final LatLng location;
-    private final Account reportOwner;
+    private final String reportOwnerUsername;
     private final WaterType waterType;
     private final WaterCondition waterCondition;
 
     /**
+     * Default constructor. Sets everything to null.
+     */
+    public WaterSourceReport() {
+        reportNumber = -1;
+        location = null;
+        reportOwnerUsername = null;
+        waterType = null;
+        waterCondition = null;
+    }
+
+    /**
      * Creates a WaterSourceReport.
      * @param reportNumber The report ID/Number that is unique to this report
-     * @param reportOwner The creator/owner of this water report.
+     * @param reportOwnerUsername The creator/owner of this water report.
      * @param location A Location object that is the report's location.
      * @param waterType The WaterType that the water is in the report
      * @param waterCondition The WaterCondition that the water is in the report.
      */
-    public WaterSourceReport(Integer reportNumber, Account reportOwner, LatLng location,
+    public WaterSourceReport(Integer reportNumber, String reportOwnerUsername, LatLng location,
                              WaterType waterType, WaterCondition waterCondition) {
         this.reportNumber = reportNumber;
-        this.reportOwner = reportOwner;
+        this.reportOwnerUsername = reportOwnerUsername;
         this.location = location;
         this.waterType = waterType;
         this.waterCondition = waterCondition;
@@ -85,21 +96,12 @@ public class WaterSourceReport {
     }
 
     /**
-     * Checks to see if an account is the owner of the report.
-     * @param account Account to check for report ownership
-     * @return True if account is the owner, false if not the owner.
-     */
-    public boolean isOwner(Account account) {
-        return account.equals(this.reportOwner);
-    }
-
-    /**
      * Checks to see if an username is the owner of the report
      * @param username username to check for report ownership
      * @return True if username is the owner, false if not the owner.
      */
     public boolean isOwner(String username) {
-        return username.equals(reportOwner.getUsername());
+        return username.equals(reportOwnerUsername);
     }
 
     /**
@@ -135,7 +137,7 @@ public class WaterSourceReport {
         String s = "";
         s += "Report Number: " + reportNumber + "\n";
         s += "Longitude: " + getLongitude() + " Latitude: " + getLatitude() + "\n";
-        s += "Owner: " + reportOwner.getUsername() + "\n";
+        s += "Owner: " + reportOwnerUsername + "\n";
         s += "Water Type: " + waterType + "\n";
         s += "Water Condition: " + waterCondition;
         return s;

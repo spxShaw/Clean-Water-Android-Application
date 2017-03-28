@@ -13,62 +13,105 @@
     tools:context="com.crystal.cleanwaterandroidapplication.controller.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <Button
-        android:text="Log Out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/LogOutButton" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:text="MainActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/submitReportButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="94dp" />
+        <Button
+            android:id="@+id/LogOutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="Log Out" />
 
-    <Button
-        android:text="Edit Profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
-        android:id="@+id/editProfile"
-        android:layout_below="@+id/LogOutButton"
-        android:layout_alignLeft="@+id/submitReportButton"
-        android:layout_alignStart="@+id/submitReportButton"
-        android:layout_alignRight="@+id/submitReportButton"
-        android:layout_alignEnd="@+id/submitReportButton" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1">
 
-    <Button
-        android:id="@+id/ViewReportButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="View Report"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <Button
-        android:text="Submit Report"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/submitReportButton"
-        android:layout_below="@+id/editProfile"
-        android:layout_centerHorizontal="true" />
+                <LinearLayout
+                    android:id="@+id/UserMainLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/ViewMapButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/submitReportButton"
-        android:layout_alignLeft="@+id/submitReportButton"
-        android:layout_alignRight="@+id/submitReportButton"
-        android:layout_alignStart="@+id/submitReportButton"
-        android:layout_below="@+id/submitReportButton"
-        android:text="View Map" />
+                    <Button
+                        android:id="@+id/EditProfileButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:text="Edit Profile" />
+
+                    <Button
+                        android:id="@+id/SubmitReportButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/ViewReportButton"
+                        android:layout_alignStart="@+id/ViewReportButton"
+                        android:layout_below="@+id/LogOutButton"
+                        android:text="Submit Report" />
+
+                    <Button
+                        android:id="@+id/ViewMapButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/SubmitReportButton"
+                        android:layout_alignLeft="@+id/SubmitReportButton"
+                        android:layout_alignRight="@+id/SubmitReportButton"
+                        android:layout_alignStart="@+id/SubmitReportButton"
+                        android:layout_below="@+id/SubmitReportButton"
+                        android:text="View Map" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/WorkerMainLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/SubmitWaterQualityReport"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Submit Water Quality Report" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ManagerMainLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"></LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/AdministratorMainLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"></LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/DeveloperMainLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"></LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
 
 </RelativeLayout>

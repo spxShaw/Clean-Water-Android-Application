@@ -39,19 +39,22 @@ public class WaterReportManager {
      * @param reportNumber reportNumber of report to retrieve.
      * @return Report that was retrieved, null if no report found
      */
-    public WaterSourceReport getReport(Integer reportNumber) {
-        return map.get(reportNumber);
+    public WaterSourceReport getReport(Integer reportNumber) throws ReportDoesNotExistException {
+        WaterSourceReport w = map.get(reportNumber);
+        if (w == null) {
+            throw new ReportDoesNotExistException("Cannot find report number: " + reportNumber);
+        } else {
+            return w;
+        }
     }
 
     public int getNextReportNumber() {
-        return nextReportNumber.intValue();
+        return nextReportNumber;
     }
 
     public void incrementReportNumber() {
         nextReportNumber += 1;
     }
 
-    public static HashMap<Integer, WaterSourceReport> getWaterReportHashMap() {
-        return map;
-    }
+
 }

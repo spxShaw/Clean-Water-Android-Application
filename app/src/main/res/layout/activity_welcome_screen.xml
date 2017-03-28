@@ -8,13 +8,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.crystal.cleanwaterandroidapplication.controller.WelcomeScreen">
+    tools:context="com.crystal.cleanwaterandroidapplication.controller.WelcomeActivity">
 
     <Button
         android:text="Sign In"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/SignInButton"
+        android:id="@+id/CancelSignInButton"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="157dp" />
@@ -23,9 +23,9 @@
         android:text="Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/SignInButton"
-        android:layout_alignRight="@+id/SignInButton"
-        android:layout_alignEnd="@+id/SignInButton"
+        android:layout_below="@+id/CancelSignInButton"
+        android:layout_alignRight="@+id/CancelSignInButton"
+        android:layout_alignEnd="@+id/CancelSignInButton"
         android:layout_marginTop="44dp"
         android:id="@+id/RegisterButton" />
 
