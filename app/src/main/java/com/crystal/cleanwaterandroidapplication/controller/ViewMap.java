@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Collection;
 
 public class ViewMap extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
@@ -53,10 +54,8 @@ public class ViewMap extends FragmentActivity implements GoogleMap.OnMarkerClick
         mMap = googleMap;
         //Iterates through the WaterReportManager Hashmap and adds a marker for each report.
         HashMap<Integer, WaterSourceReport> map = WaterReportManager.getWaterReportHashMap();
-        Iterator it = map.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            WaterSourceReport report = (WaterSourceReport) pair.getValue();
+        Collection<WaterSourceReport> collection = map.values();
+        for(WaterSourceReport report : collection) {
             if (report instanceof WaterQualityReport && AccountManager.getCurrentAccount().hasPermission(Permission.MANAGER)) {
                 Log.i("Location Log", report.getLocation().toString());
                 LatLng location = report.getLocation();
