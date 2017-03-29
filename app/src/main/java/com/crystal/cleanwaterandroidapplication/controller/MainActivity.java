@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     //UI References
     private Button logoutButton;
     private Button editProfileButton;
-    private Button viewReportButton;
+
     private Button submitReportButton;
     private Button viewMapButton;
     private Button submitWaterQualityReportButton;
@@ -40,10 +40,9 @@ public class MainActivity extends AppCompatActivity {
         /***** BUTTON SETUP *****/
         logoutButton = (Button) findViewById(R.id.LogOutButton);
         editProfileButton = (Button) findViewById(R.id.EditProfileButton);
-        viewReportButton = (Button) findViewById(R.id.ViewReportButton);
         submitReportButton = (Button) findViewById(R.id.SubmitReportButton);
         viewMapButton = (Button) findViewById(R.id.ViewMapButton);
-        submitWaterQualityReportButton = (Button) findViewById(R.id.SubmitWaterQualityReport);
+        submitWaterQualityReportButton = (Button) findViewById(R.id.SubmitWaterQualityReportButton);
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
 
@@ -59,15 +58,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        viewReportButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ViewReportsActivity.class);
                 startActivity(intent);
             }
         });

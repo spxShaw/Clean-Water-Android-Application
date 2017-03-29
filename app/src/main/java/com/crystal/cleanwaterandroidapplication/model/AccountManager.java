@@ -46,6 +46,7 @@ public class AccountManager {
         //TODO: Send info to database
         //TODO: Throw InvalidCredentialsException if credentials do not exist or are incorrect
         //TODO: Set currentAccount to the account object if that account exists
+        currentAccount = new Account(username, password, Permission.USER);
     }
 
     /**
@@ -299,16 +300,16 @@ public class AccountManager {
                     Account newAccount;
                     switch (jsonObject.getString("type")) {
                         case "ADMN":
-                            newAccount = new Administrator(jsonObject.getString("username"),jsonObject.getString("password"));
+                            newAccount = new Account(jsonObject.getString("username"),jsonObject.getString("password"),Permission.ADMINISTRATOR);
                             break;
                         case "MANG":
-                            newAccount = new Manager(jsonObject.getString("username"),jsonObject.getString("password"));
+                            newAccount = new Account(jsonObject.getString("username"),jsonObject.getString("password"),Permission.MANAGER);
                             break;
                         case "WORK":
-                            newAccount = new Worker(jsonObject.getString("username"),jsonObject.getString("password"));
+                            newAccount = new Account(jsonObject.getString("username"),jsonObject.getString("password"),Permission.WORKER);
                             break;
                         default:
-                            newAccount = new User(jsonObject.getString("username"),jsonObject.getString("password"));
+                            newAccount = new Account(jsonObject.getString("username"),jsonObject.getString("password"),Permission.USER);
                             break;
                     }
                     newAccount.setAccountID(new Integer(jsonObject.getString("ID")));

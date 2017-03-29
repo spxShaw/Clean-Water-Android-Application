@@ -95,7 +95,14 @@
                     android:id="@+id/ManagerMainLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/ViewWaterQualityReportButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="View Water Quality Reports" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/AdministratorMainLayout"

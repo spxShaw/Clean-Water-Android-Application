@@ -34,7 +34,7 @@ public class SubmitReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_submit_report);
 
         //Point UI reference objects to their proper items.
-        ReportID = (TextView) findViewById(R.id.ReportID);
+        //ReportID = (TextView) findViewById(R.id.ReportID);
         SubmitReport = (Button) findViewById(R.id.MakeReportButton);
         WaterTypeSpinner = (Spinner) findViewById(R.id.WaterTypeSpinner);
         WaterConditionSpinner = (Spinner) findViewById(R.id.WaterConditionSpinner);
