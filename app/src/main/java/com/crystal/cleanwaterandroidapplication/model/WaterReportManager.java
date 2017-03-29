@@ -167,16 +167,18 @@ public class WaterReportManager {
                 Integer reportNumber = (jsonObject2.getInt("ID"));
                 String reportOwner = jsonObject2.getString("owner");
                 LatLng location = new LatLng(jsonObject2.getDouble("lat"), jsonObject2.getDouble("lon"));
+                Log.i("watertype", jsonObject2.getString("watertype"));
                 WaterType waterType = WaterType.valueOf(jsonObject2.getString("watertype"));
+                Log.i("watercondition", jsonObject2.getString("watercondition"));
                 WaterCondition waterCondition = WaterCondition.valueOf(jsonObject2.getString("watercondition"));
-                Double virusPPM = jsonObject2.getDouble("virus");
-                Double contamPPM = jsonObject2.getDouble("contam");
+                Double virusPPM = jsonObject2.getDouble("virusppm");
+                Double contamPPM = jsonObject2.getDouble("contamppm");
                 WaterSourceReport report = new WaterQualityReport(reportNumber, reportOwner, location, waterType, waterCondition, virusPPM, contamPPM);
                 newHashMap.put(new Integer(jsonObject2.getString("ID")), report);
             }
             map = newHashMap;
         } catch (Exception E) {
-            Log.e("Error", E.toString());
+            Log.e("Report Error", E.toString());
         }
     }
 }
