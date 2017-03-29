@@ -1,6 +1,7 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.WaterCondition;
+import com.crystal.cleanwaterandroidapplication.model.WaterReportManager;
 import com.crystal.cleanwaterandroidapplication.model.WaterType;
 
 
@@ -58,11 +60,24 @@ public class SubmitQualityReportActivity extends AppCompatActivity {
                 String waterCondition = ((WaterCondition) WaterConditionSpinner.getSelectedItem()).name();
                 String latitude = LatitudeTextView.getText().toString();
                 String longitude = LongitudeTextView.getText().toString();
-                new SubmitReportActivity.AddReportTask().execute(waterType, waterCondition, latitude, longitude);
+                String virusPPM = VirusPPMView.getText().toString();
+                String contamPPM = ContaminantPPMView.getText().toString();
+                new AddQualityReportTask().execute(waterType, waterCondition, latitude, longitude,
+                        virusPPM, contamPPM);
 
-                Intent intent = new Intent(SubmitReportActivity.this, MainActivity.class);
+                Intent intent = new Intent(SubmitQualityReportActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+    }
+
+    class AddQualityReportTask extends AsyncTask<String, String, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            boolean success = WaterReportManager.addQualityReport(params[0], params[1], params[2],
+                    params[3], params[4], params[5]);
+            return "Task Completed.";
+        }
+
     }
 }

@@ -57,6 +57,7 @@ public class WaterReportManager {
     public static boolean addReport(String waterType, String waterCondition, String latitude, String longitude) {
         updateReports();
         try {
+            //TODO: add owner
             URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/addreport.php");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(5000);
@@ -70,6 +71,39 @@ public class WaterReportManager {
                     + "=" + URLEncoder.encode(latitude, "UTF-8");
             data += "&" + URLEncoder.encode("lon", "UTF-8")
                     + "=" + URLEncoder.encode(longitude, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            updateReports();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean addQualityReport(String waterType, String waterCondition, String latitude,
+                                           String longitude, String virusPPM, String contamPPM) {
+        updateReports();
+        try {
+            //TODO: add owner
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/addqualityreport.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("wt", "UTF-8")
+                    + "=" + URLEncoder.encode(waterType, "UTF-8");
+            data += "&" + URLEncoder.encode("wc", "UTF-8") + "="
+                    + URLEncoder.encode(waterCondition, "UTF-8");
+            data += "&" + URLEncoder.encode("lat", "UTF-8")
+                    + "=" + URLEncoder.encode(latitude, "UTF-8");
+            data += "&" + URLEncoder.encode("lon", "UTF-8")
+                    + "=" + URLEncoder.encode(longitude, "UTF-8");
+            data += "&" + URLEncoder.encode("contamppm", "UTF-8")
+                    + "=" + URLEncoder.encode(contamPPM, "UTF-8");
+            data += "&" + URLEncoder.encode("virusppm", "UTF-8")
+                    + "=" + URLEncoder.encode(virusPPM, "UTF-8");
             writer.write(data);
             writer.close();
             InputStream stream = connection.getInputStream();
@@ -119,8 +153,28 @@ public class WaterReportManager {
                 WaterCondition waterCondition = WaterCondition.valueOf(jsonObject.getString("watercondition"));
                 WaterSourceReport report = new WaterSourceReport(reportNumber, reportOwner, location, waterType, waterCondition);
                 newHashMap.put(new Integer(jsonObject.getString("ID")), report);
-                map = newHashMap;
             }
+            URL url2 = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/loadqualityreport.php");
+            HttpURLConnection connection2 = (HttpURLConnection) url2.openConnection();
+            connection2.setConnectTimeout(5000);
+            connection2.setDoOutput(true);
+            InputStream stream2 = connection2.getInputStream();
+            BufferedReader br2 = new BufferedReader(new InputStreamReader(stream2));
+            String jsonString2 = br2.readLine();
+            JSONArray myjsonarray2 = new JSONArray(jsonString2);
+            for (int i = 0; i < myjsonarray2.length(); i++) {
+                JSONObject jsonObject2 = myjsonarray2.getJSONObject(i);
+                Integer reportNumber = (jsonObject2.getInt("ID"));
+                String reportOwner = jsonObject2.getString("owner");
+                LatLng location = new LatLng(jsonObject2.getDouble("lat"), jsonObject2.getDouble("lon"));
+                WaterType waterType = WaterType.valueOf(jsonObject2.getString("watertype"));
+                WaterCondition waterCondition = WaterCondition.valueOf(jsonObject2.getString("watercondition"));
+                Double virusPPM = jsonObject2.getDouble("virus");
+                Double contamPPM = jsonObject2.getDouble("contam");
+                WaterSourceReport report = new WaterQualityReport(reportNumber, reportOwner, location, waterType, waterCondition, virusPPM, contamPPM);
+                newHashMap.put(new Integer(jsonObject2.getString("ID")), report);
+            }
+            map = newHashMap;
         } catch (Exception E) {
             Log.e("Error", E.toString());
         }
