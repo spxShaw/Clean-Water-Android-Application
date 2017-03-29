@@ -26,7 +26,7 @@ public class SplashScreen extends Activity {
                 } catch(InterruptedException e){
                     e.printStackTrace();
                 } finally {
-                    Intent intent = new Intent(SplashScreen.this, WelcomeScreen.class);
+                    Intent intent = new Intent(SplashScreen.this, WelcomeActivity.class);
                     startActivity(intent);
                 }
             }

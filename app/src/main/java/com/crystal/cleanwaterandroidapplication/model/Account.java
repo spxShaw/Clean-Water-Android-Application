@@ -7,20 +7,17 @@ import java.util.Date;
 /**
  * The Account object stores everything a basic account needs to know about itself.
  * This includes its username, password, accountID, and basic bio information. For now,
- * username and password are stored locally, in a basic String object.
+ * username and password are stored locally on the Account object, in a basic String format.
  * @author Team 62
- * @see User
- * @see Manager
- * @see Worker
- * @see Administrator
  */
-public abstract class Account {
+public class Account {
     private String username;
     private String password;
     private String firstName, middleName, lastName;
     private String email;
     private Date birthday;
     private int accountID;
+    private Permission accountPermission;
 
     private Account() {
         firstName = "";
@@ -32,14 +29,16 @@ public abstract class Account {
     }
 
     /**
-     * Creates an account, given a username and password.
-     * @param username username of account to create
-     * @param password password of account to create
+     * Creates an account, given a username, password, and permission status.
+     * @param username username of account
+     * @param password password of account
+     * @param accountPermission permission that the account has.
      */
-    public Account(String username, String password) {
+    public Account(String username, String password, Permission accountPermission) {
         this();
         this.username = username;
         this.password = password;
+        this.accountPermission = accountPermission;
     }
 
     /**
@@ -61,7 +60,7 @@ public abstract class Account {
     /**
      * Gets the account holders full name. Returns in for the format:
      * 'FirstName' 'MiddleName' 'LastName'. If the name field is empty, replaces
-     * with "N/A"
+     * with "N/A", unless it is the middle name, in which it replaces it with nothing
      * @return The full name of the account holder
      */
     public String getFullName() {
@@ -72,7 +71,7 @@ public abstract class Account {
             firstNameReturn = "N/A";
         }
         if(middleName.equals("")) {
-            middleNameReturn = "N/A";
+            middleNameReturn = "";
         }
         if (lastName.equals("")) {
             lastNameReturn = "N/A";
@@ -149,6 +148,14 @@ public abstract class Account {
     }
 
     /**
+     * Gets the account's permission.
+     * @return The account's permission.
+     */
+    public Permission getAccountPermission() {
+        return accountPermission;
+    }
+
+    /**
      * Sets the accounts username.
      * @param username The username to change the account's username too.
      */
@@ -168,30 +175,6 @@ public abstract class Account {
             password = "";
         }
         this.password = password;
-    }
-
-    /**
-     * Sets the account's full name.
-     * @param firstName The first name to change the account's name too.
-     * @param middleName The middle name to change the account's name too.
-     * @param lastName The last name to change the account's name too.
-     */
-    void setName(String firstName, String middleName, String lastName) {
-        if(firstName == null) {
-            this.firstName = "";
-        } else {
-            this.firstName = firstName;
-        }
-        if(middleName == null) {
-            this.middleName = "";
-        } else {
-            this.middleName = middleName;
-        }
-        if(lastName == null) {
-            this.lastName = "";
-        } else {
-            this.lastName = lastName;
-        }
     }
 
     /**
@@ -272,6 +255,16 @@ public abstract class Account {
         this.accountID = accountID;
     }
 
+    /**
+     * Determines whether this account has the permission given. As a reminder, USER is least
+     * permission, while DEVELOPER is greatest permission
+     * @param permission Permission to check if account has
+     * @return True if account has the permission, false if it does not.
+     */
+    public boolean hasPermission(Permission permission) {
+        return accountPermission.compareTo(permission) >= 0;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null) {
@@ -294,6 +287,7 @@ public abstract class Account {
         s += "Username: " + getUsername() + " ";
         s += "Name: " + getFullName() + " ";
         s += "Account ID: " + getAccountID() + " ";
+        s += "Permission: " + getAccountPermission() + " ";
         return s;
     }
 }
