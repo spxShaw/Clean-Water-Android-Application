@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         viewReportButton = (Button) findViewById(R.id.ViewReportButton);
         submitReportButton = (Button) findViewById(R.id.SubmitReportButton);
         viewMapButton = (Button) findViewById(R.id.ViewMapButton);
-        submitWaterQualityReportButton = (Button) findViewById(R.id.SubmitWaterQualityReport);
+        submitWaterQualityReportButton = (Button) findViewById(R.id.SubmitWaterQualityReportButton);
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
 
