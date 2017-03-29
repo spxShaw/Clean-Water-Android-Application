@@ -85,7 +85,7 @@
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/SubmitWaterQualityReport"
+                        android:id="@+id/SubmitWaterQualityReportButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Submit Water Quality Report" />
