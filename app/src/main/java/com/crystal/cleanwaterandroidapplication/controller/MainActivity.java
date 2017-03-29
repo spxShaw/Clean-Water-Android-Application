@@ -17,10 +17,10 @@ public class MainActivity extends AppCompatActivity {
     //UI References
     private Button logoutButton;
     private Button editProfileButton;
-
     private Button submitReportButton;
     private Button viewMapButton;
     private Button submitWaterQualityReportButton;
+    private Button viewWaterQualityReportButton;
     private View userMainLayout;
     private View workerMainLayout;
     private View managerMainLayout;
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         submitReportButton = (Button) findViewById(R.id.SubmitReportButton);
         viewMapButton = (Button) findViewById(R.id.ViewMapButton);
         submitWaterQualityReportButton = (Button) findViewById(R.id.SubmitWaterQualityReportButton);
+        viewWaterQualityReportButton = (Button) findViewById(R.id.ViewWaterQualityReportButton);
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
 
@@ -81,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
         submitWaterQualityReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                Intent intent = new Intent(MainActivity.this, SubmitQualityReportActivity.class);
+                startActivity(intent);
             }
         });
 

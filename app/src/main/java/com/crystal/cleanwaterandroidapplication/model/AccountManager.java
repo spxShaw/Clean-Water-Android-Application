@@ -46,7 +46,7 @@ public class AccountManager {
         //TODO: Send info to database
         //TODO: Throw InvalidCredentialsException if credentials do not exist or are incorrect
         //TODO: Set currentAccount to the account object if that account exists
-        currentAccount = new Account(username, password, Permission.USER);
+        currentAccount = new Account(username, password, Permission.ADMINISTRATOR);
     }
 
     /**
