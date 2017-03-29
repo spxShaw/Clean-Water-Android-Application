@@ -37,9 +37,9 @@ public class ViewReportsActivity extends AppCompatActivity {
         backButton = (Button) findViewById(R.id.backButtonReports);
 
         Collection<Integer> reportNumbers = new ArrayList<>();
-        for(int i = 1000000; i < waterReportManager.getNextReportNumber(); i++) {
-            reportNumbers.add(new Integer(i));
-        }
+        //for(int i = 1000000; i < waterReportManager.getNextReportNumber(); i++) {
+        //    reportNumbers.add(new Integer(i));
+        //}
 
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item);
         adapter.addAll(reportNumbers);

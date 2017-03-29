@@ -100,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
 
         private final String username;
         private final String password;
-        private final AccountManager accountManager = new AccountManager();
 
         UserLoginTask(String username, String password) {
             this.username = username;
@@ -111,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void ... params) {
             try {
                 //Attempt to login the account
-                accountManager.login(username, password);
+                AccountManager.login(username, password);
             } catch (InvalidCredentialsException e) {
                 //Login failed
                 return false;
