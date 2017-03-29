@@ -1,22 +1,19 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Button;
 
 import com.crystal.cleanwaterandroidapplication.R;
-import com.crystal.cleanwaterandroidapplication.model.WaterReportManager;
-import com.crystal.cleanwaterandroidapplication.model.WaterSourceReport;
-import com.crystal.cleanwaterandroidapplication.model.WaterType;
 import com.crystal.cleanwaterandroidapplication.model.WaterCondition;
+import com.crystal.cleanwaterandroidapplication.model.WaterReportManager;
+import com.crystal.cleanwaterandroidapplication.model.WaterType;
 
 public class SubmitReportActivity extends AppCompatActivity {
 
@@ -25,8 +22,8 @@ public class SubmitReportActivity extends AppCompatActivity {
     private Button SubmitReport;
     private Spinner WaterTypeSpinner;
     private Spinner WaterConditionSpinner;
-    private Spinner LatitudeSpinner;
-    private Spinner LongitudeSpinner;
+    private TextView LatitudeTextView;
+    private TextView LongitudeTextView;
 
     //Reference to WaterReportManager
     private WaterReportManager waterReportManager = new WaterReportManager();
@@ -41,11 +38,11 @@ public class SubmitReportActivity extends AppCompatActivity {
         SubmitReport = (Button) findViewById(R.id.MakeReportButton);
         WaterTypeSpinner = (Spinner) findViewById(R.id.WaterTypeSpinner);
         WaterConditionSpinner = (Spinner) findViewById(R.id.WaterConditionSpinner);
-        LatitudeSpinner = (Spinner) findViewById(R.id.LatitudeSpinner);
-        LongitudeSpinner = (Spinner) findViewById(R.id.LongitudeSpinner);
+        LatitudeTextView = (TextView) findViewById(R.id.LatitudeTextView);
+        LongitudeTextView = (TextView) findViewById(R.id.LongitudeTextView);
 
         //Display ReportID in its TextView
-        ReportID.setText("" + waterReportManager.getNextReportNumber());
+        //ReportID.setText("" + waterReportManager.getNextReportNumber());
 
         //Setup WaterTypeSpinner
         ArrayAdapter<WaterType> WaterTypeSpinnerAdapter = new ArrayAdapter<WaterType>(this, android.R.layout.simple_spinner_item);
@@ -53,7 +50,7 @@ public class SubmitReportActivity extends AppCompatActivity {
         WaterTypeSpinner.setAdapter(WaterTypeSpinnerAdapter);
 
         //Setup WaterConditionSpinner
-        ArrayAdapter<WaterCondition> WaterConditionSpinnerAdapter = new ArrayAdapter<WaterCondition>(this, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<WaterCondition> WaterConditionSpinnerAdapter = new ArrayAdapter<WaterCondition>(this, android.R.layout.simple_spinner_item);
         WaterConditionSpinnerAdapter.addAll(WaterCondition.getWaterConditionCollection());
         WaterConditionSpinner.setAdapter(WaterConditionSpinnerAdapter);
 
@@ -64,16 +61,25 @@ public class SubmitReportActivity extends AppCompatActivity {
         SubmitReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //waterReportManager.addReport(new WaterSourceReport(waterReportManager.getNextReportNumber()));
-                waterReportManager.incrementReportNumber();
-
-
-
+                String waterType = ((WaterType) WaterTypeSpinner.getSelectedItem()).toString();
+                String waterCondition = ((WaterCondition) WaterConditionSpinner.getSelectedItem()).toString();
+                String latitude = LatitudeTextView.getText().toString();
+                String longitude = LongitudeTextView.getText().toString();
+                new AddReportTask().execute(waterType, waterCondition, latitude, longitude);
 
                 Intent intent = new Intent(SubmitReportActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+
+    }
+
+    class AddReportTask extends AsyncTask<String, String, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            boolean success = WaterReportManager.addReport(params[0], params[1], params[2], params[3]);
+            return "Task Completed.";
+        }
 
     }
 

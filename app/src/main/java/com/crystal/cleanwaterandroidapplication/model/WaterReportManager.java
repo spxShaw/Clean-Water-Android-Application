@@ -2,14 +2,18 @@ package com.crystal.cleanwaterandroidapplication.model;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 
 /**
@@ -20,7 +24,6 @@ import java.util.HashMap;
  */
 public class WaterReportManager {
     private static HashMap<Integer, WaterSourceReport> map = new HashMap<>();
-    private static Integer nextReportNumber = 1000000; //TODO this should be done better.
 
     /**
      * Creates a WaterReportManager. Nothing special about it.
@@ -36,11 +39,42 @@ public class WaterReportManager {
      * @return True if successful, false if not.
      */
     public boolean addReport(WaterSourceReport report) {
-        if(map.containsKey(report.getReportNumber())) {
-            return false;
-        } else {
-            map.put(report.getReportNumber(),report);
+        return addReport(report.getWaterType().toString(), report.getWaterCondition().toString(),
+                new Double(report.getLongitude()).toString(),
+                new Double(report.getLatitude()).toString());
+    }
+
+    /**
+     * Adds a WaterSourceReport to the map. Returns true if successfully added, false if
+     * that report ID already exists and report cannot be added.
+     *
+     * @param report WaterSourceReport to add.
+     * @return True if successful, false if not.
+     */
+    public static boolean addReport(String waterType, String waterCondition, String latitude, String longitude) {
+        updateReports();
+        try {
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/adduser.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("wt", "UTF-8")
+                    + "=" + URLEncoder.encode(waterType, "UTF-8");
+            data += "&" + URLEncoder.encode("wc", "UTF-8") + "="
+                    + URLEncoder.encode(waterCondition, "UTF-8");
+            data += "&" + URLEncoder.encode("lat", "UTF-8")
+                    + "=" + URLEncoder.encode(latitude, "UTF-8");
+            data += "&" + URLEncoder.encode("lon", "UTF-8")
+                    + "=" + URLEncoder.encode(longitude, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            updateReports();
             return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 
@@ -48,7 +82,7 @@ public class WaterReportManager {
      * Retrieves the report specified by reportNumber.
      * @param reportNumber reportNumber of report to retrieve.
      * @return Report that was retrieved, null if no report found
-     */
+     *
     public WaterSourceReport getReport(Integer reportNumber) throws ReportDoesNotExistException {
         WaterSourceReport w = map.get(reportNumber);
         if (w == null) {
@@ -57,7 +91,7 @@ public class WaterReportManager {
             return w;
         }
     }
-
+     */
     public static HashMap<Integer, WaterSourceReport> getWaterReportHashMap() {
         return map;
     }
@@ -76,7 +110,7 @@ public class WaterReportManager {
             for (int i = 0; i < myjsonarray.length(); i++) {
                 JSONObject jsonObject = myjsonarray.getJSONObject(i);
                 Integer reportNumber = (jsonObject.getInt("ID"));
-                Account reportOwner = new AccountManager().getAccountByUsername(jsonObject.getString("owner"));
+                String reportOwner = jsonObject.getString("owner");
                 LatLng location = new LatLng(jsonObject.getDouble("lat"), jsonObject.getDouble("lon"));
                 WaterType waterType = WaterType.valueOf(jsonObject.getString("watertype"));
                 WaterCondition waterCondition = WaterCondition.valueOf(jsonObject.getString("watercondition"));

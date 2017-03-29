@@ -1,14 +1,15 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
 //import android.support.v7.app.AppCompatActivity;
-import android.os.AsyncTask;
-import android.os.Bundle;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
 
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.AccountManager;
+import com.crystal.cleanwaterandroidapplication.model.WaterReportManager;
 
 
 public class SplashScreen extends Activity {
@@ -39,6 +40,7 @@ public class SplashScreen extends Activity {
         @Override
         protected String doInBackground(Integer... params) {
             AccountManager.updateAccounts();
+            WaterReportManager.updateReports();
             return "Task Completed.";
         }
     }

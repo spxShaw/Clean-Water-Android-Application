@@ -1,13 +1,13 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.WaterReportManager;
 import com.crystal.cleanwaterandroidapplication.model.WaterSourceReport;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -48,14 +48,14 @@ public class ViewMap extends FragmentActivity implements GoogleMap.OnMarkerClick
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         //Iterates through the WaterReportManager Hashmap and adds a marker for each report.
         HashMap<Integer, WaterSourceReport> map = WaterReportManager.getWaterReportHashMap();
         Iterator it = map.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             WaterSourceReport report = (WaterSourceReport) pair.getValue();
-            LatLng location = new LatLng(report.getLatitude(), report.getLongitude());
+            Log.i("Location Log", report.getLocation().toString());
+            LatLng location = report.getLocation();
             mMap.addMarker(new MarkerOptions().position(location).title("Water Report"));
         }
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
@@ -75,7 +75,7 @@ public class ViewMap extends FragmentActivity implements GoogleMap.OnMarkerClick
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             WaterSourceReport report = (WaterSourceReport) pair.getValue();
-            if (report.getLatitude() == location.latitude && report.getLongitude() == location.longitude) {
+            if (report.getLocation().equals(location)) {
                 Intent intent = new Intent(ViewMap.this, ViewReportsActivity.class);
                 startActivity(intent);
             }
