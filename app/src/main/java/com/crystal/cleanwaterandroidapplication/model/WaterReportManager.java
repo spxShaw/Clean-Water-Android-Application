@@ -1,5 +1,15 @@
 package com.crystal.cleanwaterandroidapplication.model;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -48,13 +58,34 @@ public class WaterReportManager {
         }
     }
 
-    public int getNextReportNumber() {
-        return nextReportNumber;
+    public static HashMap<Integer, WaterSourceReport> getWaterReportHashMap() {
+        return map;
     }
 
-    public void incrementReportNumber() {
-        nextReportNumber += 1;
+    public static void updateReports() {
+        try {
+            HashMap<Integer, WaterSourceReport> newHashMap = new HashMap<>();
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/loadreport.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            String jsonString = br.readLine();
+            JSONArray myjsonarray = new JSONArray(jsonString);
+            for (int i = 0; i < myjsonarray.length(); i++) {
+                JSONObject jsonObject = myjsonarray.getJSONObject(i);
+                Integer reportNumber = (jsonObject.getInt("ID"));
+                Account reportOwner = new AccountManager().getAccountByUsername(jsonObject.getString("owner"));
+                LatLng location = new LatLng(jsonObject.getDouble("lat"), jsonObject.getDouble("lon"));
+                WaterType waterType = WaterType.valueOf(jsonObject.getString("watertype"));
+                WaterCondition waterCondition = WaterCondition.valueOf(jsonObject.getString("watercondition"));
+                WaterSourceReport report = new WaterSourceReport(reportNumber, reportOwner, location, waterType, waterCondition);
+                newHashMap.put(new Integer(jsonObject.getString("ID")), report);
+                map = newHashMap;
+            }
+        } catch (Exception E) {
+            Log.e("Error", E.toString());
+        }
     }
-
-
 }
