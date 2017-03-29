@@ -55,7 +55,7 @@ public class ViewMap extends FragmentActivity implements GoogleMap.OnMarkerClick
         //Iterates through the WaterReportManager Hashmap and adds a marker for each report.
         HashMap<Integer, WaterSourceReport> map = WaterReportManager.getWaterReportHashMap();
         Collection<WaterSourceReport> collection = map.values();
-        for(WaterSourceReport report: collection) {
+        for(WaterSourceReport report : collection) {
             if (report instanceof WaterQualityReport && AccountManager.getCurrentAccount().hasPermission(Permission.MANAGER)) {
                 Log.i("Location Log", report.getLocation().toString());
                 LatLng location = report.getLocation();
