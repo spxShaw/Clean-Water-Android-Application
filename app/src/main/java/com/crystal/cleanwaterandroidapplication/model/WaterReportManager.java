@@ -48,7 +48,10 @@ public class WaterReportManager {
      * Adds a WaterSourceReport to the map. Returns true if successfully added, false if
      * that report ID already exists and report cannot be added.
      *
-     * @param report WaterSourceReport to add.
+     * @param waterType the type of the water being added
+     * @param waterCondition is the condition of the water being added
+     * @param latitude the latitude of the water report
+     * @param longitude the longitude of the water report
      * @return True if successful, false if not.
      */
     public static boolean addReport(String waterType, String waterCondition, String latitude, String longitude) {
@@ -82,7 +85,7 @@ public class WaterReportManager {
      * Retrieves the report specified by reportNumber.
      * @param reportNumber reportNumber of report to retrieve.
      * @return Report that was retrieved, null if no report found
-     *
+     */
     public WaterSourceReport getReport(Integer reportNumber) throws ReportDoesNotExistException {
         WaterSourceReport w = map.get(reportNumber);
         if (w == null) {
@@ -91,7 +94,7 @@ public class WaterReportManager {
             return w;
         }
     }
-     */
+
     public static HashMap<Integer, WaterSourceReport> getWaterReportHashMap() {
         return map;
     }
