@@ -61,8 +61,8 @@ public class SubmitReportActivity extends AppCompatActivity {
         SubmitReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String waterType = ((WaterType) WaterTypeSpinner.getSelectedItem()).toString();
-                String waterCondition = ((WaterCondition) WaterConditionSpinner.getSelectedItem()).toString();
+                String waterType = ((WaterType) WaterTypeSpinner.getSelectedItem()).name();
+                String waterCondition = ((WaterCondition) WaterConditionSpinner.getSelectedItem()).name();
                 String latitude = LatitudeTextView.getText().toString();
                 String longitude = LongitudeTextView.getText().toString();
                 new AddReportTask().execute(waterType, waterCondition, latitude, longitude);
