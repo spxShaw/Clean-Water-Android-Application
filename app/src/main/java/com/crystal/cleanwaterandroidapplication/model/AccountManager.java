@@ -37,6 +37,62 @@ public class AccountManager {
     }
 
     /**
+     *
+     * @param username
+     * @param password
+     * @throws InvalidCredentialsException
+     */
+    public static void login(String username, String password) throws InvalidCredentialsException {
+        //TODO: Send info to database
+        //TODO: Throw InvalidCredentialsException if credentials do not exist or are incorrect
+        //TODO: Set currentAccount to the account object if that account exists
+    }
+
+    /**
+     *
+     * @param account
+     * @return
+     */
+    public static boolean addAccount(Account account) {
+        if (account == null) {
+            return false;
+        }
+
+        if (!usernameExists(account.getUsername())) {
+            //TODO: Add this account to the database.
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
+    private static boolean usernameExists(String username) {
+        //TODO: Check database for username, return true if exists, false if it doesn't
+        return false;
+    }
+
+    public static void removeAccount(Account account) {
+
+    }
+
+    public static void updateAccount(Account account) {
+
+    }
+
+    /**
+     * Gets the current logged in account.
+     * @return the account currently logged in.
+     */
+    public static Account getCurrentAccount() {
+        return currentAccount;
+    }
+
+    /**
      * Returns a Collection of all the accounts in the map
      * @return Collection containing all accounts.
      */
@@ -217,35 +273,11 @@ public class AccountManager {
     }
 
     /**
-     * Sets the current Account to whatever account matches the given credentials. If no account
-     * is found, throws an InvalidCredentialsException. All logins should be done through here.
-     * @param username Username of account
-     * @param password Password of account
-     * @return The Account that is logged in and set as the current account.
-     * @throws InvalidCredentialsException Thrown if the username/password combo is invalid
-     */
-    public Account login(String username, String password) throws InvalidCredentialsException {
-        if (validCredentials(username, password)) {
-            setCurrentAccount(map.get(username));
-            return map.get(username);
-        }
-        throw new InvalidCredentialsException("Account not found, incorrect username or password.");
-    }
-
-    /**
      * Sets the Account that is currently logged in to account
      * @param account Account to set as current logged in account
      */
     public void setCurrentAccount(Account account) {
         currentAccount = account;
-    }
-
-    /**
-     * Gets the Account that is currently logged in.
-     * @return current Account that is logged in
-     */
-    public Account getCurrentAccount() {
-        return currentAccount;
     }
 
     /**

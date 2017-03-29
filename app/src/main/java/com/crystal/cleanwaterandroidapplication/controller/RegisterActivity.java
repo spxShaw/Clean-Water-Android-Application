@@ -17,10 +17,6 @@ import android.text.Editable;
 
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.Account;
-import com.crystal.cleanwaterandroidapplication.model.User;
-import com.crystal.cleanwaterandroidapplication.model.Worker;
-import com.crystal.cleanwaterandroidapplication.model.Manager;
-import com.crystal.cleanwaterandroidapplication.model.Administrator;
 import com.crystal.cleanwaterandroidapplication.model.AccountManager;
 import com.google.android.gms.auth.account.WorkAccountApi;
 
