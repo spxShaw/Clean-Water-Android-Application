@@ -54,7 +54,7 @@ public class WaterReportManager {
     public static boolean addReport(String waterType, String waterCondition, String latitude, String longitude) {
         updateReports();
         try {
-            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/adduser.php");
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/addreport.php");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(5000);
             connection.setDoOutput(true);
