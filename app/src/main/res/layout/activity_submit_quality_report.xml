@@ -65,7 +65,32 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="numberSigned" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Virus PPM" />
+
+            <EditText
+                android:id="@+id/VirusPPMView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contaminant PPM" />
+
+            <EditText
+                android:id="@+id/ContaminantPPMView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

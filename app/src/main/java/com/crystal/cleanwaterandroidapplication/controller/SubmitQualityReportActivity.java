@@ -15,7 +15,8 @@ import com.crystal.cleanwaterandroidapplication.model.WaterCondition;
 import com.crystal.cleanwaterandroidapplication.model.WaterReportManager;
 import com.crystal.cleanwaterandroidapplication.model.WaterType;
 
-public class SubmitReportActivity extends AppCompatActivity {
+
+public class SubmitQualityReportActivity extends AppCompatActivity {
 
     //UI Reference
     private TextView ReportID;
@@ -24,25 +25,22 @@ public class SubmitReportActivity extends AppCompatActivity {
     private Spinner WaterConditionSpinner;
     private TextView LatitudeTextView;
     private TextView LongitudeTextView;
+    private TextView VirusPPMView;
+    private TextView ContaminantPPMView;
 
-    //Reference to WaterReportManager
-    private WaterReportManager waterReportManager = new WaterReportManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_submit_report);
+        setContentView(R.layout.activity_submit_quality_report);
 
-        //Point UI reference objects to their proper items.
-        //ReportID = (TextView) findViewById(R.id.ReportID);
         SubmitReport = (Button) findViewById(R.id.MakeReportButton);
         WaterTypeSpinner = (Spinner) findViewById(R.id.WaterTypeSpinner);
         WaterConditionSpinner = (Spinner) findViewById(R.id.WaterConditionSpinner);
         LatitudeTextView = (TextView) findViewById(R.id.LatitudeTextView);
         LongitudeTextView = (TextView) findViewById(R.id.LongitudeTextView);
-
-        //Display ReportID in its TextView
-        //ReportID.setText("" + waterReportManager.getNextReportNumber());
+        VirusPPMView = (TextView) findViewById(R.id.VirusPPMView);
+        ContaminantPPMView = (TextView) findViewById(R.id.ContaminantPPMView);
 
         //Setup WaterTypeSpinner
         ArrayAdapter<WaterType> WaterTypeSpinnerAdapter = new ArrayAdapter<WaterType>(this, android.R.layout.simple_spinner_item);
@@ -54,9 +52,6 @@ public class SubmitReportActivity extends AppCompatActivity {
         WaterConditionSpinnerAdapter.addAll(WaterCondition.getWaterConditionCollection());
         WaterConditionSpinner.setAdapter(WaterConditionSpinnerAdapter);
 
-
-
-
         //Setup submit report button
         SubmitReport.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,22 +60,24 @@ public class SubmitReportActivity extends AppCompatActivity {
                 String waterCondition = ((WaterCondition) WaterConditionSpinner.getSelectedItem()).name();
                 String latitude = LatitudeTextView.getText().toString();
                 String longitude = LongitudeTextView.getText().toString();
-                new AddReportTask().execute(waterType, waterCondition, latitude, longitude);
+                String virusPPM = VirusPPMView.getText().toString();
+                String contamPPM = ContaminantPPMView.getText().toString();
+                new AddQualityReportTask().execute(waterType, waterCondition, latitude, longitude,
+                        virusPPM, contamPPM);
 
-                Intent intent = new Intent(SubmitReportActivity.this, MainActivity.class);
+                Intent intent = new Intent(SubmitQualityReportActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
-
     }
 
-    class AddReportTask extends AsyncTask<String, String, String> {
+    class AddQualityReportTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params) {
-            boolean success = WaterReportManager.addReport(params[0], params[1], params[2], params[3]);
+            boolean success = WaterReportManager.addQualityReport(params[0], params[1], params[2],
+                    params[3], params[4], params[5]);
             return "Task Completed.";
         }
 
     }
-
 }

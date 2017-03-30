@@ -80,6 +80,10 @@
         <activity
             android:name=".controller.ViewMap"
             android:label="@string/title_activity_view_map"></activity>
+        <activity
+            android:name=".controller.SubmitQualityReportActivity"
+            android:label="@string/title_activity_submit_report"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -46,7 +46,7 @@ public class AccountManager {
         //TODO: Send info to database
         //TODO: Throw InvalidCredentialsException if credentials do not exist or are incorrect
         //TODO: Set currentAccount to the account object if that account exists
-        currentAccount = new Account(username, password, Permission.USER);
+        currentAccount = new Account(username, password, Permission.ADMINISTRATOR);
     }
 
     /**
@@ -297,7 +297,6 @@ public class AccountManager {
                 JSONArray myjsonarray = new JSONArray(jsonString);
                 for (int i = 0; i < myjsonarray.length(); i++){
                     JSONObject jsonObject = myjsonarray.getJSONObject(i);
-                    Log.i("JSON Object", jsonObject.toString());
                     Account newAccount;
                     switch (jsonObject.getString("type")) {
                         case "ADMN":
@@ -314,7 +313,6 @@ public class AccountManager {
                             break;
                     }
                     newAccount.setAccountID(new Integer(jsonObject.getString("ID")));
-                    Log.i("New Account", newAccount.toString());
                     newHashMap.put(jsonObject.getString("username"),newAccount);
                     map = newHashMap;
                 }

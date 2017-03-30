@@ -48,13 +48,17 @@ public class WaterReportManager {
      * Adds a WaterSourceReport to the map. Returns true if successfully added, false if
      * that report ID already exists and report cannot be added.
      *
-     * @param report WaterSourceReport to add.
+     * @param waterType the type of the water being added
+     * @param waterCondition is the condition of the water being added
+     * @param latitude the latitude of the water report
+     * @param longitude the longitude of the water report
      * @return True if successful, false if not.
      */
     public static boolean addReport(String waterType, String waterCondition, String latitude, String longitude) {
         updateReports();
         try {
-            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/adduser.php");
+            //TODO: add owner
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/addreport.php");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(5000);
             connection.setDoOutput(true);
@@ -78,11 +82,44 @@ public class WaterReportManager {
         }
     }
 
+    public static boolean addQualityReport(String waterType, String waterCondition, String latitude,
+                                           String longitude, String virusPPM, String contamPPM) {
+        updateReports();
+        try {
+            //TODO: add owner
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/addqualityreport.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("wt", "UTF-8")
+                    + "=" + URLEncoder.encode(waterType, "UTF-8");
+            data += "&" + URLEncoder.encode("wc", "UTF-8") + "="
+                    + URLEncoder.encode(waterCondition, "UTF-8");
+            data += "&" + URLEncoder.encode("lat", "UTF-8")
+                    + "=" + URLEncoder.encode(latitude, "UTF-8");
+            data += "&" + URLEncoder.encode("lon", "UTF-8")
+                    + "=" + URLEncoder.encode(longitude, "UTF-8");
+            data += "&" + URLEncoder.encode("contamppm", "UTF-8")
+                    + "=" + URLEncoder.encode(contamPPM, "UTF-8");
+            data += "&" + URLEncoder.encode("virusppm", "UTF-8")
+                    + "=" + URLEncoder.encode(virusPPM, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            updateReports();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     /**
      * Retrieves the report specified by reportNumber.
      * @param reportNumber reportNumber of report to retrieve.
      * @return Report that was retrieved, null if no report found
-     *
+     */
     public WaterSourceReport getReport(Integer reportNumber) throws ReportDoesNotExistException {
         WaterSourceReport w = map.get(reportNumber);
         if (w == null) {
@@ -91,7 +128,7 @@ public class WaterReportManager {
             return w;
         }
     }
-     */
+
     public static HashMap<Integer, WaterSourceReport> getWaterReportHashMap() {
         return map;
     }
@@ -116,10 +153,32 @@ public class WaterReportManager {
                 WaterCondition waterCondition = WaterCondition.valueOf(jsonObject.getString("watercondition"));
                 WaterSourceReport report = new WaterSourceReport(reportNumber, reportOwner, location, waterType, waterCondition);
                 newHashMap.put(new Integer(jsonObject.getString("ID")), report);
-                map = newHashMap;
             }
+            URL url2 = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/loadqualityreport.php");
+            HttpURLConnection connection2 = (HttpURLConnection) url2.openConnection();
+            connection2.setConnectTimeout(5000);
+            connection2.setDoOutput(true);
+            InputStream stream2 = connection2.getInputStream();
+            BufferedReader br2 = new BufferedReader(new InputStreamReader(stream2));
+            String jsonString2 = br2.readLine();
+            JSONArray myjsonarray2 = new JSONArray(jsonString2);
+            for (int i = 0; i < myjsonarray2.length(); i++) {
+                JSONObject jsonObject2 = myjsonarray2.getJSONObject(i);
+                Integer reportNumber = (jsonObject2.getInt("ID"));
+                String reportOwner = jsonObject2.getString("owner");
+                LatLng location = new LatLng(jsonObject2.getDouble("lat"), jsonObject2.getDouble("lon"));
+                Log.i("watertype", jsonObject2.getString("watertype"));
+                WaterType waterType = WaterType.valueOf(jsonObject2.getString("watertype"));
+                Log.i("watercondition", jsonObject2.getString("watercondition"));
+                WaterCondition waterCondition = WaterCondition.valueOf(jsonObject2.getString("watercondition"));
+                Double virusPPM = jsonObject2.getDouble("virusppm");
+                Double contamPPM = jsonObject2.getDouble("contamppm");
+                WaterSourceReport report = new WaterQualityReport(reportNumber, reportOwner, location, waterType, waterCondition, virusPPM, contamPPM);
+                newHashMap.put(new Integer(jsonObject2.getString("ID")), report);
+            }
+            map = newHashMap;
         } catch (Exception E) {
-            Log.e("Error", E.toString());
+            Log.e("Report Error", E.toString());
         }
     }
 }
