@@ -5,22 +5,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.crystal.cleanwaterandroidapplication.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 
     //UI References
-    private Button signInButton;
-    private Button registerButton;
+    private ImageButton signInButton;
+    private ImageButton registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
 
-        signInButton = (Button) findViewById(R.id.CancelSignInButton);
-        registerButton = (Button) findViewById(R.id.RegisterButton);
+        signInButton = (ImageButton) findViewById(R.id.SignInImageButton);
+        registerButton = (ImageButton) findViewById(R.id.RegisterImageButton);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override

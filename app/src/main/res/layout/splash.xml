@@ -11,13 +11,13 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_weight="1"
-            android:background="@drawable/splash_768_1024" />
+            android:background="@drawable/fractal_background" />
 
         <ProgressBar
             android:id="@+id/progressBar3"

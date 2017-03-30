@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.text.TextWatcher;
 import android.text.Editable;
@@ -35,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private EditText passwordVerifyEditText;
     private Spinner accountSpinner;
-    private Button RegisterButton;
+    private ImageButton RegisterButton;
 
     /*
      * Checks to see if the email is a valid email.
@@ -134,7 +135,7 @@ public class RegisterActivity extends AppCompatActivity {
         usernameEditText = (EditText) findViewById(R.id.username);
         passwordEditText = (EditText) findViewById(R.id.passwordLogin);
         passwordVerifyEditText = (EditText) findViewById(R.id.verifyPassword);
-        RegisterButton = (Button) findViewById(R.id.RegisterButton);
+        RegisterButton = (ImageButton) findViewById(R.id.RegisterImageButton);
 
         //Add listener to check for valid email.
         emailEditText.addTextChangedListener(new TextWatcher() {

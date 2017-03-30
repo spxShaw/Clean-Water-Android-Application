@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.crystal.cleanwaterandroidapplication.R;
 
@@ -24,7 +25,7 @@ public class WelcomeScreen extends AppCompatActivity {
             }
         });
 
-        Button RegisterButton = (Button) findViewById(R.id.RegisterButton);
+        ImageButton RegisterButton = (ImageButton) findViewById(R.id.RegisterImageButton);
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

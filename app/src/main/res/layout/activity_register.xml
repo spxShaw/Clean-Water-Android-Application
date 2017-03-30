@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/RegisterSelectionLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/fractal_background"
     android:orientation="vertical">
 
     <ScrollView
@@ -20,7 +22,9 @@
                 android:id="@+id/EmailTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_marginTop="50dp">
+
 
                 <EditText
                     android:id="@+id/email"
@@ -32,7 +36,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="32dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:ems="10"
                     android:hint="Email"
                     android:inputType="textEmailAddress" />
@@ -114,18 +118,23 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/verifyPassword"
                 android:layout_marginTop="16dp"
-                android:layout_weight="0.88" />
+                android:layout_weight="0.88"
+                android:popupBackground="@color/darkGrey"
 
-            <Button
-                android:id="@+id/RegisterButton"
-                style="@style/Widget.AppCompat.Button"
+                />
+
+            <ImageButton
+                android:id="@+id/RegisterImageButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/passwordLogin"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="114dp"
-                android:layout_weight="1"
-                android:text="Register" />
+                android:scaleType="fitXY"
+                android:background="@null"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="30dp"
+                app:srcCompat="@drawable/register_button"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true" />
+
 
         </LinearLayout>
     </ScrollView>
