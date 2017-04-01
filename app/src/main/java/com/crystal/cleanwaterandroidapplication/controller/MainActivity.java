@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+
 import com.crystal.cleanwaterandroidapplication.model.AccountManager;
 
 import com.crystal.cleanwaterandroidapplication.R;
@@ -15,12 +17,12 @@ import com.crystal.cleanwaterandroidapplication.model.Permission;
 public class MainActivity extends AppCompatActivity {
 
     //UI References
-    private Button logoutButton;
-    private Button editProfileButton;
-    private Button submitReportButton;
-    private Button viewMapButton;
-    private Button submitWaterQualityReportButton;
-    private Button viewWaterQualityReportButton;
+    private ImageButton logoutButton;
+    private ImageButton editProfileButton;
+    private ImageButton submitReportButton;
+    private ImageButton viewMapButton;
+    private ImageButton submitWaterQualityReportButton;
+    private ImageButton viewWaterQualityReportButton;
     private View userMainLayout;
     private View workerMainLayout;
     private View managerMainLayout;
@@ -38,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         /***** BUTTON SETUP *****/
-        logoutButton = (Button) findViewById(R.id.LogOutButton);
-        editProfileButton = (Button) findViewById(R.id.EditProfileButton);
-        submitReportButton = (Button) findViewById(R.id.SubmitReportButton);
-        viewMapButton = (Button) findViewById(R.id.ViewMapButton);
-        submitWaterQualityReportButton = (Button) findViewById(R.id.SubmitWaterQualityReportButton);
-        viewWaterQualityReportButton = (Button) findViewById(R.id.ViewWaterQualityReportButton);
+        logoutButton = (ImageButton) findViewById(R.id.LogOutImageButton);
+        editProfileButton = (ImageButton) findViewById(R.id.EditProfileImageButton);
+        submitReportButton = (ImageButton) findViewById(R.id.SubmitReportImageButton);
+        viewMapButton = (ImageButton) findViewById(R.id.ViewMapImageButton);
+        //submitWaterQualityReportButton = (ImageButton) findViewById(R.id.SubmitWaterQualityReportImageButton);
+        //viewWaterQualityReportButton = (ImageButton) findViewById(R.id.ViewWaterQualityReportImageButton);
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
 
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         submitReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SubmitReportActivity.class);
+                Intent intent = new Intent(MainActivity.this, SubmitReportSelection.class);
                 startActivity(intent);
             }
         });
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+/*
         submitWaterQualityReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +89,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+*/
+
         /***** VIEW SETUP *****/
+        /*
         userMainLayout = (View) findViewById(R.id.UserMainLayout);
         workerMainLayout = (View) findViewById(R.id.WorkerMainLayout);
         managerMainLayout = (View) findViewById(R.id.ManagerMainLayout);
@@ -123,5 +128,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             developerMainLayout.setVisibility(View.INVISIBLE);
         }
+        */
     }
+
 }

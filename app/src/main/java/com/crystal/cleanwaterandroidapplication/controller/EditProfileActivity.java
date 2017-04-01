@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.AccountManager;
@@ -22,7 +23,7 @@ public class EditProfileActivity extends AppCompatActivity {
     //UI References
     private EditText firstNameEditText;
     private EditText lastNameEditText;
-    private Button submitButton;
+    private ImageButton submitButton;
 
     //Reference to AccountManager
     private AccountManager accountManager = new AccountManager();
@@ -35,7 +36,7 @@ public class EditProfileActivity extends AppCompatActivity {
         //Define UI Elements
         firstNameEditText = (EditText) findViewById(R.id.FirstNameEditProfile);
         lastNameEditText = (EditText) findViewById(R.id.LastNameEditProfile);
-        submitButton = (Button) findViewById(R.id.submitEditProfile);
+        submitButton = (ImageButton) findViewById(R.id.submitEditProfile);
 
         //Fill EditTexts with current accounts info.
         firstNameEditText.setText(accountManager.getCurrentAccount().getFirstName());

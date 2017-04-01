@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -18,6 +19,7 @@
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
@@ -35,6 +37,7 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="text"
                     android:maxLines="1"
+
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
@@ -56,20 +59,29 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <Button
-                android:id="@+id/SignInButton"
-                style="?android:textAppearanceSmall"
+            <ImageButton
+                android:id="@+id/SignInImageButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Sign In"
-                android:textStyle="bold" />
+                android:scaleType="fitXY"
+                android:background="@null"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="80dp"
+                app:srcCompat="@drawable/sign_in_button"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentStart="true" />
 
-            <Button
-                android:id="@+id/CancelSignInButton"
+
+            <ImageButton
+                android:id="@+id/CancelSignInImageButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cancel" />
+                android:scaleType="fitXY"
+                android:background="@null"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/cancel_button"
+                android:layout_alignParentStart="true" />
 
         </LinearLayout>
     </ScrollView>

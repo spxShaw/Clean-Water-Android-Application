@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fractal_background">
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,7 +18,8 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="60dp">
 
                 <EditText
                     android:id="@+id/FirstNameEditProfile"
@@ -34,11 +39,17 @@
                     android:hint="Last Name" />
             </android.support.design.widget.TextInputLayout>
 
-            <Button
+            <ImageButton
                 android:id="@+id/submitEditProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Confirm" />
+                android:scaleType="fitXY"
+                android:background="@null"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="50dp"
+                app:srcCompat="@drawable/confirm_button"
+                android:layout_alignParentStart="true" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

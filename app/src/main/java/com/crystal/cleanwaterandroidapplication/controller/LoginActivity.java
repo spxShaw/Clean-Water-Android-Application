@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.AccountManager;
@@ -25,8 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     // UI references.
     private EditText usernameEditText;
     private EditText passwordEditText;
-    private Button loginButton;
-    private Button cancelButton;
+    private ImageButton loginButton;
+    private ImageButton cancelButton;
 
     // Login thread reference
     private UserLoginTask loginTask;
@@ -39,8 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         usernameEditText = (EditText) findViewById(R.id.usernameLogin);
         passwordEditText = (EditText) findViewById(R.id.passwordLogin);
-        loginButton = (Button) findViewById(R.id.SignInButton);
-        cancelButton = (Button) findViewById(R.id.CancelSignInButton);
+        loginButton = (ImageButton) findViewById(R.id.SignInImageButton);
+        cancelButton = (ImageButton) findViewById(R.id.CancelSignInImageButton);
 
         //Setup login button
         loginButton.setOnClickListener(new OnClickListener() {

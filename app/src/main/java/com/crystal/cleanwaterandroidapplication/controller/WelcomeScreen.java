@@ -16,7 +16,7 @@ public class WelcomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
 
-        Button SignInButton = (Button) findViewById(R.id.SignInButton);
+        ImageButton SignInButton = (ImageButton) findViewById(R.id.SignInImageButton);
         SignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

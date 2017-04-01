@@ -8,15 +8,14 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <permission android:name="com.crystal.cleanwaterandroidapplication.permission.MAPS_RECEIVE" />
+
     <uses-permission android:name="com.crystal.cleanwaterandroidapplication.permission.MAPS_RECEIVE" />
 
     <meta-data
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
 
-    <!--
-         The API key for Google Maps-based APIs.
-    -->
+    <!-- The API key for Google Maps-based APIs. -->
     <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="@string/google_maps_key" />
@@ -79,11 +78,15 @@
 
         <activity
             android:name=".controller.ViewMap"
-            android:label="@string/title_activity_view_map"></activity>
+            android:label="@string/title_activity_view_map" />
         <activity
             android:name=".controller.SubmitQualityReportActivity"
             android:label="@string/title_activity_submit_report"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controller.SubmitReportSelection"
+            android:label="@string/title_activity_submit_report_selection"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
