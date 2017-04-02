@@ -21,8 +21,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton editProfileButton;
     private ImageButton submitReportButton;
     private ImageButton viewMapButton;
-    private ImageButton submitWaterQualityReportButton;
-    private ImageButton viewWaterQualityReportButton;
+    private ImageButton aboutButton;
+    private ImageButton reportHistoryButton;
+    private ImageButton adminButton;
     private View userMainLayout;
     private View workerMainLayout;
     private View managerMainLayout;
@@ -44,8 +45,10 @@ public class MainActivity extends AppCompatActivity {
         editProfileButton = (ImageButton) findViewById(R.id.EditProfileImageButton);
         submitReportButton = (ImageButton) findViewById(R.id.SubmitReportImageButton);
         viewMapButton = (ImageButton) findViewById(R.id.ViewMapImageButton);
-        //submitWaterQualityReportButton = (ImageButton) findViewById(R.id.SubmitWaterQualityReportImageButton);
-        //viewWaterQualityReportButton = (ImageButton) findViewById(R.id.ViewWaterQualityReportImageButton);
+        reportHistoryButton = (ImageButton) findViewById(R.id.ReportHistoryImageButton);
+        aboutButton = (ImageButton) findViewById(R.id.AboutImageButton);
+        adminButton = (ImageButton) findViewById(R.id.AdminImageButton);
+
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
 
@@ -80,16 +83,31 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-/*
-        submitWaterQualityReportButton.setOnClickListener(new View.OnClickListener() {
+
+        aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SubmitQualityReportActivity.class);
+                Intent intent = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(intent);
             }
         });
 
-*/
+        reportHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ViewReportsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        adminButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         /***** VIEW SETUP *****/
         /*

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ public class SubmitQualityReportActivity extends AppCompatActivity {
 
     //UI Reference
     private TextView ReportID;
-    private Button SubmitReport;
+    private ImageButton SubmitReport;
     private Spinner WaterTypeSpinner;
     private Spinner WaterConditionSpinner;
     private TextView LatitudeTextView;
@@ -34,7 +35,7 @@ public class SubmitQualityReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_quality_report);
 
-        SubmitReport = (Button) findViewById(R.id.MakeReportButton);
+        SubmitReport = (ImageButton) findViewById(R.id.MakeReportButton);
         WaterTypeSpinner = (Spinner) findViewById(R.id.WaterTypeSpinner);
         WaterConditionSpinner = (Spinner) findViewById(R.id.WaterConditionSpinner);
         LatitudeTextView = (TextView) findViewById(R.id.LatitudeTextView);

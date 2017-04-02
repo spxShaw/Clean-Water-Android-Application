@@ -26,4 +26,6 @@
     <string name="title_activity_submit_report">SubmitReportActivity</string>
     <string name="title_activity_view_map">Map</string>
     <string name="title_activity_submit_report_selection">SubmitReportSelection</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_admin">AdminActivity</string>
 </resources>

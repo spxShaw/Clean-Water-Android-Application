@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@drawable/fractal_background"
+    tools:context="com.crystal.cleanwaterandroidapplication.controller.AboutActivity">
+
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="61dp"
+        android:text="Welcome to Crystal! Crystal empowers users by helping identify clean water sources. Crystal was developed by Group (INSERT GROUP NUMBER) in CS 2340. Thankyou to the following sources for letting our team use their publically available vector art, fonts, and images.
+
+        INSERT REFERENCES" />
+
+
+</RelativeLayout>

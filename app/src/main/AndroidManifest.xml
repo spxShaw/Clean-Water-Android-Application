@@ -86,6 +86,14 @@
         <activity
             android:name=".controller.SubmitReportSelection"
             android:label="@string/title_activity_submit_report_selection"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".controller.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".controller.AdminActivity"
+            android:label="@string/title_activity_admin"
             android:theme="@style/AppTheme"></activity>
     </application>
 
