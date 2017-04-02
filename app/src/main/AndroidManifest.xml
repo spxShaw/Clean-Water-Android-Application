@@ -94,6 +94,14 @@
         <activity
             android:name=".controller.AdminActivity"
             android:label="@string/title_activity_admin"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".controller.ViewReportSelection"
+            android:label="@string/title_activity_view_report_selection"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".controller.TrendsActivity"
+            android:label="@string/title_activity_trends"
             android:theme="@style/AppTheme"></activity>
     </application>
 

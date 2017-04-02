@@ -1,5 +1,7 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;

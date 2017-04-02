@@ -1,6 +1,8 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,8 @@ import com.crystal.cleanwaterandroidapplication.model.AccountManager;
 
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.Permission;
+
+import static com.google.android.gms.location.LocationRequest.create;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setContentView(R.layout.content_main);
         setSupportActionBar(toolbar);
+
+
+
+
+
 
         /***** BUTTON SETUP *****/
         logoutButton = (ImageButton) findViewById(R.id.LogOutImageButton);
@@ -95,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         reportHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ViewReportsActivity.class);
+                Intent intent = new Intent(MainActivity.this, ViewReportSelection.class);
                 startActivity(intent);
             }
         });
@@ -147,6 +156,10 @@ public class MainActivity extends AppCompatActivity {
             developerMainLayout.setVisibility(View.INVISIBLE);
         }
         */
+
     }
+
+
+
 
 }
