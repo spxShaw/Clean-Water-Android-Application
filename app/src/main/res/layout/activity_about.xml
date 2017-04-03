@@ -17,9 +17,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="61dp"
-        android:text="Welcome to Crystal! Crystal empowers users by helping identify clean water sources. Crystal was developed by Group (INSERT GROUP NUMBER) in CS 2340. Thankyou to the following sources for letting our team use their publically available vector art, fonts, and images.
-
-        INSERT REFERENCES" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="20dp"
+        android:text="Welcome to Crystal! Crystal empowers users by helping identify clean water sources. Crystal was developed by Group 61 in CS 2340. Thankyou to the following sources for letting our team use their publically available vector art, fonts, and images. Vecteezy was the source for all of the vector icons used in this application. These icons are available for noncommerical derrivative use. Vectors by Vecteezy https://www.vecteezy.com"/>
 
 
 </RelativeLayout>
