@@ -9,4 +9,8 @@
     tools:showIn="@layout/activity_admin"
     android:background = "@drawable/fractal_background">
 
+    
+
+
+
 </android.support.constraint.ConstraintLayout>

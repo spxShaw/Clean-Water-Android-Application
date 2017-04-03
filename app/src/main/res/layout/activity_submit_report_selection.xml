@@ -10,6 +10,14 @@ android:background="@drawable/fractal_background"
 tools:context="com.crystal.cleanwaterandroidapplication.controller.SubmitReportSelection">
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:text="Select a Water Report Type"
+            android:layout_marginTop="80dp"
+            android:layout_centerHorizontal="true"/>
+
         <ImageButton
             android:id="@+id/AvailabilityReportImageButton"
             android:layout_width="wrap_content"
@@ -19,6 +27,7 @@ tools:context="com.crystal.cleanwaterandroidapplication.controller.SubmitReportS
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:background="@null"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="150dp"
             app:srcCompat="@drawable/availability_button" />
 
@@ -31,6 +40,7 @@ tools:context="com.crystal.cleanwaterandroidapplication.controller.SubmitReportS
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:background="@null"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:layout_below = "@+id/AvailabilityReportImageButton"
             app:srcCompat="@drawable/quality_button" />

@@ -148,6 +148,7 @@
     <orderEntry type="library" exported="" name="play-services-instantapps-9.8.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-config-9.8.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-identity-9.8.0" level="project" />
+    <orderEntry type="library" exported="" name="GraphView-4.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="jsr305-2.0.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-9.8.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-storage-common-9.8.0" level="project" />
