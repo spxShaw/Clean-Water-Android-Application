@@ -71,6 +71,8 @@ public class WaterReportManager {
                     + "=" + URLEncoder.encode(latitude, "UTF-8");
             data += "&" + URLEncoder.encode("lon", "UTF-8")
                     + "=" + URLEncoder.encode(longitude, "UTF-8");
+            data += "&" + URLEncoder.encode("owner", "UTF-8")
+                    + "=" + URLEncoder.encode(AccountManager.getCurrentAccount().getUsername(), "UTF-8");
             writer.write(data);
             writer.close();
             InputStream stream = connection.getInputStream();
@@ -104,6 +106,8 @@ public class WaterReportManager {
                     + "=" + URLEncoder.encode(contamPPM, "UTF-8");
             data += "&" + URLEncoder.encode("virusppm", "UTF-8")
                     + "=" + URLEncoder.encode(virusPPM, "UTF-8");
+            data += "&" + URLEncoder.encode("owner", "UTF-8")
+                    + "=" + URLEncoder.encode(AccountManager.getCurrentAccount().getUsername(), "UTF-8");
             writer.write(data);
             writer.close();
             InputStream stream = connection.getInputStream();
