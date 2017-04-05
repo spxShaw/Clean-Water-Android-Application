@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.crystal.cleanwaterandroidapplication.R;
-import com.crystal.cleanwaterandroidapplication.model.AccountManager;
 import com.crystal.cleanwaterandroidapplication.model.WaterReportManager;
 
 
@@ -39,7 +38,6 @@ public class SplashScreen extends Activity {
     class LoadDatabaseTask extends AsyncTask<Integer, Integer, String> {
         @Override
         protected String doInBackground(Integer... params) {
-            AccountManager.updateAccounts();
             WaterReportManager.updateReports();
             return "Task Completed.";
         }

@@ -1,7 +1,5 @@
 package com.crystal.cleanwaterandroidapplication.model;
 
-import java.util.Date;
-
 //TODO Implement Calendar object instead of Date object (deprecated).
 
 /**
@@ -15,7 +13,6 @@ public class Account {
     private String password;
     private String firstName, middleName, lastName;
     private String email;
-    private Date birthday;
     private int accountID;
     private Permission accountPermission;
 
@@ -24,7 +21,6 @@ public class Account {
         middleName = "";
         lastName = "";
         email = "";
-        birthday = new Date(1900,1,1);
         accountID = 0;
     }
 
@@ -112,34 +108,6 @@ public class Account {
     }
 
     /**
-     * Gets the account's birthday date.
-     * @return A Date object storing the account holder's birthday.
-     */
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    /**
-     * Gets the account's age.
-     * @return The account's age.
-     */
-    public int getAge() {
-        Date today = new Date(); //Defaults to 'current' date
-        int age = today.getYear() - birthday.getYear();
-        if(today.getMonth() == birthday.getMonth()) {
-            //Check day
-            if(today.getDay() < birthday.getDay()) {
-                //Birthday hasnt come yet, subtract one from age
-                age--;
-            }
-        } else if (today.getMonth() < birthday.getMonth()) {
-            //Birthday month hasnt come yet, subtract one from age
-            age--;
-        }
-        return age;
-    }
-
-    /**
      * Gets the account's ID.
      * @return The account's ID.
      */
@@ -222,28 +190,6 @@ public class Account {
             this.email = "";
         } else {
             this.email = email;
-        }
-    }
-
-    /**
-     * Sets the account's birthday, based on the integer date.
-     * @param year Year of the birthday.
-     * @param month Month of the birthday. (1-12)
-     * @param day Day of the birthday.
-     */
-    public void setBirthday(int year, int month, int day) {
-        this.birthday = new Date(year, month, day);
-    }
-
-    /**
-     * Sets the account's birthday, based on a Date object.
-     * @param birthday Date object to set account's birthday too.
-     */
-    public void setBirthday(Date birthday) {
-        if(birthday == null) {
-            this.birthday = new Date(1900,1,1);
-        } else {
-            this.birthday = birthday;
         }
     }
 

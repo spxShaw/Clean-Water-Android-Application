@@ -1,8 +1,7 @@
 package com.crystal.cleanwaterandroidapplication.model;
 
-import android.util.Log;
-
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -12,8 +11,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Collection;
-import java.util.HashMap;
 
 //TODO Implement this class with a database backing rather than a HashMap backing.
 
@@ -26,7 +23,7 @@ import java.util.HashMap;
  * @see Account
  */
 public class AccountManager {
-    private static HashMap<String, Account> map = new HashMap<>();
+    //private static HashMap<String, Account> map = new HashMap<>();
     private static Account currentAccount;
 
     /**
@@ -43,42 +40,41 @@ public class AccountManager {
      * @throws InvalidCredentialsException
      */
     public static void login(String username, String password) throws InvalidCredentialsException {
-        //TODO: Send info to database
-        //TODO: Throw InvalidCredentialsException if credentials do not exist or are incorrect
-        //TODO: Set currentAccount to the account object if that account exists
-        currentAccount = new Account(username, password, Permission.ADMINISTRATOR);
-    }
-
-    /**
-     *
-     * @param account
-     * @return
-     */
-    public static boolean addAccount(Account account) {
-        if (account == null) {
-            return false;
+        try {
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/login.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("user", "UTF-8")
+                    + "=" + URLEncoder.encode(username, "UTF-8");
+            data += "&" + URLEncoder.encode("pass", "UTF-8")
+                    + "=" + URLEncoder.encode(password, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            String jsonString = br.readLine();
+            if (jsonString.equals("null")) {
+                throw new InvalidCredentialsException("User/Pass doesn't exist");
+            }
+            JSONArray myjsonarray = new JSONArray(jsonString);
+            JSONObject jsonObject = myjsonarray.getJSONObject(0);
+            Account newAccount;
+            newAccount = new Account(jsonObject.getString("username"),
+                    jsonObject.getString("password"),
+                    Permission.valueOf(jsonObject.getString("type")));
+            newAccount.setAccountID(Integer.valueOf(jsonObject.getString("ID")));
+            newAccount.setFirstName(jsonObject.getString("first"));
+            newAccount.setMiddleName(jsonObject.getString("middle"));
+            newAccount.setLastName(jsonObject.getString("last"));
+            currentAccount = newAccount;
+        } catch (java.io.IOException e) {
+            //TODO: Database exception
+            throw new InvalidCredentialsException("Cannot determine if username exists");
+        } catch (JSONException j) {
+            throw new InvalidCredentialsException("User/Pass doesn't exist");
         }
-
-        if (!usernameExists(account.getUsername())) {
-            //TODO: Add this account to the database.
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     *
-     * @param username
-     * @return
-     */
-    private static boolean usernameExists(String username) {
-        //TODO: Check database for username, return true if exists, false if it doesn't
-        return false;
-    }
-
-    public static void removeAccount(Account account) {
-
     }
 
     public static void updateAccount(Account account) {
@@ -93,13 +89,6 @@ public class AccountManager {
         return currentAccount;
     }
 
-    /**
-     * Returns a Collection of all the accounts in the map
-     * @return Collection containing all accounts.
-     */
-    public Collection<Account> getAccountsList() {
-        return map.values();
-    }
 
     /**
      * Gets an account object, based on the Account's username.
@@ -108,46 +97,40 @@ public class AccountManager {
      * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
      */
     public Account getAccountByUsername(String username) throws AccountDoesNotExistException {
-        Account a = map.get(username);
-        if (a == null) {
-            throw new AccountDoesNotExistException("Attempted to get a username that does not " +
-                    "belong to an account in AccountManager");
-        } else {
-            return a;
-        }
-    }
-
-    /**
-     * Gets an account object, based on the Account's email. Recommended to not look up by email,
-     * but rather by username were possible, for efficiency.
-     * @param email Email of Account to return.
-     * @return Account matching that username.
-     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
-     */
-    public Account getAccountByEmail(String email) throws AccountDoesNotExistException {
-        for(Account a: map.values()) {
-            if(a.getEmail().equals(email)) {
-                return a;
+        try {
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/finduser.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("user", "UTF-8")
+                    + "=" + URLEncoder.encode(username, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            String jsonString = br.readLine();
+            if (jsonString.equals("null")) {
+                throw new AccountDoesNotExistException("User doesn't exist");
             }
+            JSONArray myjsonarray = new JSONArray(jsonString);
+            JSONObject jsonObject = myjsonarray.getJSONObject(0);
+            Account newAccount;
+            newAccount = new Account(jsonObject.getString("username"),
+                    jsonObject.getString("password"),
+                    Permission.valueOf(jsonObject.getString("type")));
+            newAccount.setAccountID(Integer.valueOf(jsonObject.getString("ID")));
+            newAccount.setFirstName(jsonObject.getString("first"));
+            newAccount.setMiddleName(jsonObject.getString("middle"));
+            newAccount.setLastName(jsonObject.getString("last"));
+            return newAccount;
+        } catch (java.io.IOException e) {
+            //TODO: Database exception
+            throw new AccountDoesNotExistException("Cannot determine if username exists");
+        } catch (JSONException j) {
+            throw new AccountDoesNotExistException("User doesn't exist");
         }
-        throw new AccountDoesNotExistException("Attempted to get a email that does not " +
-                "belong to an account in AccountManager");
     }
-
-    /**
-     * Adds an account to the map. Returns true if Account does not
-     * exist and is added, false if account already exists and is not added.
-     * @param newAccount the account to add
-     * @return True if account is added, false if account is not added.
-     */
-    public boolean add(Account newAccount) {
-        if (!map.containsKey(newAccount.getUsername())) {
-            map.put(newAccount.getUsername(),newAccount);
-            return true;
-        }
-        return false;
-    }
-
 
     /**
      * Adds an account to the map. Returns true if Account does not
@@ -159,7 +142,6 @@ public class AccountManager {
      * @return True if account is added, false if account is not added.
      */
     public boolean add(String username, String password, String email, String accountType) {
-        updateAccounts();
         if (checkUsername(username)) {
             return false;
         }
@@ -181,7 +163,6 @@ public class AccountManager {
             writer.close();
             InputStream stream = connection.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(stream));
-            updateAccounts();
             return true;
         } catch (Exception e) {
             return false;
@@ -207,31 +188,26 @@ public class AccountManager {
      * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
      */
     public Account removeByUsername(String username) throws AccountDoesNotExistException {
-        Account a = map.remove(username);
-        if(a == null) {
-            throw new AccountDoesNotExistException("Attempted to remove an account by username that " +
-                    "does not belong to an account in AccountManager");
-        } else {
-            return a;
+        Account returnAccount = getAccountByUsername(username);
+        ;
+        try {
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/deleteUser.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("user", "UTF-8")
+                    + "=" + URLEncoder.encode(username, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            String jsonString = br.readLine();
+        } catch (java.io.IOException e) {
+            //TODO: Database exception
+            throw new AccountDoesNotExistException("Doesn't Exist");
         }
-    }
-
-    /**
-     * Removes an account from the map by the Account's email. Returns the Account that is removed
-     * or throws AccountDoesNotExistException if account is not found. For efficiency, use
-     * removeByUsername over this method.
-     * @param email The email of the account to remove
-     * @return Account that was removed from the map
-     * @throws AccountDoesNotExistException Thrown if Account is not found in the map
-     */
-    public Account removeByEmail(String email) throws AccountDoesNotExistException {
-        for(Account a: map.values()) {
-            if(a.getEmail().equals(email)) {
-                removeByUsername(a.getUsername());
-            }
-        }
-        throw new AccountDoesNotExistException("Attempted to remove an account by email that does" +
-                " not belong to an account in AccountManager");
+        return returnAccount;
     }
 
     /**
@@ -241,36 +217,27 @@ public class AccountManager {
      * @return True if username exists, false if username does not exist.
      */
     public boolean checkUsername(String username) {
-        return map.containsKey(username);
-    }
-
-    /**
-     * Checks to see if a email exists within the map. Returns true if the email exists,
-     * false if the email does not exist
-     * @param email The email to check.
-     * @return True if email exists, false if email does not exist.
-     */
-    public boolean checkEmail(String email) {
-        for(Account a: map.values()) {
-            if(a.getEmail().equals(email)) {
-                return true;
+        try {
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/finduser.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("user", "UTF-8")
+                    + "=" + URLEncoder.encode(username, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            String jsonString = br.readLine();
+            if (jsonString.equals("null")) {
+                return false;
             }
+            return true;
+        } catch (java.io.IOException e) {
+            //TODO: Database exception
+            return false;
         }
-        return false;
-    }
-
-    /**
-     * Validates a set of credentials, seeing if they match an account in the system. Will
-     * return true if they have a match, false if they don't have a match.
-     * @param username username of account to validate
-     * @param password password of account to validate
-     * @return True if account is validated, false if account is not validated.
-     */
-    public boolean validCredentials(String username, String password) {
-        if (map.containsKey(username)) {
-            return map.get(username).getPassword().equals(password);
-        }
-        return false;
     }
 
     /**
@@ -283,7 +250,7 @@ public class AccountManager {
 
     /**
      * Replaces the map with an updated one from the database
-     */
+
     public static void updateAccounts() {
             try {
                 HashMap<String, Account> newHashMap = new HashMap<>();
@@ -319,5 +286,6 @@ public class AccountManager {
             } catch (Exception E) {
                 Log.e("Error", E.toString());
         }
-    }
+     }
+     */
 }

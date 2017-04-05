@@ -1,25 +1,22 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.text.TextWatcher;
-import android.text.Editable;
 
 import com.crystal.cleanwaterandroidapplication.R;
-import com.crystal.cleanwaterandroidapplication.model.Account;
 import com.crystal.cleanwaterandroidapplication.model.AccountManager;
-import com.google.android.gms.auth.account.WorkAccountApi;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Activity controlling the registration view. Creates an account, and passes that account
@@ -101,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
      * Returns true if email exists, false if email does not exist
      */
     private boolean checkEmailExists(String email) {
-        return accountManager.checkEmail(email);
+        return false;
     }
 
     /*
@@ -216,12 +213,18 @@ public class RegisterActivity extends AppCompatActivity {
         usernameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if(checkUsernameExists(s.toString())) {
-                    usernameEditText.setError("Username Already Exists");
-                } else if (!verifyUsername(s.toString())) {
-                    usernameEditText.setError("Username can only be made up of letters and numbers");
-                } else {
-                    usernameEditText.setError(null);
+                checkUsername cu = new checkUsername();
+                cu.execute(s.toString());
+                try {
+                    if (cu.get()) {
+                        usernameEditText.setError("Username Already Exists");
+                    } else if (!verifyUsername(s.toString())) {
+                        usernameEditText.setError("Username can only be made up of letters and numbers");
+                    } else {
+                        usernameEditText.setError(null);
+                    }
+                } catch (Exception e) {
+                    usernameEditText.setError("Problem connecting to database");
                 }
             }
 
@@ -270,21 +273,29 @@ public class RegisterActivity extends AppCompatActivity {
                         accountType = "USER";
                     } else if (accountChoice == 1) {
                         //Worker
-                        accountType = "WORK";
+                        accountType = "WORKER";
                     } else if (accountChoice == 2) {
                         //Manager
-                        accountType = "MANG";
+                        accountType = "MANAGER";
                     } else if (accountChoice == 3) {
                         //Admin
-                        accountType = "ADMN";
+                        accountType = "ADMINISTRATOR";
                     } else {
                         throw new Error("Account Type not found while Registering");
                     }
-                    new AddAccountTask().execute(username, password, email, accountType);
-
-                    //Change from RegisterActivity to LoginActivity.
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    AddAccountTask aat = new AddAccountTask();
+                    aat.execute(username, password, email, accountType);
+                    try {
+                        if (aat.get()) {
+                            //Change from RegisterActivity to LoginActivity.
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        } else {
+                            usernameEditText.setError("Problem connecting to database");
+                        }
+                    } catch (Exception e) {
+                        usernameEditText.setError("Problem connecting to database");
+                    }
                 }
             }
         });
@@ -295,12 +306,18 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * Adds an account to the database
      */
-    class AddAccountTask extends AsyncTask<String, String, String> {
+    class AddAccountTask extends AsyncTask<String, String, Boolean> {
         @Override
-        protected String doInBackground(String... params) {
-            boolean success = accountManager.add(params[0], params[1], params[2], params[3]);
-            return "Task Completed.";
+        protected Boolean doInBackground(String... params) {
+            return accountManager.add(params[0], params[1], params[2], params[3]);
         }
 
+    }
+
+    class checkUsername extends AsyncTask<String, String, Boolean> {
+        @Override
+        protected Boolean doInBackground(String... params) {
+            return checkUsernameExists(params[0]);
+        }
     }
 }
