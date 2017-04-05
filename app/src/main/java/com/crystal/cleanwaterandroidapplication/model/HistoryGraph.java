@@ -8,6 +8,12 @@ public class HistoryGraph {
     private int year;
     private HistoryGraphType graphType;
 
+    /**
+     * Creates a history graph using location, year, and graphType.
+     * @param location the location of the history graph
+     * @param year the year of the history graph
+     * @param graphType the type of graph
+     */
     public HistoryGraph(LatLng location, int year, HistoryGraphType graphType) {
         this.location = location;
         this.year = year;
