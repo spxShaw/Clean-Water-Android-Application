@@ -171,10 +171,6 @@ public class WaterReportManager {
         }
     }
 
-    public ArrayList<WaterSourceReport> getReportsByLocation(LatLng location) {
-        ArrayList<WaterSourceReport>
-    }
-
     public static HashMap<Integer, WaterSourceReport> getWaterReportHashMap() {
         return map;
     }

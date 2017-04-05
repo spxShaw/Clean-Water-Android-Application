@@ -7,7 +7,7 @@ public class HistoryGraph {
     private double ppmPoints[]; //Sorted by month
     private int year;
 
-    public HistoryGraph(LatLng location, ) {
+    public HistoryGraph(LatLng location) {
 
     }
 }
