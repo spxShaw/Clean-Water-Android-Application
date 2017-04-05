@@ -16,6 +16,10 @@ public enum Month {
         return stringRep;
     }
 
+    public int getMonthNumber() {
+        return this.ordinal() + 1;
+    }
+
     public static int getMonthNumber(Month month) {
         return month.ordinal() + 1;
     }
