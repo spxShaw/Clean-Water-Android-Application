@@ -49,6 +49,16 @@ public class WaterSourceReport {
         this.waterCondition = waterCondition;
     }
 
+    /**
+     * Creates a WaterSourceReport with month and year
+     * @param reportNumber The report ID/Number that is unique to this report
+     * @param reportOwnerUsername The creator/owner of this water report.
+     * @param location A Location object that is the report's location.
+     * @param waterType The WaterType that the water is in the report
+     * @param waterCondition The WaterCondition that the water is in the report.
+     * @param month the month the water was tested
+     * @param year the year the water was tested
+     */
     public WaterSourceReport(Integer reportNumber, String reportOwnerUsername, LatLng location,
                              WaterType waterType, WaterCondition waterCondition, int month, int year) {
         this.reportNumber = reportNumber;
