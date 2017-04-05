@@ -14,7 +14,9 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 /**
@@ -51,7 +53,9 @@ public class WaterReportManager {
                 LatLng location = new LatLng(jsonObject.getDouble("lat"), jsonObject.getDouble("lon"));
                 WaterType waterType = WaterType.valueOf(jsonObject.getString("watertype"));
                 WaterCondition waterCondition = WaterCondition.valueOf(jsonObject.getString("watercondition"));
-                WaterSourceReport report = new WaterSourceReport(reportNumber, reportOwner, location, waterType, waterCondition);
+                int month = jsonObject.getInt("month");
+                int year = jsonObject.getInt("year");
+                WaterSourceReport report = new WaterSourceReport(reportNumber, reportOwner, location, waterType, waterCondition, month, year);
                 newHashMap.put(new Integer(jsonObject.getString("ID")), report);
             }
             URL url2 = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/loadqualityreport.php");
@@ -73,7 +77,9 @@ public class WaterReportManager {
                 WaterCondition waterCondition = WaterCondition.valueOf(jsonObject2.getString("watercondition"));
                 Double virusPPM = jsonObject2.getDouble("virusppm");
                 Double contamPPM = jsonObject2.getDouble("contamppm");
-                WaterSourceReport report = new WaterQualityReport(reportNumber, reportOwner, location, waterType, waterCondition, virusPPM, contamPPM);
+                int month = jsonObject2.getInt("month");
+                int year = jsonObject2.getInt("year");
+                WaterSourceReport report = new WaterQualityReport(reportNumber, reportOwner, location, waterType, waterCondition, virusPPM, contamPPM, month, year);
                 newHashMap.put(new Integer(jsonObject2.getString("ID")), report);
             }
             map = newHashMap;
@@ -94,6 +100,10 @@ public class WaterReportManager {
      */
     public static boolean addReport(String waterType, String waterCondition, String latitude, String longitude) {
         updateReports();
+        DateFormat df = new SimpleDateFormat("M");
+        String month = df.format(Calendar.getInstance().getTime());
+        df = new SimpleDateFormat("YYYY");
+        String year = df.format(Calendar.getInstance().getTime());
         try {
             //TODO: add owner
             URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/addreport.php");
@@ -111,6 +121,10 @@ public class WaterReportManager {
                     + "=" + URLEncoder.encode(longitude, "UTF-8");
             data += "&" + URLEncoder.encode("owner", "UTF-8")
                     + "=" + URLEncoder.encode(AccountManager.getCurrentAccount().getUsername(), "UTF-8");
+            data += "&" + URLEncoder.encode("month", "UTF-8")
+                    + "=" + URLEncoder.encode(month, "UTF-8");
+            data += "&" + URLEncoder.encode("year", "UTF-8")
+                    + "=" + URLEncoder.encode(year, "UTF-8");
             writer.write(data);
             writer.close();
             InputStream stream = connection.getInputStream();
@@ -125,6 +139,10 @@ public class WaterReportManager {
     public static boolean addQualityReport(String waterType, String waterCondition, String latitude,
                                            String longitude, String virusPPM, String contamPPM) {
         updateReports();
+        DateFormat df = new SimpleDateFormat("M");
+        String month = df.format(Calendar.getInstance().getTime());
+        df = new SimpleDateFormat("YYYY");
+        String year = df.format(Calendar.getInstance().getTime());
         try {
             //TODO: add owner
             URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/addqualityreport.php");
@@ -146,6 +164,10 @@ public class WaterReportManager {
                     + "=" + URLEncoder.encode(virusPPM, "UTF-8");
             data += "&" + URLEncoder.encode("owner", "UTF-8")
                     + "=" + URLEncoder.encode(AccountManager.getCurrentAccount().getUsername(), "UTF-8");
+            data += "&" + URLEncoder.encode("month", "UTF-8")
+                    + "=" + URLEncoder.encode(month, "UTF-8");
+            data += "&" + URLEncoder.encode("year", "UTF-8")
+                    + "=" + URLEncoder.encode(year, "UTF-8");
             writer.write(data);
             writer.close();
             InputStream stream = connection.getInputStream();

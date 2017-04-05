@@ -1,7 +1,5 @@
 package com.crystal.cleanwaterandroidapplication.model;
 
-import android.location.Location;
-
 import com.google.android.gms.maps.model.LatLng;
 
 
@@ -18,6 +16,8 @@ public class WaterSourceReport {
     private final String reportOwnerUsername;
     private final WaterType waterType;
     private final WaterCondition waterCondition;
+    private int month;
+    private int year;
 
     /**
      * Default constructor. Sets everything to null.
@@ -28,6 +28,8 @@ public class WaterSourceReport {
         reportOwnerUsername = null;
         waterType = null;
         waterCondition = null;
+        month = 1;
+        year = 1998;
     }
 
     /**
@@ -45,6 +47,17 @@ public class WaterSourceReport {
         this.location = location;
         this.waterType = waterType;
         this.waterCondition = waterCondition;
+    }
+
+    public WaterSourceReport(Integer reportNumber, String reportOwnerUsername, LatLng location,
+                             WaterType waterType, WaterCondition waterCondition, int month, int year) {
+        this.reportNumber = reportNumber;
+        this.reportOwnerUsername = reportOwnerUsername;
+        this.location = location;
+        this.waterType = waterType;
+        this.waterCondition = waterCondition;
+        this.month = month;
+        this.year = year;
     }
 
     /**
