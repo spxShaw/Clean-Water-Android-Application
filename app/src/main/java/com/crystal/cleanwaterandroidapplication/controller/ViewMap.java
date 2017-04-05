@@ -59,7 +59,7 @@ public class ViewMap extends FragmentActivity implements GoogleMap.OnMarkerClick
             if (report instanceof WaterQualityReport && AccountManager.getCurrentAccount().hasPermission(Permission.MANAGER)) {
                 Log.i("Location Log", report.getLocation().toString());
                 LatLng location = report.getLocation();
-                mMap.addMarker(new MarkerOptions().position(location).title("Water Quality Report"));
+                mMap.addMarker(new MarkerOptions().position(location).title(new Double(((WaterQualityReport)report).getVirusPPM()).toString()));
             } else {
                 Log.i("Location Log", report.getLocation().toString());
                 LatLng location = report.getLocation();

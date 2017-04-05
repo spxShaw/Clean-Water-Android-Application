@@ -14,6 +14,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -32,16 +33,53 @@ public class WaterReportManager {
         //Do nothing, for now
     }
 
-    /**
-     * Adds a WaterSourceReport to the map. Returns true if successfully added, false if
-     * that report ID already exists and report cannot be added.
-     * @param report WaterSourceReport to add.
-     * @return True if successful, false if not.
-     */
-    public boolean addReport(WaterSourceReport report) {
-        return addReport(report.getWaterType().toString(), report.getWaterCondition().toString(),
-                new Double(report.getLongitude()).toString(),
-                new Double(report.getLatitude()).toString());
+    public static void updateReports() {
+        try {
+            HashMap<Integer, WaterSourceReport> newHashMap = new HashMap<>();
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/loadreport.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            String jsonString = br.readLine();
+            JSONArray myjsonarray = new JSONArray(jsonString);
+            for (int i = 0; i < myjsonarray.length(); i++) {
+                JSONObject jsonObject = myjsonarray.getJSONObject(i);
+                Integer reportNumber = (jsonObject.getInt("ID"));
+                String reportOwner = jsonObject.getString("owner");
+                LatLng location = new LatLng(jsonObject.getDouble("lat"), jsonObject.getDouble("lon"));
+                WaterType waterType = WaterType.valueOf(jsonObject.getString("watertype"));
+                WaterCondition waterCondition = WaterCondition.valueOf(jsonObject.getString("watercondition"));
+                WaterSourceReport report = new WaterSourceReport(reportNumber, reportOwner, location, waterType, waterCondition);
+                newHashMap.put(new Integer(jsonObject.getString("ID")), report);
+            }
+            URL url2 = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/loadqualityreport.php");
+            HttpURLConnection connection2 = (HttpURLConnection) url2.openConnection();
+            connection2.setConnectTimeout(5000);
+            connection2.setDoOutput(true);
+            InputStream stream2 = connection2.getInputStream();
+            BufferedReader br2 = new BufferedReader(new InputStreamReader(stream2));
+            String jsonString2 = br2.readLine();
+            JSONArray myjsonarray2 = new JSONArray(jsonString2);
+            for (int i = 0; i < myjsonarray2.length(); i++) {
+                JSONObject jsonObject2 = myjsonarray2.getJSONObject(i);
+                Integer reportNumber = (jsonObject2.getInt("ID"));
+                String reportOwner = jsonObject2.getString("owner");
+                LatLng location = new LatLng(jsonObject2.getDouble("lat"), jsonObject2.getDouble("lon"));
+                Log.i("watertype", jsonObject2.getString("watertype"));
+                WaterType waterType = WaterType.valueOf(jsonObject2.getString("watertype"));
+                Log.i("watercondition", jsonObject2.getString("watercondition"));
+                WaterCondition waterCondition = WaterCondition.valueOf(jsonObject2.getString("watercondition"));
+                Double virusPPM = jsonObject2.getDouble("virusppm");
+                Double contamPPM = jsonObject2.getDouble("contamppm");
+                WaterSourceReport report = new WaterQualityReport(reportNumber, reportOwner, location, waterType, waterCondition, virusPPM, contamPPM);
+                newHashMap.put(new Integer(jsonObject2.getString("ID")), report);
+            }
+            map = newHashMap;
+        } catch (Exception E) {
+            Log.e("Report Error", E.toString());
+        }
     }
 
     /**
@@ -133,56 +171,11 @@ public class WaterReportManager {
         }
     }
 
-    public static HashMap<Integer, WaterSourceReport> getWaterReportHashMap() {
-        return map;
+    public ArrayList<WaterSourceReport> getReportsByLocation(LatLng location) {
+        ArrayList<WaterSourceReport>
     }
 
-    public static void updateReports() {
-        try {
-            HashMap<Integer, WaterSourceReport> newHashMap = new HashMap<>();
-            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/loadreport.php");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(5000);
-            connection.setDoOutput(true);
-            InputStream stream = connection.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
-            String jsonString = br.readLine();
-            JSONArray myjsonarray = new JSONArray(jsonString);
-            for (int i = 0; i < myjsonarray.length(); i++) {
-                JSONObject jsonObject = myjsonarray.getJSONObject(i);
-                Integer reportNumber = (jsonObject.getInt("ID"));
-                String reportOwner = jsonObject.getString("owner");
-                LatLng location = new LatLng(jsonObject.getDouble("lat"), jsonObject.getDouble("lon"));
-                WaterType waterType = WaterType.valueOf(jsonObject.getString("watertype"));
-                WaterCondition waterCondition = WaterCondition.valueOf(jsonObject.getString("watercondition"));
-                WaterSourceReport report = new WaterSourceReport(reportNumber, reportOwner, location, waterType, waterCondition);
-                newHashMap.put(new Integer(jsonObject.getString("ID")), report);
-            }
-            URL url2 = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/loadqualityreport.php");
-            HttpURLConnection connection2 = (HttpURLConnection) url2.openConnection();
-            connection2.setConnectTimeout(5000);
-            connection2.setDoOutput(true);
-            InputStream stream2 = connection2.getInputStream();
-            BufferedReader br2 = new BufferedReader(new InputStreamReader(stream2));
-            String jsonString2 = br2.readLine();
-            JSONArray myjsonarray2 = new JSONArray(jsonString2);
-            for (int i = 0; i < myjsonarray2.length(); i++) {
-                JSONObject jsonObject2 = myjsonarray2.getJSONObject(i);
-                Integer reportNumber = (jsonObject2.getInt("ID"));
-                String reportOwner = jsonObject2.getString("owner");
-                LatLng location = new LatLng(jsonObject2.getDouble("lat"), jsonObject2.getDouble("lon"));
-                Log.i("watertype", jsonObject2.getString("watertype"));
-                WaterType waterType = WaterType.valueOf(jsonObject2.getString("watertype"));
-                Log.i("watercondition", jsonObject2.getString("watercondition"));
-                WaterCondition waterCondition = WaterCondition.valueOf(jsonObject2.getString("watercondition"));
-                Double virusPPM = jsonObject2.getDouble("virusppm");
-                Double contamPPM = jsonObject2.getDouble("contamppm");
-                WaterSourceReport report = new WaterQualityReport(reportNumber, reportOwner, location, waterType, waterCondition, virusPPM, contamPPM);
-                newHashMap.put(new Integer(jsonObject2.getString("ID")), report);
-            }
-            map = newHashMap;
-        } catch (Exception E) {
-            Log.e("Report Error", E.toString());
-        }
+    public static HashMap<Integer, WaterSourceReport> getWaterReportHashMap() {
+        return map;
     }
 }
