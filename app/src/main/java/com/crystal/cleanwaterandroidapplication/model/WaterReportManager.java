@@ -16,7 +16,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -204,6 +206,16 @@ public class WaterReportManager {
         } else {
             return w;
         }
+    }
+
+    public static Collection<WaterSourceReport> getReportsFromYear(int year) {
+        Collection<WaterSourceReport> toReturn = new ArrayList<>();
+        for (WaterSourceReport report : map.values()) {
+            if (report.getYear() == year) {
+                toReturn.add(report);
+            }
+        }
+        return toReturn;
     }
 
     /**

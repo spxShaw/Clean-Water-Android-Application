@@ -118,6 +118,14 @@ public class WaterSourceReport {
         return waterCondition;
     }
 
+    public int getMonth() {
+        return month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
     /**
      * Checks to see if an username is the owner of the report
      * @param username username to check for report ownership

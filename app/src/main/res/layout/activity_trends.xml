@@ -9,13 +9,13 @@
 
 
     <com.jjoe64.graphview.GraphView
+        android:id="@+id/trendsGraph"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="60dp"
-        android:id="@+id/trendsGraph"/>
+        android:layout_marginTop="150dp" />
 
 
 </RelativeLayout>
