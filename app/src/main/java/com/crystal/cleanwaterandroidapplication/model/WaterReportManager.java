@@ -35,6 +35,9 @@ public class WaterReportManager {
         //Do nothing, for now
     }
 
+    /**
+     * Updates reports in the database
+     */
     public static void updateReports() {
         try {
             HashMap<Integer, WaterSourceReport> newHashMap = new HashMap<>();
@@ -136,6 +139,16 @@ public class WaterReportManager {
         }
     }
 
+    /**
+     * Adds a quality report with the specific data values passed in to the database
+     * @param waterType the type of water the report is on
+     * @param waterCondition the water condition of water the report is on
+     * @param latitude the latitude of the location of the water
+     * @param longitude the longitude of the location of the water
+     * @param virusPPM the virusPPM of the water
+     * @param contamPPM the contamPPM of the water
+     * @return whether the quality report was successfully added
+     */
     public static boolean addQualityReport(String waterType, String waterCondition, String latitude,
                                            String longitude, String virusPPM, String contamPPM) {
         updateReports();
@@ -193,6 +206,10 @@ public class WaterReportManager {
         }
     }
 
+    /**
+     * Getter for the waterReportHashMap
+     * @return the waterReportHashMap
+     */
     public static HashMap<Integer, WaterSourceReport> getWaterReportHashMap() {
         return map;
     }
