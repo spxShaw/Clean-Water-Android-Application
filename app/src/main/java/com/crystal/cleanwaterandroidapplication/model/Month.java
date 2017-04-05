@@ -16,6 +16,10 @@ public enum Month {
         return stringRep;
     }
 
+    public static int getMonthNumber(Month month) {
+        return month.ordinal() + 1;
+    }
+
     public static Month getMonth(int monthNumber) {
         switch (monthNumber) {
             case 1:
