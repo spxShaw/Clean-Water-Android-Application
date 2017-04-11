@@ -27,7 +27,6 @@ public class HistoryGraph {
     /**
      * Creates a history graph using location, year, and graphType. Gets all the data points from
      * the WaterReportManager.
-     * @param location the location of the history graph
      * @param year the year of the history graph
      * @param graphType the type of graph
      */
