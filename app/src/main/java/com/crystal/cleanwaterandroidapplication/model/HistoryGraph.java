@@ -370,4 +370,57 @@ public class HistoryGraph {
             return sum / count;
         }
     }
+
+
+    /**
+     * Adds to month arraylist averages for code testing
+     * @return void
+     */
+    public void addJanuary(Double d) {
+        january.add(d);
+    }
+
+    public void addFebruary(Double d) {
+        february.add(d);
+    }
+
+    public void addMarch(Double d) {
+        march.add(d);
+    }
+
+    public void addApril(Double d) {
+        april.add(d);
+    }
+
+    public void addMay(Double d) {
+        may.add(d);
+    }
+
+    public void addJune(Double d) {
+        june.add(d);
+    }
+
+    public void addJuly(Double d) {
+        july.add(d);
+    }
+
+    public void addAugust(Double d) {
+        august.add(d);
+    }
+
+    public void addSeptember(Double d) {
+        september.add(d);
+    }
+
+    public void addOctober(Double d) {
+        october.add(d);
+    }
+
+    public void addNovember(Double d) {
+        november.add(d);
+    }
+
+    public void addDecember(Double d) {
+        december.add(d);
+    }
 }
