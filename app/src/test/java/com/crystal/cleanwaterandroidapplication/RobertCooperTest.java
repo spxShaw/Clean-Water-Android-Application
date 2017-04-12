@@ -20,6 +20,7 @@ public class RobertCooperTest {
     private Account b;
     private Account c;
     private Object objectAccount;
+    private String differentObject;
 
     @Before
     public void setup() {
@@ -38,6 +39,8 @@ public class RobertCooperTest {
         c = new Account("rcooper39", "123", Permission.DEVELOPER);
 
         objectAccount = new Account("rcooper39", "crazyGuy", Permission.ADMINISTRATOR);
+
+        differentObject = "rcooper39";
     }
 
     @Test
@@ -59,5 +62,8 @@ public class RobertCooperTest {
         //Test for accounts casted as other objects but with same username are equal
         Assert.assertTrue(a.equals(objectAccount));
         Assert.assertTrue(objectAccount.equals(a));
+
+        //Test account cannot be equal to a different object type
+        Assert.assertFalse(a.equals(differentObject));
     }
 }
