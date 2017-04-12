@@ -20,7 +20,7 @@ public class WaterSourceReport {
     private int year;
 
     /**
-     * Default constructor. Sets everything to null.
+     * Default constructor. Sets everything to null/-1.
      */
     public WaterSourceReport() {
         reportNumber = -1;
@@ -28,8 +28,8 @@ public class WaterSourceReport {
         reportOwnerUsername = null;
         waterType = null;
         waterCondition = null;
-        month = 1;
-        year = 1998;
+        month = -1;
+        year = -1;
     }
 
     /**
@@ -47,10 +47,12 @@ public class WaterSourceReport {
         this.location = location;
         this.waterType = waterType;
         this.waterCondition = waterCondition;
+        month = -1;
+        year = -1;
     }
 
     /**
-     * Creates a WaterSourceReport with month and year
+     * Creates a WaterSourceReport with added month and year
      * @param reportNumber The report ID/Number that is unique to this report
      * @param reportOwnerUsername The creator/owner of this water report.
      * @param location A Location object that is the report's location.
@@ -118,10 +120,18 @@ public class WaterSourceReport {
         return waterCondition;
     }
 
+    /**
+     * Gets the month of the report
+     * @return the month of the report
+     */
     public int getMonth() {
         return month;
     }
 
+    /**
+     * Gets the year of the report.
+     * @return the year of the report.
+     */
     public int getYear() {
         return year;
     }
@@ -171,6 +181,8 @@ public class WaterSourceReport {
         s += "Owner: " + reportOwnerUsername + "\n";
         s += "Water Type: " + waterType + "\n";
         s += "Water Condition: " + waterCondition;
+        s += "Month: " + month;
+        s += "Year: " + year;
         return s;
     }
 }

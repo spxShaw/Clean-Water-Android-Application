@@ -1,7 +1,7 @@
 package com.crystal.cleanwaterandroidapplication.model;
 
 /**
- * Enum for months
+ * Enum for months. Might be useful later.
  * @author Team 62
  */
 public enum Month {

@@ -1,10 +1,13 @@
 package com.crystal.cleanwaterandroidapplication.model;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * Object to contain all the information of a HistoryGraph. When initialized, will get all
+ * necessary data from the ReportManager and allow you to retrieve individual month's averages.
+ * @author Team 62
+ */
 public class HistoryGraph {
     //References to describe history graph
     private int year;

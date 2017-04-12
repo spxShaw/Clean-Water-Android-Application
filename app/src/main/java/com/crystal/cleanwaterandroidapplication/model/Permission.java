@@ -5,13 +5,24 @@ package com.crystal.cleanwaterandroidapplication.model;
  * @author Team 62
  */
 public enum Permission {
-    USER("User"), WORKER("Worker"), MANAGER("Manager"), ADMINISTRATOR("Administrator"),
-            DEVELOPER("Developer");
+    USER("User", "USER"), WORKER("Worker", "WORK"), MANAGER("Manager", "MANG"),
+            ADMINISTRATOR("Administrator", "ADMN"), DEVELOPER("Developer", "DEV");
 
     private String permission;
+    private String shortCode;
 
-    Permission(String p) {
+    Permission(String p, String s) {
         permission = p;
+        shortCode = s;
+    }
+
+    /**
+     * Returns the shortCode version of the permission. Useful for things like the database, were
+     * storing the least amount of characters is best.
+     * @return the shortCode version of the permission.
+     */
+    public String getShortCode() {
+        return shortCode;
     }
 
     @Override

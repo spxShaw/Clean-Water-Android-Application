@@ -12,10 +12,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Collection;
 import java.util.HashMap;
-
-//TODO Implement this class with a database backing rather than a HashMap backing.
 
 /**
  * AccountsManager links the app and the database. It is the 'gateway' that the app uses to
@@ -82,8 +79,8 @@ public final class AccountManager {
         return currentAccount;
     }
 
-    //Checks to see if username already exists on the internal account map
-    public static boolean usernameExists(String username) {
+    //Checks to see if username already exists on the internal hashmap
+    private static boolean usernameExists(String username) {
         return map.containsKey(username);
     }
 

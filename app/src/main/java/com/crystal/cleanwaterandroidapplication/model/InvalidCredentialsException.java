@@ -5,11 +5,12 @@ package com.crystal.cleanwaterandroidapplication.model;
  * @author Team 62
  */
 public class InvalidCredentialsException extends Exception {
+
     /**
-     * Creates an InvalidCredentialsException.
+     * Creates an InvalidCredentialsException with default message 'Invalid Credentials Detected!'.
      */
     public InvalidCredentialsException() {
-        //Do nothing
+        super("Invalid Credentials Detected!");
     }
 
     /**

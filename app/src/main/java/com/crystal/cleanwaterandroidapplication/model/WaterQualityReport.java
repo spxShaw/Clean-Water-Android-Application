@@ -12,8 +12,6 @@ public class WaterQualityReport extends WaterSourceReport {
 
     private double virusPPM;
     private double contaminantPPM;
-    private int month;
-    private int year;
 
     /**
      * Creates a default WaterQualityReport with virusPPM and contaminantPPM both set to -1
@@ -58,11 +56,9 @@ public class WaterQualityReport extends WaterSourceReport {
     public WaterQualityReport(Integer reportNumber, String reportOwnerUsername, LatLng location,
                               WaterType waterType, WaterCondition waterCondition, double virusPPM,
                               double contaminantPPM, int month, int year) {
-        super(reportNumber, reportOwnerUsername, location, waterType, waterCondition);
+        super(reportNumber, reportOwnerUsername, location, waterType, waterCondition, month, year);
         this.virusPPM = virusPPM;
         this.contaminantPPM = contaminantPPM;
-        this.month = month;
-        this.year = year;
     }
 
     /**

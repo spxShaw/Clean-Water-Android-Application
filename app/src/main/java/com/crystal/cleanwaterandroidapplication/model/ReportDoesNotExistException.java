@@ -8,10 +8,10 @@ package com.crystal.cleanwaterandroidapplication.model;
 public class ReportDoesNotExistException extends Exception {
 
     /**
-     * Creates a new ReportDoesNotExistException
+     * Creates a new ReportDoesNotExistException with default message 'Report does not exist!'.
      */
     public ReportDoesNotExistException() {
-        //Do nothing
+        super("Report does not exist!");
     }
 
     /**

@@ -18,7 +18,7 @@ public enum WaterType {
 
     private String stringRepresentation;
 
-    private WaterType(String s) {
+    WaterType(String s) {
         stringRepresentation = s;
     }
 

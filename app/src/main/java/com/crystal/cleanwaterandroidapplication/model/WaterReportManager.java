@@ -208,6 +208,11 @@ public class WaterReportManager {
         }
     }
 
+    /**
+     * Gets a Collection of all reports from a given year.
+     * @param year year to get from
+     * @return Collection of all the reports from that year.
+     */
     public static Collection<WaterSourceReport> getReportsFromYear(int year) {
         Collection<WaterSourceReport> toReturn = new ArrayList<>();
         for (WaterSourceReport report : map.values()) {

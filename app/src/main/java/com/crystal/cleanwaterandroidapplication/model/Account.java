@@ -1,7 +1,5 @@
 package com.crystal.cleanwaterandroidapplication.model;
 
-//TODO Implement Calendar object instead of Date object (deprecated).
-
 /**
  * The Account object stores everything a basic account needs to know about itself.
  * This includes its username, password, accountID, and basic bio information. For now,
