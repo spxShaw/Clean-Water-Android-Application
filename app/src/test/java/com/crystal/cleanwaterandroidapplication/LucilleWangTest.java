@@ -49,7 +49,7 @@ public class LucilleWangTest {
 
         account5 = new Account("pueh", "aaaa", Permission.ADMINISTRATOR);
 
-        account6 = new Account("pueh", "aaaa", Permission.ADMINISTRATOR);
+        account6 = new Account("pfks", "aaaa", Permission.ADMINISTRATOR);
         account6.setFirstName(null);
         account6.setMiddleName(null);
         account6.setLastName(null);
@@ -105,6 +105,7 @@ public class LucilleWangTest {
         Assert.assertEquals("Returning incorrect answer for account with no First, Middle," +
                 "and Last name.", expected, account5.getFullName());
     }
+
     /**
      * Tests if a name in an account with a null first, middle, and last name returns the correct string
      */
