@@ -14,8 +14,6 @@ import android.widget.Spinner;
 
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.AccountManager;
-import com.crystal.cleanwaterandroidapplication.model.Account;
-import com.crystal.cleanwaterandroidapplication.model.Permission;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +24,9 @@ import java.util.regex.Pattern;
  * @author Team 62
  */
 public class RegisterActivity extends AppCompatActivity {
+    //Model Reference
+    private final AccountManager accountManager = new AccountManager();
+
     //UI Reference
     private EditText emailEditText;
     private EditText usernameEditText;
@@ -106,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
      * false if username does not exist in the AccountManager.
      */
     private boolean checkUsernameExists(String username) {
-        return AccountManager.usernameExists(username);
+        return accountManager.checkUsername(username);
     }
 
     /*
@@ -308,28 +309,7 @@ public class RegisterActivity extends AppCompatActivity {
     class AddAccountTask extends AsyncTask<String, String, Boolean> {
         @Override
         protected Boolean doInBackground(String... params) {
-            Account a;
-            switch(params[3]) {
-                case "USER":
-                    a = new Account(params[0], params[1], Permission.USER);
-                    break;
-                case "WORK":
-                    a = new Account(params[0], params[1], Permission.WORKER);
-                    break;
-                case "MANG":
-                    a = new Account(params[0], params[1], Permission.MANAGER);
-                    break;
-                case "ADMN":
-                    a = new Account(params[0], params[1], Permission.ADMINISTRATOR);
-                    break;
-                case "DEV":
-                    a = new Account(params[0], params[1], Permission.DEVELOPER);
-                    break;
-                default:
-                    a = new Account(params[0], params[1], Permission.USER);
-            }
-            a.setEmail(params[2]);
-            return AccountManager.addAccount(a);
+            return accountManager.add(params[0], params[1], params[2], params[3]);
         }
 
     }

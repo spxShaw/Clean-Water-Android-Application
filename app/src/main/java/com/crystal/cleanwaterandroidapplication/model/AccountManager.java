@@ -1,8 +1,7 @@
 package com.crystal.cleanwaterandroidapplication.model;
 
-import android.util.Log;
-
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -12,80 +11,143 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
+
+//TODO Implement this class with a database backing rather than a HashMap backing.
 
 /**
- * AccountsManager links the app and the database. It is the 'gateway' that the app uses to
- * communicate with the database.
+ * AccountsManager stores and manages a map of Accounts. The Account's username is used
+ * as the key for the map. The map is static, creating new instances of this class will
+ * not overwrite the map of Accounts. Therefor, simply create an instance of this class
+ * whenever access is needed to Account info.
+ *
  * @author Team 62
  * @see Account
  */
-public final class AccountManager {
-    private static HashMap<String, Account> map = new HashMap<>();
+public class AccountManager {
+    //private static HashMap<String, Account> map = new HashMap<>();
     private static Account currentAccount;
 
-    private AccountManager(){
+    /**
+     * Creates an AccountList. Nothing special about it.
+     */
+    public AccountManager() {
         //Do nothing, for now
     }
 
     /**
-     * Attempts to login an account with given username and password. If it is successful, makes the
-     * currentAccount that account. If it fails, throws an InvalidCredentialsException. MUST BE
-     * CALLED WITHIN A SEPARATE THREAD
-     * @param username Username of account to login
-     * @param password Password of account to login
-     * @throws InvalidCredentialsException Thrown whenever an attempt to login has invalid username
-     * or password
+     *
+     * @param username
+     * @param password
+     * @throws InvalidCredentialsException
      */
     public static void login(String username, String password) throws InvalidCredentialsException {
-        updateAccounts();
-        Account account = map.get(username);
-        if (account != null) {
-            if (account.getPassword().equals(password)) {
-                currentAccount = account;
-                return;
+        try {
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/login.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("user", "UTF-8")
+                    + "=" + URLEncoder.encode(username, "UTF-8");
+            data += "&" + URLEncoder.encode("pass", "UTF-8")
+                    + "=" + URLEncoder.encode(password, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            String jsonString = br.readLine();
+            if (jsonString.equals("null")) {
+                throw new InvalidCredentialsException("User/Pass doesn't exist");
             }
+            JSONArray myjsonarray = new JSONArray(jsonString);
+            JSONObject jsonObject = myjsonarray.getJSONObject(0);
+            Account newAccount;
+            newAccount = new Account(jsonObject.getString("username"),
+                    jsonObject.getString("password"),
+                    Permission.valueOf(jsonObject.getString("type")));
+            newAccount.setAccountID(Integer.valueOf(jsonObject.getString("ID")));
+            newAccount.setFirstName(jsonObject.getString("first"));
+            newAccount.setMiddleName(jsonObject.getString("middle"));
+            newAccount.setLastName(jsonObject.getString("last"));
+            currentAccount = newAccount;
+        } catch (java.io.IOException e) {
+            //TODO: Database exception
+            throw new InvalidCredentialsException("Cannot determine if username exists");
+        } catch (JSONException j) {
+            throw new InvalidCredentialsException("User/Pass doesn't exist");
         }
-        throw new InvalidCredentialsException("Either an invalid username/password provided to" +
-                "login");
     }
 
-    /**
-     * Adds an account to the account database. If the account already exists on the database
-     * (username is already taken for example), account is not added and returns false. Otherwise,
-     * adds account to database and returns true. MUST BE CALLED WITHIN A SEPARATE THREAD.
-     * @param account account to add to database
-     * @return true if account successfully added, false if account failed to be added.
-     */
-    public static boolean addAccount(Account account) {
-        if (account == null) {
-            return false;
-        }
+    public static void updateAccount(Account account) {
 
-        updateAccounts();
-        if (usernameExists(account.getUsername())) {
-            return false;
-        } else {
-            add(account.getUsername(), account.getPassword(), account.getEmail(), account.getAccountPermission());
-            return true;
-        }
     }
 
     /**
      * Gets the current logged in account.
-     * @return pointer to the account currently logged in.
+     * @return the account currently logged in.
      */
     public static Account getCurrentAccount() {
         return currentAccount;
     }
 
-    //Checks to see if username already exists on the internal hashmap
-    public static boolean usernameExists(String username) {
-        return map.containsKey(username);
+
+    /**
+     * Gets an account object, based on the Account's username.
+     *
+     * @param username Username of Account to return.
+     * @return Account matching that username.
+     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
+     */
+    public Account getAccountByUsername(String username) throws AccountDoesNotExistException {
+        try {
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/finduser.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("user", "UTF-8")
+                    + "=" + URLEncoder.encode(username, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            String jsonString = br.readLine();
+            if (jsonString.equals("null")) {
+                throw new AccountDoesNotExistException("User doesn't exist");
+            }
+            JSONArray myjsonarray = new JSONArray(jsonString);
+            JSONObject jsonObject = myjsonarray.getJSONObject(0);
+            Account newAccount;
+            newAccount = new Account(jsonObject.getString("username"),
+                    jsonObject.getString("password"),
+                    Permission.valueOf(jsonObject.getString("type")));
+            newAccount.setAccountID(Integer.valueOf(jsonObject.getString("ID")));
+            newAccount.setFirstName(jsonObject.getString("first"));
+            newAccount.setMiddleName(jsonObject.getString("middle"));
+            newAccount.setLastName(jsonObject.getString("last"));
+            return newAccount;
+        } catch (java.io.IOException e) {
+            //TODO: Database exception
+            throw new AccountDoesNotExistException("Cannot determine if username exists");
+        } catch (JSONException j) {
+            throw new AccountDoesNotExistException("User doesn't exist");
+        }
     }
 
-    //Adds the account to the database
-    private static boolean add(String username, String password, String email, Permission accountType) {
+    /**
+     * Adds an account to the map. Returns true if Account does not
+     * exist and is added, false if account already exists or cannot reach database.
+     *
+     * @param username    username of account
+     * @param password    password of account
+     * @param email       email of account
+     * @param accountType type of account
+     * @return True if account is added, false if account is not added.
+     */
+    public boolean add(String username, String password, String email, String accountType) {
+        if (checkUsername(username)) {
+            return false;
+        }
         try {
             URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/adduser.php");
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
@@ -98,74 +160,138 @@ public final class AccountManager {
                     + URLEncoder.encode(email, "UTF-8");
             data += "&" + URLEncoder.encode("pass", "UTF-8")
                     + "=" + URLEncoder.encode(password, "UTF-8");
-            switch (accountType) {
-                case USER:
-                    data += "&" + URLEncoder.encode("type", "UTF-8")
-                            + "=" + URLEncoder.encode("USER", "UTF-8");
-                    break;
-                case WORKER:
-                    data += "&" + URLEncoder.encode("type", "UTF-8")
-                            + "=" + URLEncoder.encode("WORK", "UTF-8");
-                    break;
-                case MANAGER:
-                    data += "&" + URLEncoder.encode("type", "UTF-8")
-                            + "=" + URLEncoder.encode("MANG", "UTF-8");
-                    break;
-                case ADMINISTRATOR:
-                    data += "&" + URLEncoder.encode("type", "UTF-8")
-                            + "=" + URLEncoder.encode("ADMN", "UTF-8");
-                    break;
-                case DEVELOPER:
-                    data += "&" + URLEncoder.encode("type", "UTF-8")
-                            + "=" + URLEncoder.encode("DEV", "UTF-8");
-                    break;
-            }
+            data += "&" + URLEncoder.encode("type", "UTF-8")
+                    + "=" + URLEncoder.encode(accountType, "UTF-8");
             writer.write(data);
             writer.close();
             InputStream stream = connection.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(stream));
-            updateAccounts();
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    //Updates the accounts internally within this class.
-    private static void updateAccounts() {
-            try {
-                HashMap<String, Account> newHashMap = new HashMap<>();
-                URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/loadusers.php");
-                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-                connection.setConnectTimeout(5000);
-                connection.setDoOutput(true);
-                InputStream stream = connection.getInputStream();
-                BufferedReader br = new BufferedReader(new InputStreamReader(stream));
-                String jsonString=br.readLine();
-                JSONArray myjsonarray = new JSONArray(jsonString);
-                for (int i = 0; i < myjsonarray.length(); i++){
-                    JSONObject jsonObject = myjsonarray.getJSONObject(i);
-                    Account newAccount;
-                    switch (jsonObject.getString("type")) {
-                        case "ADMN":
-                            newAccount = new Account(jsonObject.getString("username"),jsonObject.getString("password"),Permission.ADMINISTRATOR);
-                            break;
-                        case "MANG":
-                            newAccount = new Account(jsonObject.getString("username"),jsonObject.getString("password"),Permission.MANAGER);
-                            break;
-                        case "WORK":
-                            newAccount = new Account(jsonObject.getString("username"),jsonObject.getString("password"),Permission.WORKER);
-                            break;
-                        default:
-                            newAccount = new Account(jsonObject.getString("username"),jsonObject.getString("password"),Permission.USER);
-                            break;
-                    }
-                    newAccount.setAccountID(new Integer(jsonObject.getString("ID")));
-                    newHashMap.put(jsonObject.getString("username"),newAccount);
-                    map = newHashMap;
-                }
-            } catch (Exception E) {
-                Log.e("Error", E.toString());
+    /**
+     * Removes an account from the map. Returns the Account removed or throws
+     * AccountDoesNotExistException if the account cannot be found.
+     *
+     * @param account Account to remove.
+     * @return Account that was removed.
+     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
+     */
+    public Account remove(Account account) throws AccountDoesNotExistException {
+        return removeByUsername(account.getUsername());
+    }
+
+    /**
+     * Removes an account from the map by the Account's username. Returns the Account
+     * that is removed or throws AccountDoesNotExistException if the account cannot be found.
+     *
+     * @param username username of account to remove
+     * @return Account that was removed from the Map.
+     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
+     */
+    public Account removeByUsername(String username) throws AccountDoesNotExistException {
+        Account returnAccount = getAccountByUsername(username);
+        ;
+        try {
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/deleteUser.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("user", "UTF-8")
+                    + "=" + URLEncoder.encode(username, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            String jsonString = br.readLine();
+        } catch (java.io.IOException e) {
+            //TODO: Database exception
+            throw new AccountDoesNotExistException("Doesn't Exist");
+        }
+        return returnAccount;
+    }
+
+    /**
+     * Checks if the username already exists for an account in the map. Returns
+     * true if username exists, false if username does not exist.
+     *
+     * @param username The username to check
+     * @return True if username exists, false if username does not exist.
+     */
+    public boolean checkUsername(String username) {
+        try {
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/finduser.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("user", "UTF-8")
+                    + "=" + URLEncoder.encode(username, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            String jsonString = br.readLine();
+            if (jsonString.equals("null")) {
+                return false;
+            }
+            return true;
+        } catch (java.io.IOException e) {
+            //TODO: Database exception
+            return false;
         }
     }
+
+    /**
+     * Sets the Account that is currently logged in to account
+     *
+     * @param account Account to set as current logged in account
+     */
+    public void setCurrentAccount(Account account) {
+        currentAccount = account;
+    }
+
+    /**
+     * Replaces the map with an updated one from the database
+     public static void updateAccounts() {
+     try {
+     HashMap<String, Account> newHashMap = new HashMap<>();
+     URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/loadusers.php");
+     HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+     connection.setConnectTimeout(5000);
+     connection.setDoOutput(true);
+     InputStream stream = connection.getInputStream();
+     BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+     String jsonString=br.readLine();
+     JSONArray myjsonarray = new JSONArray(jsonString);
+     for (int i = 0; i < myjsonarray.length(); i++){
+     JSONObject jsonObject = myjsonarray.getJSONObject(i);
+     Account newAccount;
+     switch (jsonObject.getString("type")) {
+     case "ADMN":
+     newAccount = new Account(jsonObject.getString("username"),jsonObject.getString("password"),Permission.ADMINISTRATOR);
+     break;
+     case "MANG":
+     newAccount = new Account(jsonObject.getString("username"),jsonObject.getString("password"),Permission.MANAGER);
+     break;
+     case "WORK":
+     newAccount = new Account(jsonObject.getString("username"),jsonObject.getString("password"),Permission.WORKER);
+     break;
+     default:
+     newAccount = new Account(jsonObject.getString("username"),jsonObject.getString("password"),Permission.USER);
+     break;
+     }
+     newAccount.setAccountID(new Integer(jsonObject.getString("ID")));
+     newHashMap.put(jsonObject.getString("username"),newAccount);
+     map = newHashMap;
+     }
+     } catch (Exception E) {
+     Log.e("Error", E.toString());
+     }
+     }
+     */
 }
