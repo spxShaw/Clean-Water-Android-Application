@@ -25,9 +25,6 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText lastNameEditText;
     private ImageButton submitButton;
 
-    //Reference to AccountManager
-    private AccountManager accountManager = new AccountManager();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,15 +36,15 @@ public class EditProfileActivity extends AppCompatActivity {
         submitButton = (ImageButton) findViewById(R.id.submitEditProfile);
 
         //Fill EditTexts with current accounts info.
-        firstNameEditText.setText(accountManager.getCurrentAccount().getFirstName());
-        lastNameEditText.setText(accountManager.getCurrentAccount().getLastName());
+        firstNameEditText.setText(AccountManager.getCurrentAccount().getFirstName());
+        lastNameEditText.setText(AccountManager.getCurrentAccount().getLastName());
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Set current Account to info in EditTexts
-                accountManager.getCurrentAccount().setFirstName(firstNameEditText.getText().toString());
-                accountManager.getCurrentAccount().setLastName(lastNameEditText.getText().toString());
+                AccountManager.getCurrentAccount().setFirstName(firstNameEditText.getText().toString());
+                AccountManager.getCurrentAccount().setLastName(lastNameEditText.getText().toString());
 
                 //Change from RegisterActivity to LoginActivity.
                 Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);

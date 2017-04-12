@@ -83,7 +83,7 @@ public final class AccountManager {
     }
 
     //Checks to see if username already exists on the internal account map
-    private static boolean usernameExists(String username) {
+    public static boolean usernameExists(String username) {
         return map.containsKey(username);
     }
 
