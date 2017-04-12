@@ -72,13 +72,15 @@ public class Account {
         if (firstName.equals("")) {
             firstNameReturn = "N/A";
         }
-        if(middleName.equals("")) {
-            middleNameReturn = "";
-        }
         if (lastName.equals("")) {
             lastNameReturn = "N/A";
         }
-        return firstNameReturn + " " + middleNameReturn + " " + lastNameReturn;
+
+        if (middleName.equals("")) {
+            return firstNameReturn + " " + lastNameReturn;
+        } else {
+            return firstNameReturn + " " + middleNameReturn + " " + lastNameReturn;
+        }
     }
 
     /**
