@@ -41,9 +41,6 @@ public final class AccountManager {
      * or password
      */
     public static void login(String username, String password) throws InvalidCredentialsException {
-        //TODO: Send info to database
-        //TODO: Throw InvalidCredentialsException if credentials do not exist or are incorrect
-        //TODO: Set currentAccount to the account object if that account exists
         updateAccounts();
         Account account = map.get(username);
         if (account != null) {
@@ -73,6 +70,7 @@ public final class AccountManager {
             return false;
         } else {
             add(account.getUsername(), account.getPassword(), account.getEmail(), account.getAccountPermission());
+            return true;
         }
     }
 
@@ -133,34 +131,6 @@ public final class AccountManager {
             return true;
         } catch (Exception e) {
             return false;
-        }
-    }
-
-    /**
-     * Removes an account from the map. Returns the Account removed or throws
-     * AccountDoesNotExistException if the account cannot be found.
-     * @param account Account to remove.
-     * @return Account that was removed.
-     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
-     */
-    public Account remove(Account account) throws AccountDoesNotExistException {
-        return removeByUsername(account.getUsername());
-    }
-
-    /**
-     * Removes an account from the map by the Account's username. Returns the Account
-     * that is removed or throws AccountDoesNotExistException if the account cannot be found.
-     * @param username username of account to remove
-     * @return Account that was removed from the Map.
-     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
-     */
-    public Account removeByUsername(String username) throws AccountDoesNotExistException {
-        Account a = map.remove(username);
-        if(a == null) {
-            throw new AccountDoesNotExistException("Attempted to remove an account by username that " +
-                    "does not belong to an account in AccountManager");
-        } else {
-            return a;
         }
     }
 
