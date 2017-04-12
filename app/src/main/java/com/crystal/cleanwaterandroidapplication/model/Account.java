@@ -62,6 +62,10 @@ public class Account {
      * @return The full name of the account holder
      */
     public String getFullName() {
+        if (firstName == null || middleName == null || lastName == null) {
+            return "NULL NAME";
+        }
+
         String firstNameReturn = firstName;
         String middleNameReturn = middleName;
         String lastNameReturn = lastName;
