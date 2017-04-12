@@ -58,8 +58,8 @@ public class WaterReportManager {
                 LatLng location = new LatLng(jsonObject.getDouble("lat"), jsonObject.getDouble("lon"));
                 WaterType waterType = WaterType.valueOf(jsonObject.getString("watertype"));
                 WaterCondition waterCondition = WaterCondition.valueOf(jsonObject.getString("watercondition"));
-                int month = Integer.valueOf(jsonObject.getString("month"));
-                int year = Integer.valueOf(jsonObject.getString("year"));
+                int month = jsonObject.getInt("month");
+                int year = jsonObject.getInt("year");
                 WaterSourceReport report = new WaterSourceReport(reportNumber, reportOwner, location, waterType, waterCondition, month, year);
                 newHashMap.put(new Integer(jsonObject.getString("ID")), report);
             }
@@ -82,8 +82,8 @@ public class WaterReportManager {
                 WaterCondition waterCondition = WaterCondition.valueOf(jsonObject2.getString("watercondition"));
                 Double virusPPM = jsonObject2.getDouble("virusppm");
                 Double contamPPM = jsonObject2.getDouble("contamppm");
-                int month = Integer.valueOf(jsonObject2.getString("month"));
-                int year = Integer.valueOf(jsonObject2.getString("year"));
+                int month = jsonObject2.getInt("month");
+                int year = jsonObject2.getInt("year");
                 WaterSourceReport report = new WaterQualityReport(reportNumber, reportOwner, location, waterType, waterCondition, virusPPM, contamPPM, month, year);
                 newHashMap.put(new Integer(jsonObject2.getString("ID")), report);
             }
@@ -109,7 +109,6 @@ public class WaterReportManager {
         String month = df.format(Calendar.getInstance().getTime());
         df = new SimpleDateFormat("YYYY");
         String year = df.format(Calendar.getInstance().getTime());
-        Log.d("Date", month + " : " + year);
         try {
             //TODO: add owner
             URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/addreport.php");

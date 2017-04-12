@@ -18,152 +18,79 @@ import java.util.HashMap;
 //TODO Implement this class with a database backing rather than a HashMap backing.
 
 /**
- * AccountsManager stores and manages a map of Accounts. The Account's username is used
- * as the key for the map. The map is static, creating new instances of this class will
- * not overwrite the map of Accounts. Therefor, simply create an instance of this class
- * whenever access is needed to Account info.
+ * AccountsManager links the app and the database. It is the 'gateway' that the app uses to
+ * communicate with the database.
  * @author Team 62
  * @see Account
  */
-public class AccountManager {
+public final class AccountManager {
     private static HashMap<String, Account> map = new HashMap<>();
     private static Account currentAccount;
 
-    /**
-     * Creates an AccountList. Nothing special about it.
-     */
-    public AccountManager(){
+    private AccountManager(){
         //Do nothing, for now
     }
 
     /**
-     *
-     * @param username
-     * @param password
-     * @throws InvalidCredentialsException
+     * Attempts to login an account with given username and password. If it is successful, makes the
+     * currentAccount that account. If it fails, throws an InvalidCredentialsException. MUST BE
+     * CALLED WITHIN A SEPARATE THREAD
+     * @param username Username of account to login
+     * @param password Password of account to login
+     * @throws InvalidCredentialsException Thrown whenever an attempt to login has invalid username
+     * or password
      */
     public static void login(String username, String password) throws InvalidCredentialsException {
         //TODO: Send info to database
         //TODO: Throw InvalidCredentialsException if credentials do not exist or are incorrect
         //TODO: Set currentAccount to the account object if that account exists
-        currentAccount = new Account(username, password, Permission.ADMINISTRATOR);
+        updateAccounts();
+        Account account = map.get(username);
+        if (account != null) {
+            if (account.getPassword().equals(password)) {
+                currentAccount = account;
+                return;
+            }
+        }
+        throw new InvalidCredentialsException("Either an invalid username/password provided to" +
+                "login");
     }
 
     /**
-     *
-     * @param account
-     * @return
+     * Adds an account to the account database. If the account already exists on the database
+     * (username is already taken for example), account is not added and returns false. Otherwise,
+     * adds account to database and returns true. MUST BE CALLED WITHIN A SEPARATE THREAD.
+     * @param account account to add to database
+     * @return true if account successfully added, false if account failed to be added.
      */
     public static boolean addAccount(Account account) {
         if (account == null) {
             return false;
         }
 
-        if (!usernameExists(account.getUsername())) {
-            //TODO: Add this account to the database.
-            return true;
-        } else {
+        updateAccounts();
+        if (usernameExists(account.getUsername())) {
             return false;
+        } else {
+            add(account.getUsername(), account.getPassword(), account.getEmail(), account.getAccountPermission());
         }
     }
 
     /**
-     *
-     * @param username
-     * @return
-     */
-    private static boolean usernameExists(String username) {
-        //TODO: Check database for username, return true if exists, false if it doesn't
-        return false;
-    }
-
-
-    public static void removeAccount(Account account) {
-
-    }
-
-    public static void updateAccount(Account account) {
-
-    }
-
-    /**
      * Gets the current logged in account.
-     * @return the account currently logged in.
+     * @return pointer to the account currently logged in.
      */
     public static Account getCurrentAccount() {
         return currentAccount;
     }
 
-    /**
-     * Returns a Collection of all the accounts in the map
-     * @return Collection containing all accounts.
-     */
-    public Collection<Account> getAccountsList() {
-        return map.values();
+    //Checks to see if username already exists on the internal account map
+    private static boolean usernameExists(String username) {
+        return map.containsKey(username);
     }
 
-    /**
-     * Gets an account object, based on the Account's username.
-     * @param username Username of Account to return.
-     * @return Account matching that username.
-     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
-     */
-    public Account getAccountByUsername(String username) throws AccountDoesNotExistException {
-        Account a = map.get(username);
-        if (a == null) {
-            throw new AccountDoesNotExistException("Attempted to get a username that does not " +
-                    "belong to an account in AccountManager");
-        } else {
-            return a;
-        }
-    }
-
-    /**
-     * Gets an account object, based on the Account's email. Recommended to not look up by email,
-     * but rather by username were possible, for efficiency.
-     * @param email Email of Account to return.
-     * @return Account matching that username.
-     * @throws AccountDoesNotExistException Thrown if Account is not found in the map.
-     */
-    public Account getAccountByEmail(String email) throws AccountDoesNotExistException {
-        for(Account a: map.values()) {
-            if(a.getEmail().equals(email)) {
-                return a;
-            }
-        }
-        throw new AccountDoesNotExistException("Attempted to get a email that does not " +
-                "belong to an account in AccountManager");
-    }
-
-    /**
-     * Adds an account to the map. Returns true if Account does not
-     * exist and is added, false if account already exists and is not added.
-     * @param newAccount the account to add
-     * @return True if account is added, false if account is not added.
-     */
-    public boolean add(Account newAccount) {
-        if (!map.containsKey(newAccount.getUsername())) {
-            map.put(newAccount.getUsername(),newAccount);
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Adds an account to the map. Returns true if Account does not
-     * exist and is added, false if account already exists or cannot reach database.
-     * @param username username of account
-     * @param password password of account
-     * @param email email of account
-     * @param accountType type of account
-     * @return True if account is added, false if account is not added.
-     */
-    public boolean add(String username, String password, String email, String accountType) {
-        updateAccounts();
-        if (checkUsername(username)) {
-            return false;
-        }
+    //Adds the account to the database
+    private static boolean add(String username, String password, String email, Permission accountType) {
         try {
             URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/adduser.php");
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
@@ -176,8 +103,28 @@ public class AccountManager {
                     + URLEncoder.encode(email, "UTF-8");
             data += "&" + URLEncoder.encode("pass", "UTF-8")
                     + "=" + URLEncoder.encode(password, "UTF-8");
-            data += "&" + URLEncoder.encode("type", "UTF-8")
-                    + "=" + URLEncoder.encode(accountType, "UTF-8");
+            switch (accountType) {
+                case USER:
+                    data += "&" + URLEncoder.encode("type", "UTF-8")
+                            + "=" + URLEncoder.encode("USER", "UTF-8");
+                    break;
+                case WORKER:
+                    data += "&" + URLEncoder.encode("type", "UTF-8")
+                            + "=" + URLEncoder.encode("WORK", "UTF-8");
+                    break;
+                case MANAGER:
+                    data += "&" + URLEncoder.encode("type", "UTF-8")
+                            + "=" + URLEncoder.encode("MANG", "UTF-8");
+                    break;
+                case ADMINISTRATOR:
+                    data += "&" + URLEncoder.encode("type", "UTF-8")
+                            + "=" + URLEncoder.encode("ADMN", "UTF-8");
+                    break;
+                case DEVELOPER:
+                    data += "&" + URLEncoder.encode("type", "UTF-8")
+                            + "=" + URLEncoder.encode("DEV", "UTF-8");
+                    break;
+            }
             writer.write(data);
             writer.close();
             InputStream stream = connection.getInputStream();
@@ -217,75 +164,8 @@ public class AccountManager {
         }
     }
 
-    /**
-     * Removes an account from the map by the Account's email. Returns the Account that is removed
-     * or throws AccountDoesNotExistException if account is not found. For efficiency, use
-     * removeByUsername over this method.
-     * @param email The email of the account to remove
-     * @return Account that was removed from the map
-     * @throws AccountDoesNotExistException Thrown if Account is not found in the map
-     */
-    public Account removeByEmail(String email) throws AccountDoesNotExistException {
-        for(Account a: map.values()) {
-            if(a.getEmail().equals(email)) {
-                removeByUsername(a.getUsername());
-            }
-        }
-        throw new AccountDoesNotExistException("Attempted to remove an account by email that does" +
-                " not belong to an account in AccountManager");
-    }
-
-    /**
-     * Checks if the username already exists for an account in the map. Returns
-     * true if username exists, false if username does not exist.
-     * @param username The username to check
-     * @return True if username exists, false if username does not exist.
-     */
-    public boolean checkUsername(String username) {
-        return map.containsKey(username);
-    }
-
-    /**
-     * Checks to see if a email exists within the map. Returns true if the email exists,
-     * false if the email does not exist
-     * @param email The email to check.
-     * @return True if email exists, false if email does not exist.
-     */
-    public boolean checkEmail(String email) {
-        for(Account a: map.values()) {
-            if(a.getEmail().equals(email)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Validates a set of credentials, seeing if they match an account in the system. Will
-     * return true if they have a match, false if they don't have a match.
-     * @param username username of account to validate
-     * @param password password of account to validate
-     * @return True if account is validated, false if account is not validated.
-     */
-    public boolean validCredentials(String username, String password) {
-        if (map.containsKey(username)) {
-            return map.get(username).getPassword().equals(password);
-        }
-        return false;
-    }
-
-    /**
-     * Sets the Account that is currently logged in to account
-     * @param account Account to set as current logged in account
-     */
-    public void setCurrentAccount(Account account) {
-        currentAccount = account;
-    }
-
-    /**
-     * Replaces the map with an updated one from the database
-     */
-    public static void updateAccounts() {
+    //Updates the accounts internally within this class.
+    private static void updateAccounts() {
             try {
                 HashMap<String, Account> newHashMap = new HashMap<>();
                 URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/loadusers.php");

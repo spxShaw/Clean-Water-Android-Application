@@ -20,8 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:hint="Year"
+            android:inputType="number" />
 
         <Spinner
             android:id="@+id/HistoryGraphTypeSpinner"

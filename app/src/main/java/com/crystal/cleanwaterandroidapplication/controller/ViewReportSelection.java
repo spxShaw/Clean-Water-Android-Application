@@ -38,7 +38,8 @@ public class ViewReportSelection extends AppCompatActivity {
 
         LookUpReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {Intent intent = new Intent(ViewReportSelection.this, ViewReportsActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewReportSelection.this, ViewReportsActivity.class);
                 startActivity(intent);
             }
         });
@@ -47,7 +48,7 @@ public class ViewReportSelection extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Go to view the graph
-                Intent intent = new Intent(ViewReportSelection.this, TrendsActivity.class);
+                Intent intent = new Intent(ViewReportSelection.this, TrendSetupActivity.class);
                 startActivity(intent);
             }
         });

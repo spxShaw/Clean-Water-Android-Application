@@ -1,6 +1,5 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +46,7 @@ public class TrendSetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int year = Integer.valueOf(yearEditText.getText().toString());
+                System.out.println("Year Chosen: " + year);
                 HistoryGraphType choice = (HistoryGraphType) historyGraphTypeSpinner.getSelectedItem();
                 HistoryGraphManager.setCurrentHistoryGraph(new HistoryGraph(year, choice));
 

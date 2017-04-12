@@ -8,10 +8,10 @@ package com.crystal.cleanwaterandroidapplication.model;
 public class AccountDoesNotExistException extends Exception {
 
     /**
-     * Creates a new AccountDoesNotExistException.
+     * Creates a new AccountDoesNotExistException with default message "Account does not exist"
      */
     public AccountDoesNotExistException() {
-        //Do nothing
+        super("Account does not exist");
     }
 
     /**

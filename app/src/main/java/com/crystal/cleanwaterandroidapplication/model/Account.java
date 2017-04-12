@@ -7,6 +7,8 @@ package com.crystal.cleanwaterandroidapplication.model;
  * This includes its username, password, accountID, and basic bio information. For now,
  * username and password are stored locally on the Account object, in a basic String format.
  * @author Team 62
+ * @see Permission
+ * @see AccountManager
  */
 public class Account {
     private String username;

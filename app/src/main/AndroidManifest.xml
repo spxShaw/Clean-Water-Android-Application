@@ -103,6 +103,10 @@
             android:name=".controller.TrendsActivity"
             android:label="@string/title_activity_trends"
             android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".controller.TrendSetupActivity"
+            android:label="@string/title_activity_trends"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

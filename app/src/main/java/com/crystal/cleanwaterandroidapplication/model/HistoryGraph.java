@@ -31,6 +31,8 @@ public class HistoryGraph {
      * @param graphType the type of graph
      */
     public HistoryGraph(int year, HistoryGraphType graphType) {
+        System.out.println("Year Received: " + year);
+
         //Initialize references
         this.year = year;
         this.graphType = graphType;
@@ -49,8 +51,17 @@ public class HistoryGraph {
 
         //Add data points
         for (WaterSourceReport report : WaterReportManager.getReportsFromYear(year)) {
-            if (report instanceof WaterQualityReport) {
+            System.out.println("Reports year: " + report.getYear());
+            System.out.println("Reports month: " + report.getMonth());
+            //if (report instanceof WaterQualityReport) {
+                System.out.println("Got here");
                 switch (report.getMonth()) {
+                    case 0:
+                        if (graphType == HistoryGraphType.CONTAMINANT_PPM) {
+                            april.add(((WaterQualityReport) report).getContaminantPPM());
+                        } else if (graphType == HistoryGraphType.VIRUS_PPM) {
+                            april.add(((WaterQualityReport) report).getVirusPPM());
+                        }
                     case 1:
                         if (graphType == HistoryGraphType.CONTAMINANT_PPM) {
                             january.add(((WaterQualityReport) report).getContaminantPPM());
@@ -136,7 +147,7 @@ public class HistoryGraph {
                         }
                         break;
                 }
-            }
+            //}
         }
     }
 
@@ -199,6 +210,7 @@ public class HistoryGraph {
      * @return The average of the April points
      */
     public double getAprilAverage() {
+        System.out.println("Added to april!");
         double sum = 0;
         int count = 0;
         for (Double num : april) {
