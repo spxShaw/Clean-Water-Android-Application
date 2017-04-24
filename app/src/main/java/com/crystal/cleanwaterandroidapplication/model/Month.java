@@ -20,6 +20,10 @@ public enum Month {
         return stringRep;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result > 0;
+      @*/
     /**
      * gets the number equivalent of the month (1 is January, 2 is February, 3 is March etc.)
      * @return the month number
@@ -28,6 +32,10 @@ public enum Month {
         return this.ordinal() + 1;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result > 0;
+      @*/
     /**
      * gets the number equivalent of the specific month passed in (1 is January, 2 is February,
      * 3 is March etc.)
@@ -38,6 +46,10 @@ public enum Month {
         return month.ordinal() + 1;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result != null;
+      @*/
     /**
      * Get the month equivalent of a specific number passed in (1 is January, 2 is February,
      * 3 is March etc.)

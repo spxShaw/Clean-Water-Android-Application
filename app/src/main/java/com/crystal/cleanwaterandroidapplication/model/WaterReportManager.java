@@ -93,6 +93,10 @@ public class WaterReportManager {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     requires waterType != null && waterCondition != null && latitude != null && longitude !=null;
+      @*/
     /**
      * Adds a WaterSourceReport to the map. Returns true if successfully added, false if
      * that report ID already exists and report cannot be added.
@@ -141,6 +145,11 @@ public class WaterReportManager {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     requires waterType != null && waterCondition != null && latitude != null
+      @                           && longitude != null && virusPPM != null && contamPPM != null;
+      @*/
     /**
      * Adds a quality report with the specific data values passed in to the database
      * @param waterType the type of water the report is on
@@ -194,6 +203,11 @@ public class WaterReportManager {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     requires reportNumber >= 0;
+      @     ensures \result  != null;
+      @*/
     /**
      * Retrieves the report specified by reportNumber.
      * @param reportNumber reportNumber of report to retrieve.
@@ -208,6 +222,10 @@ public class WaterReportManager {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     requires year > 2015 && year < 2020;
+      @*/
     /**
      * Gets a Collection of all reports from a given year.
      * @param year year to get from

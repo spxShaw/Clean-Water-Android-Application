@@ -34,6 +34,10 @@ public class AccountManager {
         //Do nothing, for now
     }
 
+    /*@
+      @   public normal_behavior
+      @     requires username != null && password != null;
+      @*/
     /**
      *
      * @param username
@@ -82,6 +86,10 @@ public class AccountManager {
 
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result !=null;
+      @*/
     /**
      * Gets the current logged in account.
      * @return the account currently logged in.
@@ -91,6 +99,11 @@ public class AccountManager {
     }
 
 
+    /*@
+      @   public normal_behavior
+      @     required username !=null;
+      @     ensures \result != null;
+      @*/
     /**
      * Gets an account object, based on the Account's username.
      *
@@ -134,6 +147,10 @@ public class AccountManager {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     requires username !=null && password != null;
+      @*/
     /**
      * Adds an account to the map. Returns true if Account does not
      * exist and is added, false if account already exists or cannot reach database.
@@ -172,6 +189,11 @@ public class AccountManager {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     requires account != null;
+      @     ensures \result !=null;
+      @*/
     /**
      * Removes an account from the map. Returns the Account removed or throws
      * AccountDoesNotExistException if the account cannot be found.
@@ -184,6 +206,12 @@ public class AccountManager {
         return removeByUsername(account.getUsername());
     }
 
+
+    /*@
+      @   public normal_behavior
+      @     requires username != null;
+      @     ensures \result !=null;
+      @*/
     /**
      * Removes an account from the map by the Account's username. Returns the Account
      * that is removed or throws AccountDoesNotExistException if the account cannot be found.
@@ -215,6 +243,10 @@ public class AccountManager {
         return returnAccount;
     }
 
+    /*@
+      @   public normal_behavior
+      @     requires username != null;
+      @*/
     /**
      * Checks if the username already exists for an account in the map. Returns
      * true if username exists, false if username does not exist.

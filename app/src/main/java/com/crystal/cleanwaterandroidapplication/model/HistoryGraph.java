@@ -27,6 +27,10 @@ public class HistoryGraph {
     private Collection<Double> november;
     private Collection<Double> december;
 
+    /*@
+      @   public normal_behavior
+      @     requires year > 2015 && year < 2020 && graphType != null;
+      @*/
     /**
      * Creates a history graph using location, year, and graphType. Gets all the data points from
      * the WaterReportManager.
@@ -154,6 +158,10 @@ public class HistoryGraph {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the average of the January points
      * @return The average of the January points
@@ -172,6 +180,10 @@ public class HistoryGraph {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the average of the February points
      * @return The average of the February points
@@ -190,6 +202,10 @@ public class HistoryGraph {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the average of the March points
      * @return The average of the March points
@@ -208,6 +224,10 @@ public class HistoryGraph {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the average of the April points
      * @return The average of the April points
@@ -227,6 +247,10 @@ public class HistoryGraph {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the average of the May points
      * @return The average of the May points
@@ -245,6 +269,10 @@ public class HistoryGraph {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the average of the June points
      * @return The average of the June points
@@ -263,6 +291,10 @@ public class HistoryGraph {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the average of the July points
      * @return The average of the July points
@@ -281,6 +313,10 @@ public class HistoryGraph {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the average of the August points
      * @return The average of the August points
@@ -299,6 +335,10 @@ public class HistoryGraph {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the average of the September points
      * @return The average of the September points
@@ -317,6 +357,10 @@ public class HistoryGraph {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the average of the October points
      * @return The average of the October points
@@ -335,6 +379,10 @@ public class HistoryGraph {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the average of the November points
      * @return The average of the November points
@@ -353,6 +401,10 @@ public class HistoryGraph {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the average of the December points
      * @return The average of the December points

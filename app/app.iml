@@ -146,6 +146,7 @@
     <orderEntry type="library" exported="" name="transition-25.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-appindexing-9.8.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-instantapps-9.8.0" level="project" />
+    <orderEntry type="library" exported="" name="jmlruntime" level="project" />
     <orderEntry type="library" exported="" name="firebase-config-9.8.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-identity-9.8.0" level="project" />
     <orderEntry type="library" exported="" name="GraphView-4.2.1" level="project" />

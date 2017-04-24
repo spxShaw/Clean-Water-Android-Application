@@ -32,6 +32,12 @@ public class WaterSourceReport {
         year = -1;
     }
 
+
+    /*@
+      @   public normal_behavior
+      @     requires reportNumber >= 0 && reportOwnerUsername != null && location != null
+      @                                && waterType != null && waterCondition != null;
+      @*/
     /**
      * Creates a WaterSourceReport.
      * @param reportNumber The report ID/Number that is unique to this report
@@ -51,6 +57,12 @@ public class WaterSourceReport {
         year = -1;
     }
 
+    /*@
+      @   public normal_behavior
+      @     requires reportNumber >= 0 && reportOwnerUsername != null && location != null
+      @                                && waterType != null && waterCondition != null
+      @                                && month > 0 && year >= 2015 && year <= 2020;
+      @*/
     /**
      * Creates a WaterSourceReport with added month and year
      * @param reportNumber The report ID/Number that is unique to this report
@@ -72,6 +84,10 @@ public class WaterSourceReport {
         this.year = year;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the report number of the report
      * @return Integer object of the report number
@@ -104,6 +120,10 @@ public class WaterSourceReport {
         return location;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result != null;
+      @*/
     /**
      * Gets the WaterType of the report
      * @return the WaterType of the report
@@ -112,6 +132,10 @@ public class WaterSourceReport {
         return waterType;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result != null;
+      @*/
     /**
      * Gets the WaterCondition of the report
      * @return the WaterCondition of the report.
@@ -120,6 +144,10 @@ public class WaterSourceReport {
         return waterCondition;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 0;
+      @*/
     /**
      * Gets the month of the report
      * @return the month of the report
@@ -128,6 +156,10 @@ public class WaterSourceReport {
         return month;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result >= 2015 && \result <= 2020;
+      @*/
     /**
      * Gets the year of the report.
      * @return the year of the report.
@@ -135,6 +167,8 @@ public class WaterSourceReport {
     public int getYear() {
         return year;
     }
+
+
 
     /**
      * Checks to see if an username is the owner of the report

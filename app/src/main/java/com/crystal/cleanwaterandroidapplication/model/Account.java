@@ -24,6 +24,12 @@ public class Account {
         accountID = 0;
     }
 
+
+    /*@
+      @   public normal_behavior
+      @     requires username != null && password != null;
+      @
+      @*/
     /**
      * Creates an account, given a username, password, and permission status.
      * @param username username of account
@@ -37,6 +43,11 @@ public class Account {
         this.accountPermission = accountPermission;
     }
 
+
+    /*@
+      @   public normal_behavior
+      @     ensures \result !=null;
+      @*/
     /**
      * Gets the account's username.
      * @return The account's username.
@@ -45,6 +56,10 @@ public class Account {
         return this.username;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result !=null;
+      @*/
     /**
      * Gets the account's password.
      * @return The account's password.
@@ -53,6 +68,10 @@ public class Account {
         return this.password;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result !=null;
+      @*/
     /**
      * Gets the account holders full name. Returns in for the format:
      * 'FirstName' 'MiddleName' 'LastName'. If the name field is empty, replaces
@@ -81,6 +100,10 @@ public class Account {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result !=null;
+      @*/
     /**
      * Gets the account holders first name.
      * @return The first name of the account holder.
@@ -89,6 +112,10 @@ public class Account {
         return firstName;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result !=null;
+      @*/
     /**
      * Gets the account holders middle name.
      * @return The middle name of the account holder.
@@ -97,6 +124,10 @@ public class Account {
         return middleName;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result !=null;
+      @*/
     /**
      * Gets the account holders last name.
      * @return The last name of the account holder.
@@ -105,6 +136,10 @@ public class Account {
         return lastName;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result !=null;
+      @*/
     /**
      * Gets the account's email.
      * @return The account's email.
@@ -113,6 +148,10 @@ public class Account {
         return email;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result !=null;
+      @*/
     /**
      * Gets the account's ID.
      * @return The account's ID.
@@ -121,6 +160,10 @@ public class Account {
         return accountID;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result !=null;
+      @*/
     /**
      * Gets the account's permission.
      * @return The account's permission.
@@ -128,6 +171,7 @@ public class Account {
     public Permission getAccountPermission() {
         return accountPermission;
     }
+
 
     /**
      * Sets the accounts username.

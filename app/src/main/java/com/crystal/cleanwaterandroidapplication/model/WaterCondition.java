@@ -27,6 +27,10 @@ public enum WaterCondition {
         return stringRepresentation;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result != null;
+      @*/
     /**
      * Returns a collection of all different types of possible WaterConditions
      * @return A collection of all different WaterConditions
