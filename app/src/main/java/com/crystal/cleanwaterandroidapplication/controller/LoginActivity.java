@@ -1,11 +1,9 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.AsyncTask;
-
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,9 +26,12 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private ImageButton loginButton;
     private ImageButton cancelButton;
+    private EditText forgotPasswordText;
+    private Button forgotPasswordButton;
 
     // Login thread reference
     private UserLoginTask loginTask;
+    private PasswordForgetTask forgetTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = (EditText) findViewById(R.id.passwordLogin);
         loginButton = (ImageButton) findViewById(R.id.SignInImageButton);
         cancelButton = (ImageButton) findViewById(R.id.CancelSignInImageButton);
+        forgotPasswordText = (EditText) findViewById(R.id.ForgotPassword);
+        forgotPasswordButton = (Button) findViewById(R.id.ForgotPasswordButton);
 
         //Setup login button
         loginButton.setOnClickListener(new OnClickListener() {
@@ -59,6 +62,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        forgotPasswordButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                forgotPass();
+            }
+        });
     }
 
 
@@ -71,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         // Reset errors.
         usernameEditText.setError(null);
         passwordEditText.setError(null);
+        forgotPasswordText.setError(null);
 
         // Store values at the time of the login attempt.
         String username = usernameEditText.getText().toString();
@@ -139,6 +150,57 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onCancelled() {
             loginTask = null;
+        }
+    }
+
+    private void forgotPass() {
+        // Reset errors.
+        usernameEditText.setError(null);
+        passwordEditText.setError(null);
+        forgotPasswordText.setError(null);
+
+        // Store values at the time of the login attempt.
+        String email = forgotPasswordText.getText().toString();
+
+        //Check for empty username field or password field.
+        boolean cancel = false;
+        if (TextUtils.isEmpty(email)) {
+            forgotPasswordText.setError("Enter an Email");
+            cancel = true;
+        }
+
+        //Login
+        if (!cancel) {
+            forgetTask = new PasswordForgetTask(email);
+            forgetTask.execute((Void) null);
+        }
+    }
+
+    /*
+     * Login thread. Implemented as a thread for future usability.
+     */
+    private class PasswordForgetTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String email;
+
+        PasswordForgetTask(String email) {
+            this.email = email;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            AccountManager.forgetPass(email);
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            forgotPasswordText.setError("Check email for additional instructions");
+        }
+
+        @Override
+        protected void onCancelled() {
+            forgetTask = null;
         }
     }
 }

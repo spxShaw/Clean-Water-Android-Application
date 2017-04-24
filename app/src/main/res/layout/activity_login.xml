@@ -63,25 +63,58 @@
                 android:id="@+id/SignInImageButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:background="@null"
-                android:adjustViewBounds="true"
-                android:layout_marginTop="80dp"
-                app:srcCompat="@drawable/sign_in_button"
+                android:layout_alignParentStart="true"
                 android:layout_marginBottom="10dp"
-                android:layout_alignParentStart="true" />
+                android:layout_marginTop="80dp"
+                android:adjustViewBounds="true"
+                android:background="@null"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/sign_in_button" />
 
 
             <ImageButton
                 android:id="@+id/CancelSignInImageButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:background="@null"
-                android:adjustViewBounds="true"
+                android:layout_alignParentStart="true"
                 android:layout_marginTop="5dp"
-                app:srcCompat="@drawable/cancel_button"
-                android:layout_alignParentStart="true" />
+                android:layout_marginBottom="80dp"
+                android:adjustViewBounds="true"
+                android:background="@null"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/cancel_button" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="278dp"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/ForgotPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email"
+                        android:imeActionId="@+id/login"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/ForgotPasswordButton"
+                    android:layout_width="223dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Forgot Password" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>

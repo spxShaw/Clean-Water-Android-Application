@@ -1,5 +1,7 @@
 package com.crystal.cleanwaterandroidapplication.model;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -275,6 +277,35 @@ public class AccountManager {
         } catch (java.io.IOException e) {
             //TODO: Database exception
             return false;
+        }
+    }
+
+
+    /*@
+      @   public normal_behavior
+      @     requires username != null;
+      @*/
+
+    /**
+     * Sends email to website script to begin resetting password
+     *
+     * @param email The email of the forgotten user
+     */
+    public static void forgetPass(String email) {
+        try {
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/passwordrecover.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("email", "UTF-8")
+                    + "=" + URLEncoder.encode(email, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
         }
     }
 
