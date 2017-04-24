@@ -15,6 +15,7 @@ public class Account {
     private String email;
     private int accountID;
     private Permission accountPermission;
+    private Boolean banned;
 
     private Account() {
         firstName = "";
@@ -172,6 +173,28 @@ public class Account {
         return accountPermission;
     }
 
+    /*@
+      @   public normal_behavior
+      @     ensures \result !=null;
+      @*/
+
+    /**
+     * Gets the account's bannishment.
+     *
+     * @return The account's bannishment.
+     */
+    public Boolean getBanned() {
+        return banned;
+    }
+
+    /**
+     * Sets the account's banishment.
+     *
+     * @param b bannishment
+     */
+    public void setBanned(Boolean b) {
+        banned = b;
+    }
 
     /**
      * Sets the accounts username.

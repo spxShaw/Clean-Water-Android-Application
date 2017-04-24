@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.AccountManager;
+import com.crystal.cleanwaterandroidapplication.model.BannedAccountException;
 import com.crystal.cleanwaterandroidapplication.model.InvalidCredentialsException;
 
 /**
@@ -126,6 +127,8 @@ public class LoginActivity extends AppCompatActivity {
             } catch (InvalidCredentialsException e) {
                 //Login failed
                 return false;
+            } catch (BannedAccountException b) {
+                return false;
             }
             //Login successful!
             return true;
@@ -142,8 +145,8 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 //Unsuccessful login, show appropriate errors
-                usernameEditText.setError("Incorrect username and/or password");
-                passwordEditText.setError("Incorrect username and/or password");
+                usernameEditText.setError("Incorrect username and/or password or Banned Account");
+                passwordEditText.setError("Incorrect username and/or password or Banned Account");
             }
         }
 

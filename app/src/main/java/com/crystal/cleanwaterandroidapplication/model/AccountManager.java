@@ -46,7 +46,7 @@ public class AccountManager {
      * @param password
      * @throws InvalidCredentialsException
      */
-    public static void login(String username, String password) throws InvalidCredentialsException {
+    public static void login(String username, String password) throws InvalidCredentialsException, BannedAccountException {
         try {
             URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/login.php");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -75,6 +75,10 @@ public class AccountManager {
             newAccount.setFirstName(jsonObject.getString("first"));
             newAccount.setMiddleName(jsonObject.getString("middle"));
             newAccount.setLastName(jsonObject.getString("last"));
+            newAccount.setBanned(1 == jsonObject.getInt("banned"));
+            if (newAccount.getBanned()) {
+                throw new BannedAccountException("Account is banned");
+            }
             currentAccount = newAccount;
         } catch (java.io.IOException e) {
             //TODO: Database exception
