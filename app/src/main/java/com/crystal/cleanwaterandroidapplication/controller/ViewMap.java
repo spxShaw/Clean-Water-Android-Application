@@ -23,6 +23,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Collection;
 
+/**
+ * Controls the google map view
+ * @author Team 62
+ */
 public class ViewMap extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -59,7 +63,7 @@ public class ViewMap extends FragmentActivity implements GoogleMap.OnMarkerClick
             if (report instanceof WaterQualityReport && AccountManager.getCurrentAccount().hasPermission(Permission.MANAGER)) {
                 Log.i("Location Log", report.getLocation().toString());
                 LatLng location = report.getLocation();
-                mMap.addMarker(new MarkerOptions().position(location).title(new Double(((WaterQualityReport)report).getVirusPPM()).toString()));
+                mMap.addMarker(new MarkerOptions().position(location).title(Double.toString(((WaterQualityReport)report).getVirusPPM())));
             } else {
                 Log.i("Location Log", report.getLocation().toString());
                 LatLng location = report.getLocation();

@@ -22,17 +22,16 @@ import java.net.URLEncoder;
  * not overwrite the map of Accounts. Therefor, simply create an instance of this class
  * whenever access is needed to Account info.
  *
+ * Follows the Singleton design pattern
+ *
  * @author Team 62
  * @see Account
  */
 public class AccountManager {
-    //private static HashMap<String, Account> map = new HashMap<>();
+
     private static Account currentAccount;
 
-    /**
-     * Creates an AccountList. Nothing special about it.
-     */
-    public AccountManager() {
+    private AccountManager() {
         //Do nothing, for now
     }
 
@@ -75,8 +74,7 @@ public class AccountManager {
             newAccount.setFirstName(jsonObject.getString("first"));
             newAccount.setMiddleName(jsonObject.getString("middle"));
             newAccount.setLastName(jsonObject.getString("last"));
-            newAccount.setBanned(1 == jsonObject.getInt("banned"));
-            if (newAccount.getBanned()) {
+            if (1 == jsonObject.getInt("banned")) {
                 throw new BannedAccountException("Account is banned");
             }
             currentAccount = newAccount;

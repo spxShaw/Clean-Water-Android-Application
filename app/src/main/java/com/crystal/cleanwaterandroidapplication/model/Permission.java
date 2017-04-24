@@ -17,7 +17,7 @@ public enum Permission {
     }
 
     /**
-     * Returns the shortCode version of the permission. Useful for things like the database, were
+     * Returns the shortCode version of the permission. Useful for things like a database, were
      * storing the least amount of characters is best.
      * @return the shortCode version of the permission.
      */

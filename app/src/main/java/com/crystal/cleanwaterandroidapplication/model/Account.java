@@ -8,7 +8,7 @@ package com.crystal.cleanwaterandroidapplication.model;
  * @see Permission
  * @see AccountManager
  */
-public class Account {
+public class Account implements Permissible, Bannable {
     private String username;
     private String password;
     private String firstName, middleName, lastName;
@@ -161,41 +161,6 @@ public class Account {
         return accountID;
     }
 
-    /*@
-      @   public normal_behavior
-      @     ensures \result !=null;
-      @*/
-    /**
-     * Gets the account's permission.
-     * @return The account's permission.
-     */
-    public Permission getAccountPermission() {
-        return accountPermission;
-    }
-
-    /*@
-      @   public normal_behavior
-      @     ensures \result !=null;
-      @*/
-
-    /**
-     * Gets the account's bannishment.
-     *
-     * @return The account's bannishment.
-     */
-    public Boolean getBanned() {
-        return banned;
-    }
-
-    /**
-     * Sets the account's banishment.
-     *
-     * @param b bannishment
-     */
-    public void setBanned(Boolean b) {
-        banned = b;
-    }
-
     /**
      * Sets the accounts username.
      * @param username The username to change the account's username too.
@@ -274,14 +239,31 @@ public class Account {
         this.accountID = accountID;
     }
 
-    /**
-     * Determines whether this account has the permission given. As a reminder, USER is least
-     * permission, while DEVELOPER is greatest permission
-     * @param permission Permission to check if account has
-     * @return True if account has the permission, false if it does not.
-     */
+    @Override
     public boolean hasPermission(Permission permission) {
         return accountPermission.compareTo(permission) >= 0;
+    }
+
+    @Override
+    public void updatePermission(Permission permission) {
+        accountPermission = permission;
+    }
+
+    @Override
+    public boolean ban() {
+        banned = true;
+        return true;
+    }
+
+    @Override
+    public boolean unBan() {
+        banned = false;
+        return true;
+    }
+
+    @Override
+    public boolean isBanned() {
+        return banned;
     }
 
     @Override
@@ -306,7 +288,7 @@ public class Account {
         s += "Username: " + getUsername() + " ";
         s += "Name: " + getFullName() + " ";
         s += "Account ID: " + getAccountID() + " ";
-        s += "Permission: " + getAccountPermission() + " ";
+        s += "Permission: " + accountPermission + " ";
         return s;
     }
 }

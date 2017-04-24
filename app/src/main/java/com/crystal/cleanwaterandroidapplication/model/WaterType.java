@@ -32,7 +32,7 @@ public enum WaterType {
      * @return A collection of all different WaterTypes
      */
     public static Collection<WaterType> getWaterTypeCollection() {
-        ArrayList<WaterType> temp = new ArrayList<WaterType>();
+        ArrayList<WaterType> temp = new ArrayList<>();
         temp.add(BOTTLED);
         temp.add(WELL);
         temp.add(STREAM);
