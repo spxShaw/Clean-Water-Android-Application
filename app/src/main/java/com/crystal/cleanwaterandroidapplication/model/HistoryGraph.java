@@ -425,53 +425,97 @@ public class HistoryGraph {
 
 
     /**
-     * Adds to month arraylist averages for code testing
-     * @return void
+     * Add to a months average
+     * @param d The double to add
      */
     public void addJanuary(Double d) {
         january.add(d);
     }
 
+    /**
+     * Add to a months average
+     * @param d The double to add
+     */
     public void addFebruary(Double d) {
         february.add(d);
     }
 
+    /**
+     * Add to a months average
+     * @param d The double to add
+     */
     public void addMarch(Double d) {
         march.add(d);
     }
 
+    /**
+     * Add to a months average
+     * @param d The double to add
+     */
     public void addApril(Double d) {
         april.add(d);
     }
 
+    /**
+     * Add to a months average
+     * @param d The double to add
+     */
     public void addMay(Double d) {
         may.add(d);
     }
 
+    /**
+     * Add to a months average
+     * @param d The double to add
+     */
     public void addJune(Double d) {
         june.add(d);
     }
 
+    /**
+     * Add to a months average
+     * @param d The double to add
+     */
     public void addJuly(Double d) {
         july.add(d);
     }
 
+    /**
+     * Add to a months average
+     * @param d The double to add
+     */
     public void addAugust(Double d) {
         august.add(d);
     }
 
+    /**
+     * Add to a months average
+     * @param d The double to add
+     */
     public void addSeptember(Double d) {
         september.add(d);
     }
 
+    /**
+     * Add to a months average
+     * @param d The double to add
+     */
     public void addOctober(Double d) {
         october.add(d);
     }
 
+    /**
+     * Add to a months average
+     * @param d The double to add
+     */
     public void addNovember(Double d) {
         november.add(d);
     }
 
+    /**
+     * Add to a months average
+     * @param d The double to add
+     */
     public void addDecember(Double d) {
         december.add(d);
     }

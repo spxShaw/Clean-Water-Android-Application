@@ -1,7 +1,5 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
-//import android.support.v7.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,7 +8,10 @@ import android.os.Bundle;
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.WaterReportManager;
 
-
+/**
+ * Activity for controlling the splash screen.
+ * @author Team 62
+ */
 public class SplashScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +33,11 @@ public class SplashScreen extends Activity {
         };
         timerThread.start();
     }
-    /**
+
+    /*
      * Loads from the database
      */
-    class LoadDatabaseTask extends AsyncTask<Integer, Integer, String> {
+    private class LoadDatabaseTask extends AsyncTask<Integer, Integer, String> {
         @Override
         protected String doInBackground(Integer... params) {
             WaterReportManager.updateReports();

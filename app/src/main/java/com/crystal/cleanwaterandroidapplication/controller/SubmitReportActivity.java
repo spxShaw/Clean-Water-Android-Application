@@ -1,14 +1,11 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,12 +45,12 @@ public class SubmitReportActivity extends AppCompatActivity {
         //ReportID.setText("" + waterReportManager.getNextReportNumber());
 
         //Setup WaterTypeSpinner
-        ArrayAdapter<WaterType> WaterTypeSpinnerAdapter = new ArrayAdapter<WaterType>(this, android.R.layout.simple_spinner_item);
+        ArrayAdapter<WaterType> WaterTypeSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         WaterTypeSpinnerAdapter.addAll(WaterType.getWaterTypeCollection());
         WaterTypeSpinner.setAdapter(WaterTypeSpinnerAdapter);
 
         //Setup WaterConditionSpinner
-        final ArrayAdapter<WaterCondition> WaterConditionSpinnerAdapter = new ArrayAdapter<WaterCondition>(this, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<WaterCondition> WaterConditionSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         WaterConditionSpinnerAdapter.addAll(WaterCondition.getWaterConditionCollection());
         WaterConditionSpinner.setAdapter(WaterConditionSpinnerAdapter);
 

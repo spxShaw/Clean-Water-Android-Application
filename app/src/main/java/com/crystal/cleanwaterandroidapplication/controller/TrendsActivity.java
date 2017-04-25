@@ -2,21 +2,19 @@ package com.crystal.cleanwaterandroidapplication.controller;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.HistoryGraph;
 import com.crystal.cleanwaterandroidapplication.model.HistoryGraphManager;
-import com.crystal.cleanwaterandroidapplication.model.HistoryGraphType;
-import com.google.android.gms.maps.model.LatLng;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+/**
+ * Activity for controlling the HistoryGraph view.
+ */
 public class TrendsActivity extends AppCompatActivity {
 
     //UI References

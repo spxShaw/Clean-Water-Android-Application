@@ -7,19 +7,17 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.WaterReportManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
- * Created by RobertCooper on 3/8/17.
+ * Activity to view reports
+ * @author Team 62
  */
-
 public class ViewReportsActivity extends AppCompatActivity {
     //UI Reference
     private Spinner reports;
@@ -41,7 +39,7 @@ public class ViewReportsActivity extends AppCompatActivity {
         //    reportNumbers.add(new Integer(i));
         //}
 
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item);
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         adapter.addAll(reportNumbers);
         //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         reports.setAdapter(adapter);

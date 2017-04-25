@@ -303,10 +303,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    /**
+    /*
      * Adds an account to the database
      */
-    class AddAccountTask extends AsyncTask<String, String, Boolean> {
+    private class AddAccountTask extends AsyncTask<String, String, Boolean> {
         @Override
         protected Boolean doInBackground(String... params) {
             return accountManager.add(params[0], params[1], params[2], params[3]);
@@ -314,7 +314,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    class checkUsername extends AsyncTask<String, String, Boolean> {
+    private class checkUsername extends AsyncTask<String, String, Boolean> {
         @Override
         protected Boolean doInBackground(String... params) {
             return checkUsernameExists(params[0]);

@@ -1,23 +1,19 @@
 package com.crystal.cleanwaterandroidapplication.controller;
 
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.crystal.cleanwaterandroidapplication.model.AccountManager;
-
 import com.crystal.cleanwaterandroidapplication.R;
-import com.crystal.cleanwaterandroidapplication.model.Permission;
 
-import static com.google.android.gms.location.LocationRequest.create;
-
+/**
+ * Activity for controlling the 'Main' Screen of the app. Contains buttons and views for different
+ * user permissions.
+ * @author Team 62
+ */
 public class MainActivity extends AppCompatActivity {
 
     //UI References
@@ -44,12 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.content_main);
         setSupportActionBar(toolbar);
 
-
-
-
-
-
-        /***** BUTTON SETUP *****/
+        /* BUTTON SETUP */
         logoutButton = (ImageButton) findViewById(R.id.LogOutImageButton);
         editProfileButton = (ImageButton) findViewById(R.id.EditProfileImageButton);
         submitReportButton = (ImageButton) findViewById(R.id.SubmitReportImageButton);
@@ -118,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /***** VIEW SETUP *****/
+        /* VIEW SETUP */
         /*
         userMainLayout = (View) findViewById(R.id.UserMainLayout);
         workerMainLayout = (View) findViewById(R.id.WorkerMainLayout);

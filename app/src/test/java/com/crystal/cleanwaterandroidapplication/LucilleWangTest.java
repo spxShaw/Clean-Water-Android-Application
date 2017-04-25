@@ -10,7 +10,7 @@ import org.junit.Test;
 
 /**
  * Lucille Wang's JUnit test
- * Tests the function ______
+ * Tests the method getFullName
  *
  * @author Lucille Wang
  * @version 1.0

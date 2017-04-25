@@ -45,6 +45,13 @@ public class RobertCooperTest {
 
     @Test
     public void test_AccountEquality() {
+        //Test for false on a null
+        Assert.assertFalse(a.equals(nullAccount));
+
+        //Test for no equality on a 'blank' account
+        Assert.assertFalse(a.equals(blankAccount));
+        Assert.assertFalse(blankAccount.equals(a));
+
         //Test object equals itself
         Assert.assertTrue(a.equals(a));
 

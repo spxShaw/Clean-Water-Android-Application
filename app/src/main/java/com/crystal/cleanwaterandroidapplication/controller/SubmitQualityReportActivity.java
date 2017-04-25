@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,7 +15,9 @@ import com.crystal.cleanwaterandroidapplication.model.WaterCondition;
 import com.crystal.cleanwaterandroidapplication.model.WaterReportManager;
 import com.crystal.cleanwaterandroidapplication.model.WaterType;
 
-
+/**
+ * Activity for controlling the submission of WaterQualityReports.
+ */
 public class SubmitQualityReportActivity extends AppCompatActivity {
 
     //UI Reference
@@ -35,6 +36,7 @@ public class SubmitQualityReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_quality_report);
 
+        //Setup UI references
         SubmitReport = (ImageButton) findViewById(R.id.MakeReportButton);
         WaterTypeSpinner = (Spinner) findViewById(R.id.WaterTypeSpinner);
         WaterConditionSpinner = (Spinner) findViewById(R.id.WaterConditionSpinner);
@@ -44,12 +46,12 @@ public class SubmitQualityReportActivity extends AppCompatActivity {
         ContaminantPPMView = (TextView) findViewById(R.id.ContaminantPPMView);
 
         //Setup WaterTypeSpinner
-        ArrayAdapter<WaterType> WaterTypeSpinnerAdapter = new ArrayAdapter<WaterType>(this, android.R.layout.simple_spinner_item);
+        ArrayAdapter<WaterType> WaterTypeSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         WaterTypeSpinnerAdapter.addAll(WaterType.getWaterTypeCollection());
         WaterTypeSpinner.setAdapter(WaterTypeSpinnerAdapter);
 
         //Setup WaterConditionSpinner
-        final ArrayAdapter<WaterCondition> WaterConditionSpinnerAdapter = new ArrayAdapter<WaterCondition>(this, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<WaterCondition> WaterConditionSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         WaterConditionSpinnerAdapter.addAll(WaterCondition.getWaterConditionCollection());
         WaterConditionSpinner.setAdapter(WaterConditionSpinnerAdapter);
 
@@ -72,7 +74,7 @@ public class SubmitQualityReportActivity extends AppCompatActivity {
         });
     }
 
-    class AddQualityReportTask extends AsyncTask<String, String, String> {
+    private class AddQualityReportTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params) {
             boolean success = WaterReportManager.addQualityReport(params[0], params[1], params[2],

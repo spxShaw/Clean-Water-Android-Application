@@ -18,7 +18,7 @@ public enum WaterCondition {
 
     private String stringRepresentation;
 
-    private WaterCondition(String s) {
+    WaterCondition(String s) {
         stringRepresentation = s;
     }
 
@@ -36,7 +36,7 @@ public enum WaterCondition {
      * @return A collection of all different WaterConditions
      */
     public static Collection<WaterCondition> getWaterConditionCollection() {
-        ArrayList<WaterCondition> temp = new ArrayList<WaterCondition>();
+        ArrayList<WaterCondition> temp = new ArrayList<>();
         temp.add(WASTE);
         temp.add(TREATABLE_CLEAR);
         temp.add(TREATABLE_MUDDY);

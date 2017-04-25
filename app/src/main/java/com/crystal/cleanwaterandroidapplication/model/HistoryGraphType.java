@@ -6,5 +6,5 @@ package com.crystal.cleanwaterandroidapplication.model;
  * @see HistoryGraph
  */
 public enum HistoryGraphType {
-    VIRUS_PPM, CONTAMINANT_PPM;
+    VIRUS_PPM, CONTAMINANT_PPM
 }

@@ -13,11 +13,13 @@ import com.crystal.cleanwaterandroidapplication.R;
 import com.crystal.cleanwaterandroidapplication.model.HistoryGraph;
 import com.crystal.cleanwaterandroidapplication.model.HistoryGraphManager;
 import com.crystal.cleanwaterandroidapplication.model.HistoryGraphType;
-import com.crystal.cleanwaterandroidapplication.model.WaterType;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
+/**
+ * Activity for controlling the setting up of a HistoryGraph
+ * @author Team 62
+ */
 public class TrendSetupActivity extends AppCompatActivity {
     //UI Reference
     EditText yearEditText;

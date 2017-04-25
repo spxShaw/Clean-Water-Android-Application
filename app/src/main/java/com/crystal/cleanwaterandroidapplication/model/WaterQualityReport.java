@@ -43,7 +43,7 @@ public class WaterQualityReport extends WaterSourceReport {
     /**
      * Creates a WaterQualityReport with specific values/pieces of data that are passed in
      * as parameters
-     * @param @param reportNumber the report number
+     * @param reportNumber the report number
      * @param reportOwnerUsername the username of the owner of the report
      * @param location the location the report is for
      * @param waterType the type of water the report is for
