@@ -1,12 +1,12 @@
 package com.crystal.cleanwaterandroidapplication;
 
 
+import com.crystal.cleanwaterandroidapplication.model.AccountDoesNotExistException;
 import com.crystal.cleanwaterandroidapplication.model.AccountManager;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 
 import java.util.Random;
 
@@ -60,6 +60,23 @@ public class AcountManagerTest {
 
         //check if invalid username returns false
         Assert.assertFalse(acctMng.checkUsername("notValidUser"));
+    }
+
+    /**
+     * testing removeByUsername()
+     */
+    @Test
+    public void testRemoveByUsername() {
+        //Add username
+        Random rand = new Random();
+        int u = rand.nextInt(100000000);
+        String username = Integer.toString(u);
+        acctMng.add(username, "pass", "user@gmail.com", "USER");
+        try {
+            acctMng.removeByUsername(username);
+        } catch(AccountDoesNotExistException e) {
+
+        }
     }
 
     /*
