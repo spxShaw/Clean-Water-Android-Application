@@ -67,15 +67,27 @@ public class AcountManagerTest {
     /**
      * testing removeByUsername()
      */
-    @Test
+    @Test/*(expected = AccountDoesNotExistException.class)*/
     public void testRemoveByUsername() {
         //Add username
         Random rand = new Random();
         int u = rand.nextInt(100000000);
         String username = Integer.toString(u);
         acctMng.add(username, "pass", "user@gmail.com", "USER");
+
         try {
             acctMng.removeByUsername(username);
+        } catch(AccountDoesNotExistException e) {
+        }
+    }
+
+    @Test(expected = AccountDoesNotExistException.class)
+    public void testRemoveByUsernameInvalid() {
+        Random rand = new Random();
+        int u = rand.nextInt(1000000);
+        String invalidUsername = Integer.toString(u);
+        try {
+            acctMng.removeByUsername(invalidUsername);
         } catch(AccountDoesNotExistException e) {
 
         }
