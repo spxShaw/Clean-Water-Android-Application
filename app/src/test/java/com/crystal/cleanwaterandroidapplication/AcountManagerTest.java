@@ -59,7 +59,9 @@ public class AcountManagerTest {
         Assert.assertTrue(acctMng.checkUsername(username));
 
         //check if invalid username returns false
-        Assert.assertFalse(acctMng.checkUsername("notValidUser"));
+
+        String invalidUsername = Integer.toString(rand.nextInt(100000000));
+        Assert.assertFalse(acctMng.checkUsername(invalidUsername));
     }
 
     /**
@@ -78,6 +80,8 @@ public class AcountManagerTest {
 
         }
     }
+
+    //@Test(expected = )
 
     /*
     @Test
