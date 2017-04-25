@@ -8,5 +8,37 @@
     android:background="@drawable/fractal_background">
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <EditText
+            android:id="@+id/usernameEnter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="39dp"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/banButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/unbanButton"
+            android:layout_below="@+id/usernameEnter"
+            android:layout_marginTop="29dp"
+            android:text="ban" />
+
+        <Button
+            android:id="@+id/unbanButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/banButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="29dp"
+            android:text="unban" />
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
