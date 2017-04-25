@@ -284,6 +284,37 @@ public class AccountManager {
         }
     }
 
+    /*@
+      @   public normal_behavior
+      @     requires user != null;
+      @     requires value != null;
+      @*/
+
+    /**
+     * Bans or unbans the user
+     *
+     * @param user  the user to be banned
+     * @param value the ban-value of the user 1 for ban 0 for unban
+     */
+    public static void setBan(String user, String value) {
+        try {
+            URL url = new URL("http://mattbusch.net/wp-content/uploads/WaterWorld/setban.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            String data = URLEncoder.encode("user", "UTF-8")
+                    + "=" + URLEncoder.encode(user, "UTF-8");
+            data += "&" + URLEncoder.encode("ban", "UTF-8") + "="
+                    + URLEncoder.encode(value, "UTF-8");
+            writer.write(data);
+            writer.close();
+            InputStream stream = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
+    }
 
     /*@
       @   public normal_behavior
