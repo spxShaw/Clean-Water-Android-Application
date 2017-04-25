@@ -9,7 +9,7 @@ import com.google.android.gms.maps.model.LatLng;
  * the water the report is on.
  * @author Team 62
  */
-public class WaterSourceReport {
+public class WaterSourceReport implements Bannable {
 
     private final int reportNumber;
     private final LatLng location;
@@ -18,6 +18,7 @@ public class WaterSourceReport {
     private final WaterCondition waterCondition;
     private int month;
     private int year;
+    private boolean banned;
 
     /**
      * Default constructor. Sets everything to null/-1.
@@ -195,6 +196,23 @@ public class WaterSourceReport {
      */
     public boolean isWaterCondition(WaterCondition waterCondition) {
         return this.waterCondition == waterCondition;
+    }
+
+    @Override
+    public boolean ban() {
+        banned = true;
+        return true;
+    }
+
+    @Override
+    public boolean unBan() {
+        banned = false;
+        return true;
+    }
+
+    @Override
+    public boolean isBanned() {
+        return banned;
     }
 
     @Override

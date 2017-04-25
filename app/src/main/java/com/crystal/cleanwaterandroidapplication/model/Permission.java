@@ -5,8 +5,11 @@ package com.crystal.cleanwaterandroidapplication.model;
  * @author Team 62
  */
 public enum Permission {
-    USER("User", "USER"), WORKER("Worker", "WORK"), MANAGER("Manager", "MANG"),
-            ADMINISTRATOR("Administrator", "ADMN"), DEVELOPER("Developer", "DEV");
+    USER("User", "USER"),
+    WORKER("Worker", "WORK"),
+    MANAGER("Manager", "MANG"),
+    ADMINISTRATOR("Administrator", "ADMN"),
+    DEVELOPER("Developer", "DEV");
 
     private String permission;
     private String shortCode;

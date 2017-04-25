@@ -31,7 +31,7 @@ public class AccountManager {
 
     private static Account currentAccount;
 
-    private AccountManager() {
+    public AccountManager() {
         //Do nothing, for now
     }
 
