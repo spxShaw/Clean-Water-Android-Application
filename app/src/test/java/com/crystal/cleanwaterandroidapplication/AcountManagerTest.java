@@ -3,9 +3,11 @@ package com.crystal.cleanwaterandroidapplication;
 
 import com.crystal.cleanwaterandroidapplication.model.AccountManager;
 
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
-//import org.junit.Test;
+
 
 
 /**
@@ -16,12 +18,23 @@ public class AcountManagerTest {
 
     private AccountManager acctMng;
 
+    /*
+     * Set up for Account Manager tests
+     */
     @Before
     public void setup() {
         acctMng = new AccountManager();
     }
 
+    /*
+     * Testing add.
+     */
+    @Test
+    public void testAdd() {
+        boolean b = acctMng.add("user32", "pass32", "u32@gmail.com", "USER");
+        Assert.assertEquals(true, b);
 
+    }
 
     /*
     @Test
