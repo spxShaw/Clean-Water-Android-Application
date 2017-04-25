@@ -56,5 +56,41 @@ public class AcountTest {
 
     }
 
+    /**
+     * testing e-mail
+     */
+    @Test
+    public void testEmail() {
+        //Test null String
+        acct.setEmail(null);
+        Assert.assertEquals("", acct.getEmail());
 
+        //Test valid String
+        acct.setEmail("valid Email");
+        Assert.assertEquals("valid Email", acct.getEmail());
+    }
+
+    /**
+     * testing account id
+     */
+    @Test
+    public void testAccountID() {
+        acct.setAccountID(1234);
+        Assert.assertEquals(1234, acct.getAccountID());
+    }
+
+    /**
+     * Testing toString
+     */
+    @Test
+    public void testToString() {
+        acct.setUsername("mike32");
+        acct.setFirstName("Mikey");
+        acct.setMiddleName("Timothy");
+        acct.setLastName("Wiggins");
+        acct.setAccountID(12345);
+        acct.updatePermission(Permission.USER);
+
+        Assert.assertEquals("Account -- Username: mike32 Name: Mikey Timothy Wiggins Account ID: 12345 Permission: User ", acct.toString());
+    }
 }
