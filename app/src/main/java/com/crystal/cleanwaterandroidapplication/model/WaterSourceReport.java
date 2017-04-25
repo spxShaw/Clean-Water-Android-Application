@@ -177,6 +177,9 @@ public class WaterSourceReport implements Bannable {
      * @return True if username is the owner, false if not the owner.
      */
     public boolean isOwner(String username) {
+        if (username == null) {
+            return reportOwnerUsername == null;
+        }
         return username.equals(reportOwnerUsername);
     }
 
@@ -186,6 +189,9 @@ public class WaterSourceReport implements Bannable {
      * @return True if both WaterTypes are the same, false if different.
      */
     public boolean isWaterType(WaterType waterType) {
+        if (waterType == null) {
+            return this.waterType == null;
+        }
         return this.waterType == waterType;
     }
 
@@ -195,6 +201,9 @@ public class WaterSourceReport implements Bannable {
      * @return True if both WaterConditions are the same, false if different.
      */
     public boolean isWaterCondition(WaterCondition waterCondition) {
+        if (waterCondition == null) {
+            return this.waterCondition == null;
+        }
         return this.waterCondition == waterCondition;
     }
 
